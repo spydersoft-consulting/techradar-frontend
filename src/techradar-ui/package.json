@@ -8,7 +8,10 @@
     "build": "tsc && vite build",
     "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix && prettier . --write",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && prettier .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test-ui": "vitest --ui --coverage",
+    "test": "vitest",
+    "test-ci": "vitest run --reporter junit --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
