@@ -1,0 +1,42 @@
+## Build Pipeline - Build, publish container image, and update helmfile config
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: spydersoft-gh
+      name: spydersoft-consulting/azure-devops-templates
+    # - repository: helmfileconfig
+    #   type: github
+    #   endpoint: spydersoft-gh
+    #   name: spyder007/techradar-helm-config
+
+trigger:
+  branches:
+    include:
+      - main
+      - feature/*
+  paths:
+    exclude:
+      - README.md
+
+pr: none
+
+extends:
+  template: pipelines/build-bff/v1.yml@templates
+  parameters:
+    buildProject: src/Spydersoft.TechRadar.Frontend.sln
+    publishProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
+    artifactName: techradar-frontend
+    artifactZipName: src
+    dockerImageFileName: techradar_frontend
+    dockerImageName: spydersoft/techradar/techradar.frontend
+    imageTagVariableName: techradar_frontend
+    helmfileRepoName: helmfileconfig
+    bff_execute_sonar: false
+    bff_execute_tests: false
+    bff_test_projects: '**/*.Tests/*.csproj'
+    bff_use_sonarcloud: true
+    bff_sonar_cloud_organization: spydersoft-mjg
+    bff_sonar_endpoint_name: sonarcloud-spydersoft
+    bff_sonar_project_name: techradar-frontend-bff
+    bff_sonar_project_key: spyder007_techradar-frontend-bff
