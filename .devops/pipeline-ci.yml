@@ -28,6 +28,7 @@ extends:
     publishProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     ui_source_directory: src/techradar-ui
     artifactName: techradar-frontend
+    netCoreVersion: '8.0.x'
     artifactZipName: src
     dockerImageFileName: techradar_frontend
     dockerImageName: spydersoft/techradar/techradar.frontend
