@@ -39,6 +39,7 @@ if (app.Environment.IsDevelopment())
     IdentityModelEventSource.LogCompleteSecurityArtifact = true;
 }
 
+app.UseCustomForwardedHeaders();
 app.UseHealthChecks("/healthz", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
 app.UseHttpsRedirection();
 
