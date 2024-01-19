@@ -76,7 +76,11 @@ export default defineConfig({
       "^/fe": {
         target: "https://localhost:7197/",
         secure: false,
-      },
+       },
+       "^/healthz": {
+        target: "https://localhost:7197/",
+        secure: false,
+       }
     },
     port: 3000,
     cors: {

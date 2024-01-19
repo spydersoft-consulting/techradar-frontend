@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
@@ -7,8 +8,8 @@ using Spydersoft.TechRadar.Frontend.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddProxy(builder.Configuration); 
-
+builder.Services.AddProxy(builder.Configuration);
+builder.Services.AddHealthChecks();
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddAuthorization(options =>
 {
@@ -29,15 +30,16 @@ var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
+app.UseSwagger();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
     app.UseSwaggerUI();
     IdentityModelEventSource.ShowPII = true;
     IdentityModelEventSource.LogCompleteSecurityArtifact = true;
 }
 
+app.UseHealthChecks("/healthz", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
