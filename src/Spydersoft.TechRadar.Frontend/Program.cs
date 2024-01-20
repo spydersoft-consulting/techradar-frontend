@@ -41,7 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCustomForwardedHeaders();
 app.UseHealthChecks("/healthz", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
