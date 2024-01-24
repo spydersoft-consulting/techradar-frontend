@@ -19,7 +19,10 @@ trigger:
     exclude:
       - README.md
 
-pr: none
+pr:
+  branches:
+    include:
+      - main
 
 extends:
   template: pipelines/build-bff/v1.yml@templates
@@ -35,7 +38,8 @@ extends:
     dockerFilePath: Dockerfile
     imageTagVariableName: frontend
     helmfileRepoName: helmfileconfig
-    updateHelmConfig: true
+    updateHelmConfig: ne(variables['Build.Reason'], 'PullRequest')
+    buildAndPublishDockerImage: ne(variables['Build.Reason'], 'PullRequest')
     bff_execute_sonar: false
     bff_execute_tests: false
     bff_test_projects: '**/*.Tests/*.csproj'
