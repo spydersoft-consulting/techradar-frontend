@@ -8,7 +8,7 @@ resources:
     - repository: helmfileconfig
       type: github
       endpoint: spydersoft-gh
-      name: spyder007/techradar-helm-config
+      name: spydersoft-consulting/techradar-helm-config
 
 trigger:
   branches:
