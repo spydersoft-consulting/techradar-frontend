@@ -38,8 +38,12 @@ extends:
     dockerFilePath: Dockerfile
     imageTagVariableName: frontend
     helmfileRepoName: helmfileconfig
-    updateHelmConfig: ne(variables['Build.Reason'], 'PullRequest')
-    buildAndPublishDockerImage: ne(variables['Build.Reason'], 'PullRequest')
+    ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+      updateHelmConfig: false
+      buildAndPublishDockerImage: false
+    ${{ else }}:
+      updateHelmConfig: true
+      buildAndPublishDockerImage: true
     bff_execute_sonar: false
     bff_execute_tests: false
     bff_test_projects: '**/*.Tests/*.csproj'
