@@ -5,10 +5,10 @@ resources:
       type: github
       endpoint: spydersoft-gh
       name: spydersoft-consulting/azure-devops-templates
-    # - repository: helmfileconfig
-    #   type: github
-    #   endpoint: spydersoft-gh
-    #   name: spyder007/techradar-helm-config
+    - repository: helmfileconfig
+      type: github
+      endpoint: spydersoft-gh
+      name: spydersoft-consulting/techradar-helm-config
 
 trigger:
   branches:
@@ -19,19 +19,31 @@ trigger:
     exclude:
       - README.md
 
-pr: none
+pr:
+  branches:
+    include:
+      - main
 
 extends:
   template: pipelines/build-bff/v1.yml@templates
   parameters:
-    buildProject: src/Spydersoft.TechRadar.Frontend.sln
+    buildProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     publishProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
+    ui_source_directory: src/techradar-ui
     artifactName: techradar-frontend
-    artifactZipName: src
+    netCoreVersion: '8.0.x'
+    artifactZipName: Spydersoft.TechRadar.Frontend
     dockerImageFileName: techradar_frontend
     dockerImageName: spydersoft/techradar/techradar.frontend
-    imageTagVariableName: techradar_frontend
+    dockerFilePath: Dockerfile
+    imageTagVariableName: frontend
     helmfileRepoName: helmfileconfig
+    ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+      updateHelmConfig: false
+      buildAndPublishDockerImage: false
+    ${{ else }}:
+      updateHelmConfig: true
+      buildAndPublishDockerImage: true
     bff_execute_sonar: false
     bff_execute_tests: false
     bff_test_projects: '**/*.Tests/*.csproj'
