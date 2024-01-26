@@ -44,11 +44,11 @@ extends:
     ${{ else }}:
       updateHelmConfig: true
       buildAndPublishDockerImage: true
-    bff_execute_sonar: false
+    bff_execute_sonar: true
     bff_execute_tests: false
     bff_test_projects: '**/*.Tests/*.csproj'
     bff_use_sonarcloud: true
     bff_sonar_cloud_organization: spydersoft-mjg
     bff_sonar_endpoint_name: sonarcloud-spydersoft
-    bff_sonar_project_name: techradar-frontend-bff
-    bff_sonar_project_key: spyder007_techradar-frontend-bff
+    bff_sonar_project_name: spydersoft-consulting_techradar-bff
+    bff_sonar_project_key: spydersoft-consulting_techradar-bff
