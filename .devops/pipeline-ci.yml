@@ -48,7 +48,7 @@ extends:
     bff_execute_tests: false
     bff_test_projects: '**/*.Tests/*.csproj'
     bff_use_sonarcloud: true
-    bff_sonar_cloud_organization: spydersoft-mjg
+    bff_sonar_cloud_organization: spydersoft-consulting
     bff_sonar_endpoint_name: sonarcloud-spydersoft
     bff_sonar_project_name: spydersoft-consulting_techradar-bff
     bff_sonar_project_key: spydersoft-consulting_techradar-bff
