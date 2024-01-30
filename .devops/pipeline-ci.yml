@@ -56,4 +56,4 @@ extends:
     ui_sonar_cloud_organization: spydersoft-consulting
     ui_execute_sonar: true
     ui_use_sonarcloud: true
-    ui_sonar_config_file: /src/techradar-ui/sonar-project.properties
+    ui_sonar_config_file: src/techradar-ui/sonar-project.properties
