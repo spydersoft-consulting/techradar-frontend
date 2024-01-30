@@ -58,4 +58,4 @@ extends:
     ui_use_sonarcloud: true
     ui_sonar_config_file: react-sonar-project.properties
     ui_code_coverage_file: src/techradar-ui/output/coverage/cobertura-coverage.xml
-    ui_unit_test_file: src/techradar-ui/output/test-results/junit.xml
+    ui_unit_test_file: src/techradar-ui/output/test/junit.xml
