@@ -52,3 +52,6 @@ extends:
     bff_sonar_endpoint_name: sonarcloud-spydersoft
     bff_sonar_project_name: spydersoft-consulting_techradar-bff
     bff_sonar_project_key: spydersoft-consulting_techradar-bff
+    ui_sonar_endpoint_name: sonarcloud-spydersoft
+    ui_execute_sonar: true
+    ui_use_sonarcloud: true
