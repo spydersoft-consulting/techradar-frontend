@@ -45,7 +45,7 @@ extends:
       updateHelmConfig: true
       buildAndPublishDockerImage: true
     bff_execute_sonar: true
-    bff_execute_tests: false
+    bff_execute_tests: true
     bff_test_projects: "**/*.Tests/*.csproj"
     bff_use_sonarcloud: true
     bff_sonar_cloud_organization: spydersoft-consulting
