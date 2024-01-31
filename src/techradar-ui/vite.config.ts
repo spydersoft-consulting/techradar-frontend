@@ -93,13 +93,15 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    environment: "jsdom",
     setupFiles: "./tests/setup.js",
     reporters: ["html", "junit"],
     outputFile: "./output/test/junit.xml",
     coverage: {
       provider: "v8",
-      reporter: ["html", "cobertura", "lcov"],
+      reporter: ["html", "cobertura", "lcov", "text"],
       reportsDirectory: "./output/coverage",
+      exclude: ["**/node_modules/**", "**/tests/**"]
     },
   }
 });
