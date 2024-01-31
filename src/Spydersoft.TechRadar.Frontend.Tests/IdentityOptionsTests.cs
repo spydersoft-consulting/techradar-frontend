@@ -1,6 +1,6 @@
 using Spydersoft.TechRadar.Frontend.Options;
 
-namespace Spydersoft.TechRadar.Frontend.UnitTests
+namespace Spydersoft.TechRadar.Frontend.Tests
 {
     public class OptionsTests
     {
