@@ -10,7 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && prettier .",
     "preview": "vite preview",
     "test-ui": "vitest --ui --coverage",
-    "test": "vitest",
+    "test": "vitest --reporter=verbose",
     "test-ci": "vitest run --reporter junit --coverage"
   },
   "dependencies": {
