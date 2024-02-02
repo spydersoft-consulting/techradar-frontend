@@ -45,15 +45,23 @@ extends:
       updateHelmConfig: true
       buildAndPublishDockerImage: true
     bff_execute_sonar: true
-    bff_execute_tests: false
+    bff_execute_tests: true
     bff_test_projects: "**/*.Tests/*.csproj"
     bff_use_sonarcloud: true
     bff_sonar_cloud_organization: spydersoft-consulting
     bff_sonar_endpoint_name: sonarcloud-spydersoft
     bff_sonar_project_name: spydersoft-consulting_techradar-bff
     bff_sonar_project_key: spydersoft-consulting_techradar-bff
+    bff_sonar_extra_properties: |
+      sonar.projectKey=spydersoft-consulting_techradar-bff
+      sonar.sources=./src/Spydersoft.TechRadar.Frontend/
+      sonar.tests=./src/Spydersoft.TechRadar.Frontend.Tests/
+      sonar.sources.exclusions=src/techradar-ui/**/*
+
     ui_sonar_endpoint_name: sonarcloud-spydersoft
     ui_sonar_cloud_organization: spydersoft-consulting
     ui_execute_sonar: true
     ui_use_sonarcloud: true
     ui_sonar_config_file: react-sonar-project.properties
+    ui_code_coverage_file: src/techradar-ui/output/coverage/cobertura-coverage.xml
+    ui_unit_test_file: src/techradar-ui/output/test/junit.xml

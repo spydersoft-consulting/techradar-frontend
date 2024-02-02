@@ -259,3 +259,4 @@ dist-ssr
 !.yarn/versions
 
 **/coverage/*
+**/output/*

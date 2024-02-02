@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import fs from "fs";
 import path from "path";
@@ -91,4 +91,17 @@ export default defineConfig({
       cert: fs.readFileSync(certFilePath),
     },
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./tests/setup.js",
+    reporters: ["html", "junit"],
+    outputFile: "./output/test/junit.xml",
+    coverage: {
+      provider: "v8",
+      reporter: ["html", "cobertura", "lcov", "text"],
+      reportsDirectory: "./output/coverage",
+      exclude: ["**/node_modules/**", "**/tests/**"]
+    },
+  }
 });

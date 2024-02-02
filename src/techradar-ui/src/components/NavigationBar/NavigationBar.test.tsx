@@ -1,14 +1,14 @@
-// import { render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-// import { NavigationBar } from "./NavigationBar";
+import { NavigationBar } from "./NavigationBar";
 
 describe("NavigationBar", () => {
-  it("Renders Navigation Bar", () => {
-    // const navBar = render(
-    //   <NavigationBar brand="test" />
-    // );
-    //const span = navBar.findByRole('navigation');
-    //expect(span.text()).toBe("test");
-    expect(true).toBe(true);
+  it("Renders Navigation Bar", async () => {
+    const navBar = render(
+      <NavigationBar brand="test" />
+    );
+
+    const item = await navBar.findByText("test");
+    expect(item).toHaveClass("navbar-brand");
   });
 });
