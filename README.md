@@ -35,4 +35,3 @@ The files in **src/api** are generated using the OpenAPI Generator, specifically
    * common.ts
    * configuration.ts
    * index.ts
-
