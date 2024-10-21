@@ -33,7 +33,6 @@ extends:
     artifactName: techradar-frontend
     netCoreVersion: "8.0.x"
     artifactZipName: Spydersoft.TechRadar.Frontend
-    dockerImageFileName: techradar_frontend
     dockerImageName: spydersoft/techradar/techradar.frontend
     dockerFilePath: Dockerfile
     imageTagVariableName: frontend
