@@ -47,6 +47,7 @@ export const fetchRadarTags =
           id: `${sugg.tagId}`,
           text: sugg.name ?? "N/A",
           tagId: sugg.tagId ?? 0,
+          className: ''
         });
       }
     });

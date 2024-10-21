@@ -22,6 +22,14 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
+// interface Tag {
+//   id: string;
+//   name: string;
+//   text: string;
+//   className: string;
+//   [key: string]: string;
+// }
+
 export const ItemEditor: React.FunctionComponent = () => {
   // Constants
   const navigate = useNavigate();
@@ -33,7 +41,7 @@ export const ItemEditor: React.FunctionComponent = () => {
   const routeItemId: number = parseInt(routeParams.id ?? "0");
 
   const [radarId, setRadarId] = useState<number>(
-    parseInt(routeParams.radarId ?? "0"),
+    parseInt(routeParams.radarId ?? "0")
   );
 
   // Local State
@@ -55,7 +63,7 @@ export const ItemEditor: React.FunctionComponent = () => {
 
   const LoadItemTags = useCallback(() => {
     callDataApi((baseUrl) =>
-      api.ItemApiFactory(undefined, baseUrl).itemIdTagGet(routeItemId),
+      api.ItemApiFactory(undefined, baseUrl).itemIdTagGet(routeItemId)
     ).then((result) => {
       const itemTags: Tag[] = [];
 
@@ -86,7 +94,7 @@ export const ItemEditor: React.FunctionComponent = () => {
   useEffect(() => {
     if (routeItemId > 0) {
       callDataApi((baseUrl) =>
-        api.ItemApiFactory(undefined, baseUrl).itemIdGet(routeItemId),
+        api.ItemApiFactory(undefined, baseUrl).itemIdGet(routeItemId)
       ).then((result) => {
         setLocalItem(result.data);
         setRadarId(result.data.radarId ?? 0);
@@ -118,11 +126,11 @@ export const ItemEditor: React.FunctionComponent = () => {
     let promise: AxiosPromise<void>;
     if (routeItemId === 0) {
       promise = callDataApi<void>((baseUrl) =>
-        api.ItemApiFactory(undefined, baseUrl).itemPost(item),
+        api.ItemApiFactory(undefined, baseUrl).itemPost(item)
       );
     } else {
       promise = callDataApi<void>((baseUrl) =>
-        api.ItemApiFactory(undefined, baseUrl).itemIdPut(routeItemId, item),
+        api.ItemApiFactory(undefined, baseUrl).itemIdPut(routeItemId, item)
       );
     }
 
@@ -145,7 +153,7 @@ export const ItemEditor: React.FunctionComponent = () => {
       callDataApi((baseUrl) =>
         api
           .ItemApiFactory(undefined, baseUrl)
-          .itemIdTagTagIdDelete(item.id ?? 0, itemId),
+          .itemIdTagTagIdDelete(item.id ?? 0, itemId)
       ).then(() => LoadItemTags());
     }
   };
@@ -163,7 +171,7 @@ export const ItemEditor: React.FunctionComponent = () => {
       callDataApi((baseUrl) =>
         api
           .ItemApiFactory(undefined, baseUrl)
-          .itemIdTagPut(item.id ?? 0, tagData),
+          .itemIdTagPut(item.id ?? 0, tagData)
       ).then(() => LoadItemTags());
     } else {
       const tagData: api.ItemTag = {
@@ -172,7 +180,7 @@ export const ItemEditor: React.FunctionComponent = () => {
       callDataApi((baseUrl) =>
         api
           .ItemApiFactory(undefined, baseUrl)
-          .itemIdTagPost(item.id ?? 0, tagData),
+          .itemIdTagPost(item.id ?? 0, tagData)
       ).then(() => dispatch(fetchRadarTags(item.radarId ?? 0)));
     }
   };
@@ -260,8 +268,12 @@ export const ItemEditor: React.FunctionComponent = () => {
 
           <ReactTags
             id="tagControl"
-            tags={itemTags}
-            suggestions={radarTags}
+            tags={itemTags?.map((tag) => {
+              return { id: tag.id, text: tag.text, className: "" };
+            })}
+            suggestions={radarTags.map((tag) => {
+              return { id: tag.id, text: tag.text, className: "" };
+            })}
             handleDelete={handleDeleteItemTag}
             handleAddition={handleAddItemTag}
             delimiters={delimiters}

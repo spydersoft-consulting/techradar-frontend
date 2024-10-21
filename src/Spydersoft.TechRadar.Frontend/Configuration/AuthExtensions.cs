@@ -56,10 +56,7 @@ namespace Spydersoft.TechRadar.Frontend.Configuration
                 {
                     OnRedirectToIdentityProvider = context =>
                     {
-                        //var builder = new UriBuilder(context.ProtocolMessage.RedirectUri);
-                        //builder.Scheme = "https";
-                        //builder.Port = -1;
-                        //context.ProtocolMessage.RedirectUri = builder.ToString();
+                        
                         context.ProtocolMessage.SetParameter("audience", identityOptions.Audience);
                         return Task.CompletedTask;
                     }
