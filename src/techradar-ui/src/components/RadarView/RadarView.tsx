@@ -7,33 +7,33 @@ import * as d3 from "d3";
 
 //  BASED ON CODE FROM ZALANDO
 
-type RadarViewProps = {
+interface RadarViewProps {
   data: api.RadarData;
   zoomed_quadrant?: number;
   height: number;
   width: number;
-};
+}
 
-type RadarViewState = {
+interface RadarViewState {
   tickCount: number;
-};
+}
 
-type CartesianPoint = {
+interface CartesianPoint {
   x: number;
   y: number;
-};
+}
 
-type PolarPoint = {
+interface PolarPoint {
   t: number;
   r: number;
-};
+}
 
-type QuadrantInfo = {
+interface QuadrantInfo {
   radial_min: number;
   radial_max: number;
   factor_x: number;
   factor_y: number;
-};
+}
 
 interface DrawableEntry extends api.RadarEntry {
   segment: any;
@@ -150,7 +150,7 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
   ): any => {
     const polar_min: PolarPoint = {
       t: quadrantsCollection[quadrant].radial_min * Math.PI,
-      r: ring === 0 ? 30 : actualRingRadius[ring - 1] ?? this.defaultRadius,
+      r: ring === 0 ? 30 : (actualRingRadius[ring - 1] ?? this.defaultRadius),
     };
     const polar_max: PolarPoint = {
       t: quadrantsCollection[quadrant].radial_max * Math.PI,
@@ -360,10 +360,9 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     const radiusWidth = Math.min(height, width) / 2 - 10;
     let runningRadius = 0;
 
-    for (let i = 0; i < this.props.data.rings.length; i++) {
+    for (const ring of this.props.data.rings) {
       runningRadius =
-        runningRadius +
-        radiusWidth * ((this.props.data.rings[i].radius ?? 10) / 100.0);
+        runningRadius + radiusWidth * ((ring.radius ?? 10) / 100.0);
       actualRingRadius.push(runningRadius);
     }
 
@@ -410,13 +409,9 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     const drawableEntries: DrawableEntry[] = [];
 
     // position each entry randomly in its segment
-    for (
-      let entryPositionIndex = 0;
-      entryPositionIndex < this.props.data.entries.length;
-      entryPositionIndex++
-    ) {
+    for (const dataEntry of this.props.data.entries) {
       const entry: DrawableEntry = {
-        ...this.props.data.entries[entryPositionIndex],
+        ...dataEntry,
         segment: {},
         x: 0,
         y: 0,
@@ -440,11 +435,11 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     }
 
     // partition entries according to segments
-    const segmentedEntries: Array<Array<Array<DrawableEntry>>> = new Array<
-      Array<Array<DrawableEntry>>
-    >(4);
+    const segmentedEntries: DrawableEntry[][][] = new Array<DrawableEntry[][]>(
+      4,
+    );
     for (let quadrant = 0; quadrant < 4; quadrant++) {
-      segmentedEntries[quadrant] = new Array<Array<DrawableEntry>>(
+      segmentedEntries[quadrant] = new Array<DrawableEntry[]>(
         this.props.data.rings.length,
       );
       for (let ring = 0; ring < this.props.data.rings.length; ring++) {
@@ -452,12 +447,7 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
       }
     }
 
-    for (
-      let drawableEntryIndex = 0;
-      drawableEntryIndex < drawableEntries.length;
-      drawableEntryIndex++
-    ) {
-      const drawableEntry = drawableEntries[drawableEntryIndex];
+    for (const drawableEntry of drawableEntries) {
       segmentedEntries[drawableEntry.quadrant ?? 0][
         drawableEntry.ring ?? 0
       ].push(drawableEntry);
@@ -475,12 +465,8 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
         entries.sort((a: any, b: any) => {
           return a.label.localeCompare(b.label);
         });
-        for (
-          let segmentedEntryIndex = 0;
-          segmentedEntryIndex < entries.length;
-          segmentedEntryIndex++
-        ) {
-          entries[segmentedEntryIndex].id = `${id++}`;
+        for (const entry of entries) {
+          entry.id = `${id++}`;
         }
       }
     }

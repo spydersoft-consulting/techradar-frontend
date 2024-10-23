@@ -14,9 +14,9 @@ export const NoteRow = (note: api.RadarItemNote) => (
   </div>
 );
 
-type ItemNotesProperties = {
+interface ItemNotesProperties {
   radarItemId: number;
-};
+}
 
 export const ItemNotesList: React.FunctionComponent<ItemNotesProperties> = (
   props: ItemNotesProperties,

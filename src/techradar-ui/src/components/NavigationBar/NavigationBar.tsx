@@ -4,10 +4,10 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Navbar, Nav } from "react-bootstrap";
 import { AuthenticationMenu } from "../AuthenticationMenu/AuthenticationMenu";
 
-export type NavigationBarProperties = {
+export interface NavigationBarProperties {
   brand?: string;
   children?: React.ReactNode;
-};
+}
 
 export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
   props: NavigationBarProperties,

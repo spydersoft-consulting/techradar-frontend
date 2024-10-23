@@ -17,15 +17,14 @@ import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
 import { updateFilter, fetchItemList } from "../../store/slices/ItemListSlice";
 import { confirmAlert } from "react-confirm-alert";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
-import { IdParams } from "../../types/routeparameters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
 
 export const ItemList: React.FunctionComponent = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const routeParams = useParams<IdParams>();
-  const radarId = parseInt(routeParams.id ?? "0");
+  const { id } = useParams();
+  const radarId = parseInt(id ?? "0");
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
@@ -105,7 +104,9 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
         },
         {
           label: "No",
-          onClick: () => {},
+          onClick: () => {
+            console.log("No action");
+          },
         },
       ],
     });
@@ -122,7 +123,6 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
       buttons: [
         {
           label: "Ok",
-          onClick: () => {},
         },
       ],
     });
