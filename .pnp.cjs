@@ -28,7 +28,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["husky", "npm:9.1.6"],\
-          ["lint-staged", "npm:15.2.10"]\
+          ["lint-staged", "npm:15.2.10"],\
+          ["prettier", "npm:3.3.3"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -455,6 +456,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["prettier", [\
+      ["npm:3.3.3", {\
+        "packageLocation": "./.yarn/unplugged/prettier-npm-3.3.3-e811f023f3/node_modules/prettier/",\
+        "packageDependencies": [\
+          ["prettier", "npm:3.3.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["restore-cursor", [\
       ["npm:5.1.0", {\
         "packageLocation": "../../../../C:/Users/matt/AppData/Local/Yarn/Berry/cache/restore-cursor-npm-5.1.0-b8fd1128bf-10c0.zip/node_modules/restore-cursor/",\
@@ -481,7 +491,8 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["root-workspace-0b6124", "workspace:."],\
           ["husky", "npm:9.1.6"],\
-          ["lint-staged", "npm:15.2.10"]\
+          ["lint-staged", "npm:15.2.10"],\
+          ["prettier", "npm:3.3.3"]\
         ],\
         "linkType": "SOFT"\
       }]\

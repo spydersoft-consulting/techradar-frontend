@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store/hooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
+import { callDataApi, handleApiError } from '../../utils/ApiFunctions';
 import { AxiosPromise } from 'axios';
 
 export const ArcEditor: React.FunctionComponent = () => {
