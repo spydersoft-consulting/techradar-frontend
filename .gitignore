@@ -260,3 +260,5 @@ dist-ssr
 
 **/coverage/*
 **/output/*
+
+node_modules/*
