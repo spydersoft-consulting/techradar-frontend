@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint:fix": "eslint . --report-unused-disable-directives --max-warnings 0 --fix && prettier . --write",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0 && prettier .",
+    "lint:fix": "eslint --report-unused-disable-directives --max-warnings 0 --fix && prettier --write",
+    "lint": "eslint --report-unused-disable-directives --max-warnings 0 && prettier",
     "preview": "vite preview",
     "test-ui": "vitest --ui --coverage",
     "test": "vitest --reporter=verbose",
