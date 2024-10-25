@@ -24,7 +24,7 @@
         /// <value>The name of the application.</value>
         public string? ClientId { get; set; } = null;
 
-        public string? ClientSecret { get; set; } = null;  
+        public string? ClientSecret { get; set; } = null;
 
         public string? Audience { get; set; } = null;
     }

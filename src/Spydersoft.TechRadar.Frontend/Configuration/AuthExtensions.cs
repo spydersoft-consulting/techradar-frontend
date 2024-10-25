@@ -49,18 +49,18 @@ namespace Spydersoft.TechRadar.Frontend.Configuration
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     NameClaimType = "name",
-                    RoleClaimType = "https://schemas.spydersoft.com/roles"                    
+                    RoleClaimType = "https://schemas.spydersoft.com/roles"
                 };
 
                 options.Events = new OpenIdConnectEvents
                 {
                     OnRedirectToIdentityProvider = context =>
                     {
-                        
+
                         context.ProtocolMessage.SetParameter("audience", identityOptions.Audience);
                         return Task.CompletedTask;
                     }
-                };  
+                };
             });
         }
     }
