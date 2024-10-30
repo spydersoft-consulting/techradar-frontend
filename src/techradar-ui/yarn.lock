@@ -1909,22 +1909,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:^4.17.12":
-  version: 4.17.12
-  resolution: "@types/lodash-es@npm:4.17.12"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 10c0/5d12d2cede07f07ab067541371ed1b838a33edb3c35cb81b73284e93c6fd0c4bbeaefee984e69294bffb53f62d7272c5d679fdba8e595ff71e11d00f2601dde0
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*":
-  version: 4.17.13
-  resolution: "@types/lodash@npm:4.17.13"
-  checksum: 10c0/c3d0b7efe7933ac0369b99f2f7bff9240d960680fdb74b41ed4bd1b3ca60cca1e31fe4046d9abbde778f941a41bc2a75eb629abf8659fa6c27b66efbbb0802a9
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^22.8.4":
   version: 22.8.4
   resolution: "@types/node@npm:22.8.4"
@@ -6587,7 +6571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.0.1, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:^4.17.4":
+"lodash@npm:^4.0.1, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:~4.17.12":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -7648,7 +7632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.10, prop-types@npm:^15.6.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.10, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -7908,19 +7892,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-tag-input@npm:6.10.3":
-  version: 6.10.3
-  resolution: "react-tag-input@npm:6.10.3"
+"react-tag-input@npm:6.8.1":
+  version: 6.8.1
+  resolution: "react-tag-input@npm:6.8.1"
   dependencies:
-    "@types/lodash-es": "npm:^4.17.12"
     classnames: "npm:~2.3.1"
-    lodash-es: "npm:^4.17.21"
+    lodash: "npm:~4.17.12"
+    prop-types: "npm:^15.7.2"
   peerDependencies:
-    react: ^18.2.0
+    react: ^17.0.2 || ^18.2.0
     react-dnd: ^14.0.2
     react-dnd-html5-backend: ^14.0.0
-    react-dom: ^18.2.0
-  checksum: 10c0/91d1dfa8e59b02b6f75d4591eb25ff6c47c7fd1832057c92635ce92b5df69915ba48fef7889ac7bc947b9f3281ebf1e839eb4352c2abbb53906153f3bacac178
+    react-dom: 17.0.2 || ^18.2.0
+  checksum: 10c0/2c2dc99080af17bb25ab9f0517c2f6cdcf790e4d6992e6fd03a97e660e43b7481443d75b74afebb45dcda6ae72feab4f9f163dc19a6ecea9aa535ade1f14201e
   languageName: node
   linkType: hard
 
@@ -8981,7 +8965,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-redux: "npm:^9.1.2"
     react-router-dom: "npm:^6.27.0"
-    react-tag-input: "npm:6.10.3"
+    react-tag-input: "npm:6.8.1"
     react-tooltip: "npm:^5.28.0"
     redux: "npm:^5.0.1"
     redux-thunk: "npm:^3.1.0"
