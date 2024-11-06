@@ -33,7 +33,7 @@ extends:
     gitVersionSpec: '6.x'
     buildProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     publishProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
-    ui_source_directory: src/techradar-ui
+    uiSourceDirectory: src/techradar-ui
     artifactName: techradar-frontend
     netCoreVersion: "8.0.x"
     artifactZipName: Spydersoft.TechRadar.Frontend
@@ -48,25 +48,25 @@ extends:
     ${{ else }}:
       updateHelmConfig: true
       buildAndPublishDockerImage: true
-    bff_execute_sonar: true
-    bff_execute_tests: true
-    bff_test_projects: "**/*.Tests/*.csproj"
-    bff_use_sonarcloud: true
-    bff_sonar_cloud_organization: spydersoft-consulting
-    bff_sonar_endpoint_name: sonarcloud-spydersoft
-    bff_sonar_project_name: spydersoft-consulting_techradar-bff
-    bff_sonar_project_key: spydersoft-consulting_techradar-bff
-    bff_sonar_extra_properties: |
+    bffExecuteSonar: true
+    bffExecuteTests: true
+    bffTestProjects: "**/*.Tests/*.csproj"
+    bffUseSonarCloud: true
+    bffSonarCloudOrganization: spydersoft-consulting
+    bffSonarEndpointName: sonarcloud-spydersoft
+    bffSonarProjectName: spydersoft-consulting_techradar-bff
+    bffSonarProjectKey: spydersoft-consulting_techradar-bff
+    bffSonarExtraProperties: |
       sonar.projectKey=spydersoft-consulting_techradar-bff
       sonar.sources=**/src/Spydersoft.TechRadar.Frontend/
       sonar.tests=**/src/Spydersoft.TechRadar.Frontend.Tests/
       sonar.exclusions=**/src/techradar-ui/**/*
       sonar.scanner.scanAll=false
 
-    ui_sonar_endpoint_name: sonarcloud-spydersoft
-    ui_sonar_cloud_organization: spydersoft-consulting
-    ui_execute_sonar: true
-    ui_use_sonarcloud: true
-    ui_sonar_config_file: react-sonar-project.properties
-    ui_code_coverage_file: src/techradar-ui/output/coverage/cobertura-coverage.xml
-    ui_unit_test_file: src/techradar-ui/output/test/junit.xml
+    uiSonarEndpointName: sonarcloud-spydersoft
+    uiSonarCloudOrganization: spydersoft-consulting
+    uiExecuteSonar: true
+    uiUseSonarCloud: true
+    uiSonarConfigFile: react-sonar-project.properties
+    uiCodeCoverageFile: src/techradar-ui/output/coverage/cobertura-coverage.xml
+    uiUnitTestFile: src/techradar-ui/output/test/junit.xml
