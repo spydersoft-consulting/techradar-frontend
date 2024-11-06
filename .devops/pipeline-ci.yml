@@ -11,6 +11,9 @@ resources:
       name: spydersoft-consulting/techradar-helm-config
 
 trigger:
+  tags:
+    include:
+    - "*"
   branches:
     include:
       - main
@@ -27,6 +30,7 @@ pr:
 extends:
   template: pipelines/build-bff/v1.yml@templates
   parameters:
+    gitVersionSpec: '6.x'
     buildProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     publishProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     ui_source_directory: src/techradar-ui
@@ -37,7 +41,8 @@ extends:
     dockerFilePath: Dockerfile
     imageTagVariableName: frontend
     helmfileRepoName: helmfileconfig
-    ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+    #if it's a PR or build from main, don't update helmfile config or build/publish docker image
+    ${{ if or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranchName'], 'main')) }}:
       updateHelmConfig: false
       buildAndPublishDockerImage: false
     ${{ else }}:
