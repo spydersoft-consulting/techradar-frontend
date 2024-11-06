@@ -4,3 +4,14 @@ merge-message-formats:
 branches:
   feature:
     mode: ContinuousDelivery
+  tags:
+    mode: ManualDeployment
+    label: ''
+    increment: Inherit
+    prevent-increment:
+      when-current-commit-tagged: true
+    source-branches:
+    - main
+    track-merge-message: true
+    regex: ^tags?[/-](?<BranchName>.+)
+    is-main-branch: true
