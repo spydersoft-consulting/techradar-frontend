@@ -6,7 +6,8 @@
 		{
 			"files": ["appsettings.json", "appsettings.*.json"],
 			"options": {
-				"plugins": ["prettier-plugin-sort-json"]
+				"plugins": ["prettier-plugin-sort-json"],
+				"jsonRecursiveSort": true
 			}
 		}
 	]
