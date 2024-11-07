@@ -1,12 +1,13 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
+using Spydersoft.Core.Hosting;
 using Spydersoft.TechRadar.Frontend.Configuration;
-using Spydersoft.TechRadar.Frontend.Options;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddSpydersoftTelemetry(typeof(Program).Assembly);
+builder.AddSpydersoftSerilog();
 
 builder.Services.AddProxy(builder.Configuration);
 builder.Services.AddHealthChecks();
@@ -50,17 +51,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCustomForwardedHeaders();
-app.UseHealthChecks("/healthz", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
-//app.UseHttpsRedirection();
+app.UseHealthChecks("/healthz", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") })
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseCors(MyAllowSpecificOrigins);
 
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 app.MapReverseProxy();
-
 app.MapFallbackToFile("/index.html");
 
-app.Run();
+await app.RunAsync();
