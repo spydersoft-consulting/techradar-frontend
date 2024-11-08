@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Logging;
-using Spydersoft.Core.Hosting;
+using Spydersoft.Platform.Hosting;
 using Spydersoft.TechRadar.Frontend.Configuration;
 
 
@@ -12,14 +12,11 @@ builder.AddSpydersoftSerilog();
 builder.Services.AddProxy(builder.Configuration);
 builder.Services.AddHealthChecks();
 builder.Services.AddAuthentication(builder.Configuration);
-builder.Services.AddAuthorization(options =>
-{
-    // This is a default authorization policy which requires authentication
-    options.AddPolicy("RequireAuthenticatedUserPolicy", policy =>
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAuthenticatedUserPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
     });
-});
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
