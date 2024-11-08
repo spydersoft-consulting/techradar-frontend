@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Spydersoft.TechRadar.Frontend.Models;
-using System.Security.Claims;
 
 namespace Spydersoft.TechRadar.Frontend.Controllers
 {
