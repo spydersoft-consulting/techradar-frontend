@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Logging;
-using Spydersoft.Platform.Hosting;
+using Spydersoft.Platform.Hosting.Options;
+using Spydersoft.Platform.Hosting.StartupExtensions;
 using Spydersoft.TechRadar.Frontend.Configuration;
 
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSpydersoftTelemetry(typeof(Program).Assembly);
 builder.AddSpydersoftSerilog();
+AppHealthCheckOptions healthCheckOptions = builder.AddSpydersoftHealthChecks();
 
 builder.Services.AddProxy(builder.Configuration);
 builder.Services.AddHealthChecks();
@@ -48,7 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCustomForwardedHeaders();
-app.UseHealthChecks("/healthz", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") })
+app.UseSpydersoftHealthChecks(healthCheckOptions)
     .UseAuthentication()
     .UseAuthorization()
     .UseCors(MyAllowSpecificOrigins);
