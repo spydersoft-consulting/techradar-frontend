@@ -81,7 +81,6 @@ export default defineConfig({
         target: "https://localhost:7197/",
         secure: false,
        },
-       ,
        "^/readyz": {
         target: "https://localhost:7197/",
         secure: false,
