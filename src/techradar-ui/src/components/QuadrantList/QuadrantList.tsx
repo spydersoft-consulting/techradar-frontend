@@ -36,8 +36,7 @@ export const QuadrantList: React.FunctionComponent = (): JSX.Element => {
   return (
     <Container>
       <h4>
-        <small className="text-muted">{radar?.title ?? "unknown"}</small> -
-        Radar Quadrants
+        <small className="text-muted">{radar?.title ?? "unknown"}</small> - Radar Quadrants
       </h4>
       <Table className="table table-striped thead-dark">
         <thead>

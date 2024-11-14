@@ -16,11 +16,8 @@ export const ColorPicker: React.FunctionComponent<ColorProps> = ({
   onColorChange,
   className,
 }: ColorProps) => {
-  const [displayColorPicker, setDisplayColorPicker] =
-    React.useState<boolean>(false);
-  const [colorState, setColorState] = React.useState<string | null | undefined>(
-    color,
-  );
+  const [displayColorPicker, setDisplayColorPicker] = React.useState<boolean>(false);
+  const [colorState, setColorState] = React.useState<string | null | undefined>(color);
 
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker);

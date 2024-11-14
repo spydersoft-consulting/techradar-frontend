@@ -48,8 +48,7 @@ const radarViewSlice = createSlice({
   },
 });
 
-export const { getRadarViewStart, getRadarViewComplete, getRadarView } =
-  radarViewSlice.actions;
+export const { getRadarViewStart, getRadarViewComplete, getRadarView } = radarViewSlice.actions;
 
 export const fetchRadarView =
   (radarId: number, selectedTagIds?: number[], days?: number): AppThunk =>
@@ -57,9 +56,7 @@ export const fetchRadarView =
     dispatch(getRadarViewStart());
 
     const result = await callDataApi((baseUrl) =>
-      api
-        .RadarDataApiFactory(undefined, baseUrl)
-        .radarDataIdGet(radarId, selectedTagIds, days),
+      api.RadarDataApiFactory(undefined, baseUrl).radarDataIdGet(radarId, selectedTagIds, days),
     );
     // TODO: error check
 

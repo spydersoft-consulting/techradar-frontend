@@ -26,11 +26,7 @@ import {
 } from "./common";
 import type { RequestArgs } from "./base";
 // @ts-ignore
-import {
-  BASE_PATH,
-  BaseAPI,
-  operationServerMap,
-} from "./base";
+import { BASE_PATH, BaseAPI, operationServerMap } from "./base";
 
 /**
  * Class ColorSettings.
@@ -536,9 +532,7 @@ export interface Tag {
  * ArcApi - axios parameter creator
  * @export
  */
-export const ArcApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const ArcApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -547,16 +541,10 @@ export const ArcApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    arcIdDelete: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    arcIdDelete: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("arcIdDelete", "id", id);
-      const localVarPath = `/Arc/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Arc/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -573,8 +561,7 @@ export const ArcApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -593,16 +580,10 @@ export const ArcApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    arcIdGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    arcIdGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("arcIdGet", "id", id);
-      const localVarPath = `/Arc/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Arc/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -619,8 +600,7 @@ export const ArcApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -640,17 +620,10 @@ export const ArcApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    arcIdPut: async (
-      id: number,
-      radarArc?: RadarArc,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    arcIdPut: async (id: number, radarArc?: RadarArc, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("arcIdPut", "id", id);
-      const localVarPath = `/Arc/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Arc/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -669,18 +642,13 @@ export const ArcApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        radarArc,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(radarArc, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -693,9 +661,7 @@ export const ArcApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    arcOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    arcOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Arc`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -713,8 +679,7 @@ export const ArcApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -733,10 +698,7 @@ export const ArcApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    arcPost: async (
-      radarArc?: RadarArc,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    arcPost: async (radarArc?: RadarArc, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Arc`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -756,18 +718,13 @@ export const ArcApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        radarArc,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(radarArc, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -794,16 +751,10 @@ export const ArcApiFp = function (configuration?: Configuration) {
     async arcIdDelete(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.arcIdDelete(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.arcIdDelete(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ArcApi.arcIdDelete"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ArcApi.arcIdDelete"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -822,16 +773,10 @@ export const ArcApiFp = function (configuration?: Configuration) {
     async arcIdGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RadarArc>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.arcIdGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RadarArc>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.arcIdGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ArcApi.arcIdGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ArcApi.arcIdGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -852,17 +797,10 @@ export const ArcApiFp = function (configuration?: Configuration) {
       id: number,
       radarArc?: RadarArc,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.arcIdPut(
-        id,
-        radarArc,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.arcIdPut(id, radarArc, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ArcApi.arcIdPut"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ArcApi.arcIdPut"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -879,14 +817,10 @@ export const ArcApiFp = function (configuration?: Configuration) {
      */
     async arcOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.arcOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.arcOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ArcApi.arcOptions"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ArcApi.arcOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -905,16 +839,10 @@ export const ArcApiFp = function (configuration?: Configuration) {
     async arcPost(
       radarArc?: RadarArc,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.arcPost(
-        radarArc,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.arcPost(radarArc, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ArcApi.arcPost"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ArcApi.arcPost"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -930,11 +858,7 @@ export const ArcApiFp = function (configuration?: Configuration) {
  * ArcApi - factory interface
  * @export
  */
-export const ArcApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const ArcApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = ArcApiFp(configuration);
   return {
     /**
@@ -945,9 +869,7 @@ export const ArcApiFactory = function (
      * @throws {RequiredError}
      */
     arcIdDelete(id: number, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .arcIdDelete(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.arcIdDelete(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -957,9 +879,7 @@ export const ArcApiFactory = function (
      * @throws {RequiredError}
      */
     arcIdGet(id: number, options?: any): AxiosPromise<RadarArc> {
-      return localVarFp
-        .arcIdGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.arcIdGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -969,14 +889,8 @@ export const ArcApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    arcIdPut(
-      id: number,
-      radarArc?: RadarArc,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .arcIdPut(id, radarArc, options)
-        .then((request) => request(axios, basePath));
+    arcIdPut(id: number, radarArc?: RadarArc, options?: any): AxiosPromise<void> {
+      return localVarFp.arcIdPut(id, radarArc, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -985,9 +899,7 @@ export const ArcApiFactory = function (
      * @throws {RequiredError}
      */
     arcOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .arcOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.arcOptions(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -997,9 +909,7 @@ export const ArcApiFactory = function (
      * @throws {RequiredError}
      */
     arcPost(radarArc?: RadarArc, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .arcPost(radarArc, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.arcPost(radarArc, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -1048,11 +958,7 @@ export class ArcApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ArcApi
    */
-  public arcIdPut(
-    id: number,
-    radarArc?: RadarArc,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public arcIdPut(id: number, radarArc?: RadarArc, options?: RawAxiosRequestConfig) {
     return ArcApiFp(this.configuration)
       .arcIdPut(id, radarArc, options)
       .then((request) => request(this.axios, this.basePath));
@@ -1090,9 +996,7 @@ export class ArcApi extends BaseAPI {
  * DataControllerBaseApi - axios parameter creator
  * @export
  */
-export const DataControllerBaseApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const DataControllerBaseApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -1100,9 +1004,7 @@ export const DataControllerBaseApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    dataControllerBaseOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    dataControllerBaseOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/DataControllerBase`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1120,8 +1022,7 @@ export const DataControllerBaseApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1140,11 +1041,8 @@ export const DataControllerBaseApiAxiosParamCreator = function (
  * DataControllerBaseApi - functional programming interface
  * @export
  */
-export const DataControllerBaseApiFp = function (
-  configuration?: Configuration,
-) {
-  const localVarAxiosParamCreator =
-    DataControllerBaseApiAxiosParamCreator(configuration);
+export const DataControllerBaseApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = DataControllerBaseApiAxiosParamCreator(configuration);
   return {
     /**
      *
@@ -1154,16 +1052,10 @@ export const DataControllerBaseApiFp = function (
      */
     async dataControllerBaseOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.dataControllerBaseOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.dataControllerBaseOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["DataControllerBaseApi.dataControllerBaseOptions"]?.[
-          index
-        ]?.url;
+      const operationBasePath = operationServerMap["DataControllerBaseApi.dataControllerBaseOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1193,9 +1085,7 @@ export const DataControllerBaseApiFactory = function (
      * @throws {RequiredError}
      */
     dataControllerBaseOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .dataControllerBaseOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.dataControllerBaseOptions(options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -1225,9 +1115,7 @@ export class DataControllerBaseApi extends BaseAPI {
  * ItemApi - axios parameter creator
  * @export
  */
-export const ItemApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const ItemApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -1236,16 +1124,10 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdDelete: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemIdDelete: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdDelete", "id", id);
-      const localVarPath = `/Item/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1262,8 +1144,7 @@ export const ItemApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1282,16 +1163,10 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemIdGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdGet", "id", id);
-      const localVarPath = `/Item/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1308,8 +1183,7 @@ export const ItemApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1338,10 +1212,7 @@ export const ItemApiAxiosParamCreator = function (
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdNoteGet", "id", id);
-      const localVarPath = `/Item/{id}/note`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}/note`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1366,8 +1237,7 @@ export const ItemApiAxiosParamCreator = function (
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1387,17 +1257,10 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdPut: async (
-      id: number,
-      radarItem?: RadarItem,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemIdPut: async (id: number, radarItem?: RadarItem, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdPut", "id", id);
-      const localVarPath = `/Item/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1416,18 +1279,13 @@ export const ItemApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        radarItem,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(radarItem, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1441,16 +1299,10 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdTagGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemIdTagGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdTagGet", "id", id);
-      const localVarPath = `/Item/{id}/tag`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}/tag`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1467,8 +1319,7 @@ export const ItemApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1488,17 +1339,10 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdTagPost: async (
-      id: number,
-      itemTag?: ItemTag,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemIdTagPost: async (id: number, itemTag?: ItemTag, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdTagPost", "id", id);
-      const localVarPath = `/Item/{id}/tag`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}/tag`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1517,18 +1361,13 @@ export const ItemApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        itemTag,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(itemTag, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1543,17 +1382,10 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdTagPut: async (
-      id: number,
-      itemTag?: ItemTag,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemIdTagPut: async (id: number, itemTag?: ItemTag, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("itemIdTagPut", "id", id);
-      const localVarPath = `/Item/{id}/tag`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Item/{id}/tag`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1572,18 +1404,13 @@ export const ItemApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        itemTag,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(itemTag, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1626,8 +1453,7 @@ export const ItemApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1645,9 +1471,7 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Item`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1665,8 +1489,7 @@ export const ItemApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -1685,10 +1508,7 @@ export const ItemApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemPost: async (
-      radarItem?: RadarItem,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    itemPost: async (radarItem?: RadarItem, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Item`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1708,18 +1528,13 @@ export const ItemApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        radarItem,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(radarItem, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1746,16 +1561,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
     async itemIdDelete(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdDelete(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdDelete(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdDelete"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdDelete"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1774,16 +1583,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
     async itemIdGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RadarItem>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RadarItem>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1806,21 +1609,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
       page?: number,
       pageSize?: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<Array<RadarItemNote>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdNoteGet(
-        id,
-        page,
-        pageSize,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RadarItemNote>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdNoteGet(id, page, pageSize, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdNoteGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdNoteGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1841,17 +1633,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
       id: number,
       radarItem?: RadarItem,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdPut(
-        id,
-        radarItem,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdPut(id, radarItem, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdPut"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdPut"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1870,19 +1655,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
     async itemIdTagGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<Array<RadarItemTag>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RadarItemTag>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdTagGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdTagGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1903,17 +1679,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
       id: number,
       itemTag?: ItemTag,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagPost(
-        id,
-        itemTag,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagPost(id, itemTag, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdTagPost"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdTagPost"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1934,17 +1703,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
       id: number,
       itemTag?: ItemTag,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagPut(
-        id,
-        itemTag,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagPut(id, itemTag, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdTagPut"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdTagPut"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1965,18 +1727,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
       id: number,
       tagId: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.itemIdTagTagIdDelete(
-          id,
-          tagId,
-          options,
-        );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemIdTagTagIdDelete(id, tagId, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemIdTagTagIdDelete"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemIdTagTagIdDelete"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -1993,14 +1747,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
      */
     async itemOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.itemOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemOptions"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -2019,16 +1769,10 @@ export const ItemApiFp = function (configuration?: Configuration) {
     async itemPost(
       radarItem?: RadarItem,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.itemPost(
-        radarItem,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.itemPost(radarItem, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["ItemApi.itemPost"]?.[index]?.url;
+      const operationBasePath = operationServerMap["ItemApi.itemPost"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -2044,11 +1788,7 @@ export const ItemApiFp = function (configuration?: Configuration) {
  * ItemApi - factory interface
  * @export
  */
-export const ItemApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const ItemApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = ItemApiFp(configuration);
   return {
     /**
@@ -2059,9 +1799,7 @@ export const ItemApiFactory = function (
      * @throws {RequiredError}
      */
     itemIdDelete(id: number, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .itemIdDelete(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.itemIdDelete(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2071,9 +1809,7 @@ export const ItemApiFactory = function (
      * @throws {RequiredError}
      */
     itemIdGet(id: number, options?: any): AxiosPromise<RadarItem> {
-      return localVarFp
-        .itemIdGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.itemIdGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2084,15 +1820,8 @@ export const ItemApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdNoteGet(
-      id: number,
-      page?: number,
-      pageSize?: number,
-      options?: any,
-    ): AxiosPromise<Array<RadarItemNote>> {
-      return localVarFp
-        .itemIdNoteGet(id, page, pageSize, options)
-        .then((request) => request(axios, basePath));
+    itemIdNoteGet(id: number, page?: number, pageSize?: number, options?: any): AxiosPromise<Array<RadarItemNote>> {
+      return localVarFp.itemIdNoteGet(id, page, pageSize, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2102,14 +1831,8 @@ export const ItemApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdPut(
-      id: number,
-      radarItem?: RadarItem,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .itemIdPut(id, radarItem, options)
-        .then((request) => request(axios, basePath));
+    itemIdPut(id: number, radarItem?: RadarItem, options?: any): AxiosPromise<void> {
+      return localVarFp.itemIdPut(id, radarItem, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2119,9 +1842,7 @@ export const ItemApiFactory = function (
      * @throws {RequiredError}
      */
     itemIdTagGet(id: number, options?: any): AxiosPromise<Array<RadarItemTag>> {
-      return localVarFp
-        .itemIdTagGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.itemIdTagGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2131,14 +1852,8 @@ export const ItemApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdTagPost(
-      id: number,
-      itemTag?: ItemTag,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .itemIdTagPost(id, itemTag, options)
-        .then((request) => request(axios, basePath));
+    itemIdTagPost(id: number, itemTag?: ItemTag, options?: any): AxiosPromise<void> {
+      return localVarFp.itemIdTagPost(id, itemTag, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2148,14 +1863,8 @@ export const ItemApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdTagPut(
-      id: number,
-      itemTag?: ItemTag,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .itemIdTagPut(id, itemTag, options)
-        .then((request) => request(axios, basePath));
+    itemIdTagPut(id: number, itemTag?: ItemTag, options?: any): AxiosPromise<void> {
+      return localVarFp.itemIdTagPut(id, itemTag, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2165,14 +1874,8 @@ export const ItemApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    itemIdTagTagIdDelete(
-      id: number,
-      tagId: number,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .itemIdTagTagIdDelete(id, tagId, options)
-        .then((request) => request(axios, basePath));
+    itemIdTagTagIdDelete(id: number, tagId: number, options?: any): AxiosPromise<void> {
+      return localVarFp.itemIdTagTagIdDelete(id, tagId, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2181,9 +1884,7 @@ export const ItemApiFactory = function (
      * @throws {RequiredError}
      */
     itemOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .itemOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.itemOptions(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2193,9 +1894,7 @@ export const ItemApiFactory = function (
      * @throws {RequiredError}
      */
     itemPost(radarItem?: RadarItem, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .itemPost(radarItem, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.itemPost(radarItem, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -2245,12 +1944,7 @@ export class ItemApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ItemApi
    */
-  public itemIdNoteGet(
-    id: number,
-    page?: number,
-    pageSize?: number,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public itemIdNoteGet(id: number, page?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
     return ItemApiFp(this.configuration)
       .itemIdNoteGet(id, page, pageSize, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2265,11 +1959,7 @@ export class ItemApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ItemApi
    */
-  public itemIdPut(
-    id: number,
-    radarItem?: RadarItem,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public itemIdPut(id: number, radarItem?: RadarItem, options?: RawAxiosRequestConfig) {
     return ItemApiFp(this.configuration)
       .itemIdPut(id, radarItem, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2298,11 +1988,7 @@ export class ItemApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ItemApi
    */
-  public itemIdTagPost(
-    id: number,
-    itemTag?: ItemTag,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public itemIdTagPost(id: number, itemTag?: ItemTag, options?: RawAxiosRequestConfig) {
     return ItemApiFp(this.configuration)
       .itemIdTagPost(id, itemTag, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2317,11 +2003,7 @@ export class ItemApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ItemApi
    */
-  public itemIdTagPut(
-    id: number,
-    itemTag?: ItemTag,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public itemIdTagPut(id: number, itemTag?: ItemTag, options?: RawAxiosRequestConfig) {
     return ItemApiFp(this.configuration)
       .itemIdTagPut(id, itemTag, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2336,11 +2018,7 @@ export class ItemApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof ItemApi
    */
-  public itemIdTagTagIdDelete(
-    id: number,
-    tagId: number,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public itemIdTagTagIdDelete(id: number, tagId: number, options?: RawAxiosRequestConfig) {
     return ItemApiFp(this.configuration)
       .itemIdTagTagIdDelete(id, tagId, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2378,9 +2056,7 @@ export class ItemApi extends BaseAPI {
  * QuadrantApi - axios parameter creator
  * @export
  */
-export const QuadrantApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const QuadrantApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -2389,16 +2065,10 @@ export const QuadrantApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    quadrantIdGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    quadrantIdGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("quadrantIdGet", "id", id);
-      const localVarPath = `/Quadrant/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Quadrant/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -2415,8 +2085,7 @@ export const QuadrantApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -2443,10 +2112,7 @@ export const QuadrantApiAxiosParamCreator = function (
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("quadrantIdPut", "id", id);
-      const localVarPath = `/Quadrant/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Quadrant/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -2465,18 +2131,13 @@ export const QuadrantApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        quadrant,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(quadrant, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -2489,9 +2150,7 @@ export const QuadrantApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    quadrantOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    quadrantOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Quadrant`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2509,8 +2168,7 @@ export const QuadrantApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -2529,10 +2187,7 @@ export const QuadrantApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    quadrantPost: async (
-      quadrant?: Quadrant,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    quadrantPost: async (quadrant?: Quadrant, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Quadrant`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2552,18 +2207,13 @@ export const QuadrantApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        quadrant,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(quadrant, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -2590,16 +2240,10 @@ export const QuadrantApiFp = function (configuration?: Configuration) {
     async quadrantIdGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Quadrant>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantIdGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Quadrant>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantIdGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["QuadrantApi.quadrantIdGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["QuadrantApi.quadrantIdGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -2620,17 +2264,10 @@ export const QuadrantApiFp = function (configuration?: Configuration) {
       id: number,
       quadrant?: Quadrant,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantIdPut(
-        id,
-        quadrant,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantIdPut(id, quadrant, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["QuadrantApi.quadrantIdPut"]?.[index]?.url;
+      const operationBasePath = operationServerMap["QuadrantApi.quadrantIdPut"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -2647,14 +2284,10 @@ export const QuadrantApiFp = function (configuration?: Configuration) {
      */
     async quadrantOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.quadrantOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["QuadrantApi.quadrantOptions"]?.[index]?.url;
+      const operationBasePath = operationServerMap["QuadrantApi.quadrantOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -2673,16 +2306,10 @@ export const QuadrantApiFp = function (configuration?: Configuration) {
     async quadrantPost(
       quadrant?: Quadrant,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantPost(
-        quadrant,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.quadrantPost(quadrant, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["QuadrantApi.quadrantPost"]?.[index]?.url;
+      const operationBasePath = operationServerMap["QuadrantApi.quadrantPost"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -2698,11 +2325,7 @@ export const QuadrantApiFp = function (configuration?: Configuration) {
  * QuadrantApi - factory interface
  * @export
  */
-export const QuadrantApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const QuadrantApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = QuadrantApiFp(configuration);
   return {
     /**
@@ -2713,9 +2336,7 @@ export const QuadrantApiFactory = function (
      * @throws {RequiredError}
      */
     quadrantIdGet(id: number, options?: any): AxiosPromise<Quadrant> {
-      return localVarFp
-        .quadrantIdGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.quadrantIdGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2725,14 +2346,8 @@ export const QuadrantApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    quadrantIdPut(
-      id: number,
-      quadrant?: Quadrant,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .quadrantIdPut(id, quadrant, options)
-        .then((request) => request(axios, basePath));
+    quadrantIdPut(id: number, quadrant?: Quadrant, options?: any): AxiosPromise<void> {
+      return localVarFp.quadrantIdPut(id, quadrant, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2741,9 +2356,7 @@ export const QuadrantApiFactory = function (
      * @throws {RequiredError}
      */
     quadrantOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .quadrantOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.quadrantOptions(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2753,9 +2366,7 @@ export const QuadrantApiFactory = function (
      * @throws {RequiredError}
      */
     quadrantPost(quadrant?: Quadrant, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .quadrantPost(quadrant, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.quadrantPost(quadrant, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -2790,11 +2401,7 @@ export class QuadrantApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof QuadrantApi
    */
-  public quadrantIdPut(
-    id: number,
-    quadrant?: Quadrant,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public quadrantIdPut(id: number, quadrant?: Quadrant, options?: RawAxiosRequestConfig) {
     return QuadrantApiFp(this.configuration)
       .quadrantIdPut(id, quadrant, options)
       .then((request) => request(this.axios, this.basePath));
@@ -2832,9 +2439,7 @@ export class QuadrantApi extends BaseAPI {
  * RadarApi - axios parameter creator
  * @export
  */
-export const RadarApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const RadarApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -2842,9 +2447,7 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarGet: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Radar`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2862,8 +2465,7 @@ export const RadarApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -2882,16 +2484,10 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarIdArcsGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarIdArcsGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarIdArcsGet", "id", id);
-      const localVarPath = `/Radar/{id}/arcs`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Radar/{id}/arcs`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -2908,8 +2504,7 @@ export const RadarApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -2928,16 +2523,10 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarIdGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarIdGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarIdGet", "id", id);
-      const localVarPath = `/Radar/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Radar/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -2954,8 +2543,7 @@ export const RadarApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -2986,10 +2574,7 @@ export const RadarApiAxiosParamCreator = function (
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarIdItemsGet", "id", id);
-      const localVarPath = `/Radar/{id}/items`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Radar/{id}/items`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3018,8 +2603,7 @@ export const RadarApiAxiosParamCreator = function (
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3039,17 +2623,10 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarIdPut: async (
-      id: number,
-      radar?: Radar,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarIdPut: async (id: number, radar?: Radar, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarIdPut", "id", id);
-      const localVarPath = `/Radar/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Radar/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3068,18 +2645,13 @@ export const RadarApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        radar,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(radar, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -3093,16 +2665,10 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarIdQuadrantsGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarIdQuadrantsGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarIdQuadrantsGet", "id", id);
-      const localVarPath = `/Radar/{id}/quadrants`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Radar/{id}/quadrants`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3119,8 +2685,7 @@ export const RadarApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3139,16 +2704,10 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarIdTagsGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarIdTagsGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarIdTagsGet", "id", id);
-      const localVarPath = `/Radar/{id}/tags`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Radar/{id}/tags`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3165,8 +2724,7 @@ export const RadarApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3184,9 +2742,7 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Radar`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3204,8 +2760,7 @@ export const RadarApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3224,10 +2779,7 @@ export const RadarApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarPost: async (
-      radar?: Radar,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarPost: async (radar?: Radar, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Radar`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3247,18 +2799,13 @@ export const RadarApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        radar,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(radar, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -3283,14 +2830,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
      */
     async radarGet(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Radar>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.radarGet(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Radar>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarGet(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3309,19 +2852,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
     async radarIdArcsGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<Array<RadarArc>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdArcsGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RadarArc>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdArcsGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarIdArcsGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarIdArcsGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3340,16 +2874,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
     async radarIdGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Radar>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Radar>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarIdGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarIdGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3374,22 +2902,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
       quadrantId?: number,
       tagId?: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<Array<RadarItem>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdItemsGet(
-        id,
-        arcId,
-        quadrantId,
-        tagId,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RadarItem>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdItemsGet(id, arcId, quadrantId, tagId, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarIdItemsGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarIdItemsGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3410,17 +2926,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
       id: number,
       radar?: Radar,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdPut(
-        id,
-        radar,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdPut(id, radar, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarIdPut"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarIdPut"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3439,17 +2948,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
     async radarIdQuadrantsGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<Array<Quadrant>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.radarIdQuadrantsGet(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Quadrant>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdQuadrantsGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarIdQuadrantsGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarIdQuadrantsGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3468,16 +2970,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
     async radarIdTagsGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ItemTag>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdTagsGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ItemTag>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarIdTagsGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarIdTagsGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarIdTagsGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3494,14 +2990,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
      */
     async radarOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.radarOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarOptions"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3520,16 +3012,10 @@ export const RadarApiFp = function (configuration?: Configuration) {
     async radarPost(
       radar?: Radar,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarPost(
-        radar,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarPost(radar, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarApi.radarPost"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarApi.radarPost"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -3545,11 +3031,7 @@ export const RadarApiFp = function (configuration?: Configuration) {
  * RadarApi - factory interface
  * @export
  */
-export const RadarApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const RadarApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = RadarApiFp(configuration);
   return {
     /**
@@ -3559,9 +3041,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarGet(options?: any): AxiosPromise<Array<Radar>> {
-      return localVarFp
-        .radarGet(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarGet(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3571,9 +3051,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarIdArcsGet(id: number, options?: any): AxiosPromise<Array<RadarArc>> {
-      return localVarFp
-        .radarIdArcsGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarIdArcsGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3583,9 +3061,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarIdGet(id: number, options?: any): AxiosPromise<Radar> {
-      return localVarFp
-        .radarIdGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarIdGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3617,9 +3093,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarIdPut(id: number, radar?: Radar, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .radarIdPut(id, radar, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarIdPut(id, radar, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3628,13 +3102,8 @@ export const RadarApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarIdQuadrantsGet(
-      id: number,
-      options?: any,
-    ): AxiosPromise<Array<Quadrant>> {
-      return localVarFp
-        .radarIdQuadrantsGet(id, options)
-        .then((request) => request(axios, basePath));
+    radarIdQuadrantsGet(id: number, options?: any): AxiosPromise<Array<Quadrant>> {
+      return localVarFp.radarIdQuadrantsGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3644,9 +3113,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarIdTagsGet(id: number, options?: any): AxiosPromise<Array<ItemTag>> {
-      return localVarFp
-        .radarIdTagsGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarIdTagsGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3655,9 +3122,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .radarOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarOptions(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3667,9 +3132,7 @@ export const RadarApiFactory = function (
      * @throws {RequiredError}
      */
     radarPost(radar?: Radar, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .radarPost(radar, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarPost(radar, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -3754,11 +3217,7 @@ export class RadarApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof RadarApi
    */
-  public radarIdPut(
-    id: number,
-    radar?: Radar,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public radarIdPut(id: number, radar?: Radar, options?: RawAxiosRequestConfig) {
     return RadarApiFp(this.configuration)
       .radarIdPut(id, radar, options)
       .then((request) => request(this.axios, this.basePath));
@@ -3824,9 +3283,7 @@ export class RadarApi extends BaseAPI {
  * RadarDataApi - axios parameter creator
  * @export
  */
-export const RadarDataApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const RadarDataApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -3834,9 +3291,7 @@ export const RadarDataApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarDataGet: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarDataGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/RadarData`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3854,8 +3309,7 @@ export const RadarDataApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3884,10 +3338,7 @@ export const RadarDataApiAxiosParamCreator = function (
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarDataIdGet", "id", id);
-      const localVarPath = `/RadarData/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/RadarData/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3912,8 +3363,7 @@ export const RadarDataApiAxiosParamCreator = function (
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3932,16 +3382,10 @@ export const RadarDataApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarDataIdTagsGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarDataIdTagsGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("radarDataIdTagsGet", "id", id);
-      const localVarPath = `/RadarData/{id}/tags`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/RadarData/{id}/tags`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3958,8 +3402,7 @@ export const RadarDataApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -3977,9 +3420,7 @@ export const RadarDataApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarDataOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    radarDataOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/RadarData`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3997,8 +3438,7 @@ export const RadarDataApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -4018,8 +3458,7 @@ export const RadarDataApiAxiosParamCreator = function (
  * @export
  */
 export const RadarDataApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator =
-    RadarDataApiAxiosParamCreator(configuration);
+  const localVarAxiosParamCreator = RadarDataApiAxiosParamCreator(configuration);
   return {
     /**
      *
@@ -4029,14 +3468,10 @@ export const RadarDataApiFp = function (configuration?: Configuration) {
      */
     async radarDataGet(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Radar>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.radarDataGet(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Radar>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarDataGet(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarDataApi.radarDataGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarDataApi.radarDataGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4059,18 +3494,10 @@ export const RadarDataApiFp = function (configuration?: Configuration) {
       tags?: Array<number>,
       updatedWithinDays?: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RadarData>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.radarDataIdGet(
-        id,
-        tags,
-        updatedWithinDays,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RadarData>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarDataIdGet(id, tags, updatedWithinDays, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarDataApi.radarDataIdGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarDataApi.radarDataIdGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4089,14 +3516,10 @@ export const RadarDataApiFp = function (configuration?: Configuration) {
     async radarDataIdTagsGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ItemTag>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.radarDataIdTagsGet(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ItemTag>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarDataIdTagsGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarDataApi.radarDataIdTagsGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarDataApi.radarDataIdTagsGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4113,14 +3536,10 @@ export const RadarDataApiFp = function (configuration?: Configuration) {
      */
     async radarDataOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.radarDataOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.radarDataOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["RadarDataApi.radarDataOptions"]?.[index]?.url;
+      const operationBasePath = operationServerMap["RadarDataApi.radarDataOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4136,11 +3555,7 @@ export const RadarDataApiFp = function (configuration?: Configuration) {
  * RadarDataApi - factory interface
  * @export
  */
-export const RadarDataApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const RadarDataApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = RadarDataApiFp(configuration);
   return {
     /**
@@ -4150,9 +3565,7 @@ export const RadarDataApiFactory = function (
      * @throws {RequiredError}
      */
     radarDataGet(options?: any): AxiosPromise<Array<Radar>> {
-      return localVarFp
-        .radarDataGet(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarDataGet(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -4180,13 +3593,8 @@ export const RadarDataApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    radarDataIdTagsGet(
-      id: number,
-      options?: any,
-    ): AxiosPromise<Array<ItemTag>> {
-      return localVarFp
-        .radarDataIdTagsGet(id, options)
-        .then((request) => request(axios, basePath));
+    radarDataIdTagsGet(id: number, options?: any): AxiosPromise<Array<ItemTag>> {
+      return localVarFp.radarDataIdTagsGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -4195,9 +3603,7 @@ export const RadarDataApiFactory = function (
      * @throws {RequiredError}
      */
     radarDataOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .radarDataOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.radarDataOptions(options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -4232,12 +3638,7 @@ export class RadarDataApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof RadarDataApi
    */
-  public radarDataIdGet(
-    id: number,
-    tags?: Array<number>,
-    updatedWithinDays?: number,
-    options?: RawAxiosRequestConfig,
-  ) {
+  public radarDataIdGet(id: number, tags?: Array<number>, updatedWithinDays?: number, options?: RawAxiosRequestConfig) {
     return RadarDataApiFp(this.configuration)
       .radarDataIdGet(id, tags, updatedWithinDays, options)
       .then((request) => request(this.axios, this.basePath));
@@ -4275,9 +3676,7 @@ export class RadarDataApi extends BaseAPI {
  * TagApi - axios parameter creator
  * @export
  */
-export const TagApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const TagApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4286,16 +3685,10 @@ export const TagApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    tagIdGet: async (
-      id: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    tagIdGet: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("tagIdGet", "id", id);
-      const localVarPath = `/Tag/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Tag/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -4312,8 +3705,7 @@ export const TagApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -4333,17 +3725,10 @@ export const TagApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    tagIdPut: async (
-      id: number,
-      tag?: Tag,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    tagIdPut: async (id: number, tag?: Tag, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists("tagIdPut", "id", id);
-      const localVarPath = `/Tag/{id}`.replace(
-        `{${"id"}}`,
-        encodeURIComponent(String(id)),
-      );
+      const localVarPath = `/Tag/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -4362,18 +3747,13 @@ export const TagApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        tag,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(tag, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -4386,9 +3766,7 @@ export const TagApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    tagOptions: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    tagOptions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Tag`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4406,8 +3784,7 @@ export const TagApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -4426,10 +3803,7 @@ export const TagApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    tagPost: async (
-      tag?: Tag,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    tagPost: async (tag?: Tag, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Tag`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4449,18 +3823,13 @@ export const TagApiAxiosParamCreator = function (
       localVarHeaderParameter["Content-Type"] = "application/json";
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
         ...options.headers,
       };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        tag,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(tag, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -4487,16 +3856,10 @@ export const TagApiFp = function (configuration?: Configuration) {
     async tagIdGet(
       id: number,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tag>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.tagIdGet(
-        id,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tag>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.tagIdGet(id, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["TagApi.tagIdGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["TagApi.tagIdGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4517,17 +3880,10 @@ export const TagApiFp = function (configuration?: Configuration) {
       id: number,
       tag?: Tag,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.tagIdPut(
-        id,
-        tag,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.tagIdPut(id, tag, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["TagApi.tagIdPut"]?.[index]?.url;
+      const operationBasePath = operationServerMap["TagApi.tagIdPut"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4544,14 +3900,10 @@ export const TagApiFp = function (configuration?: Configuration) {
      */
     async tagOptions(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.tagOptions(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.tagOptions(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["TagApi.tagOptions"]?.[index]?.url;
+      const operationBasePath = operationServerMap["TagApi.tagOptions"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4570,16 +3922,10 @@ export const TagApiFp = function (configuration?: Configuration) {
     async tagPost(
       tag?: Tag,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.tagPost(
-        tag,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.tagPost(tag, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["TagApi.tagPost"]?.[index]?.url;
+      const operationBasePath = operationServerMap["TagApi.tagPost"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -4595,11 +3941,7 @@ export const TagApiFp = function (configuration?: Configuration) {
  * TagApi - factory interface
  * @export
  */
-export const TagApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const TagApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = TagApiFp(configuration);
   return {
     /**
@@ -4610,9 +3952,7 @@ export const TagApiFactory = function (
      * @throws {RequiredError}
      */
     tagIdGet(id: number, options?: any): AxiosPromise<Tag> {
-      return localVarFp
-        .tagIdGet(id, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.tagIdGet(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -4623,9 +3963,7 @@ export const TagApiFactory = function (
      * @throws {RequiredError}
      */
     tagIdPut(id: number, tag?: Tag, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .tagIdPut(id, tag, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.tagIdPut(id, tag, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -4634,9 +3972,7 @@ export const TagApiFactory = function (
      * @throws {RequiredError}
      */
     tagOptions(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .tagOptions(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.tagOptions(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -4646,9 +3982,7 @@ export const TagApiFactory = function (
      * @throws {RequiredError}
      */
     tagPost(tag?: Tag, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .tagPost(tag, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.tagPost(tag, options).then((request) => request(axios, basePath));
     },
   };
 };

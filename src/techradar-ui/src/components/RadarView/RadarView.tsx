@@ -62,11 +62,7 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     }
 
     if (prevProps.zoomed_quadrant !== this.props.zoomed_quadrant) {
-      this.setZoom(
-        this.props.zoomed_quadrant ?? -1,
-        this.props.width,
-        this.props.height,
-      );
+      this.setZoom(this.props.zoomed_quadrant ?? -1, this.props.width, this.props.height);
     }
   }
 
@@ -120,34 +116,21 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     return Math.min(Math.max(value, low), high);
   };
 
-  bounded_ring = (
-    polar: PolarPoint,
-    r_min: number,
-    r_max: number,
-  ): PolarPoint => {
+  bounded_ring = (polar: PolarPoint, r_min: number, r_max: number): PolarPoint => {
     return {
       t: polar.t,
       r: this.bounded_interval(polar.r, r_min, r_max),
     };
   };
 
-  bounded_box = (
-    point: CartesianPoint,
-    min: CartesianPoint,
-    max: CartesianPoint,
-  ): CartesianPoint => {
+  bounded_box = (point: CartesianPoint, min: CartesianPoint, max: CartesianPoint): CartesianPoint => {
     return {
       x: this.bounded_interval(point.x, min.x, max.x),
       y: this.bounded_interval(point.y, min.y, max.y),
     };
   };
 
-  segment = (
-    actualRingRadius: number[],
-    quadrantsCollection: QuadrantInfo[],
-    quadrant: number,
-    ring: number,
-  ): any => {
+  segment = (actualRingRadius: number[], quadrantsCollection: QuadrantInfo[], quadrant: number, ring: number): any => {
     const polar_min: PolarPoint = {
       t: quadrantsCollection[quadrant].radial_min * Math.PI,
       r: ring === 0 ? 30 : (actualRingRadius[ring - 1] ?? this.defaultRadius),
@@ -161,31 +144,19 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
       y: 15 * quadrantsCollection[quadrant].factor_y,
     };
     const cartesian_max: CartesianPoint = {
-      x:
-        (actualRingRadius[actualRingRadius.length - 1] ?? this.defaultRadius) *
-        quadrantsCollection[quadrant].factor_x,
-      y:
-        (actualRingRadius[actualRingRadius.length - 1] ?? this.defaultRadius) *
-        quadrantsCollection[quadrant].factor_y,
+      x: (actualRingRadius[actualRingRadius.length - 1] ?? this.defaultRadius) * quadrantsCollection[quadrant].factor_x,
+      y: (actualRingRadius[actualRingRadius.length - 1] ?? this.defaultRadius) * quadrantsCollection[quadrant].factor_y,
     };
     return {
       clipx: (d: CartesianPoint): number => {
         const c = this.bounded_box(d, cartesian_min, cartesian_max);
-        const p = this.bounded_ring(
-          this.polar(c),
-          polar_min.r + 15,
-          polar_max.r - 15,
-        );
+        const p = this.bounded_ring(this.polar(c), polar_min.r + 15, polar_max.r - 15);
         d.x = this.cartesian(p).x; // adjust data too!
         return d.x;
       },
       clipy: (d: CartesianPoint): number => {
         const c = this.bounded_box(d, cartesian_min, cartesian_max);
-        const p = this.bounded_ring(
-          this.polar(c),
-          polar_min.r + 15,
-          polar_max.r - 15,
-        );
+        const p = this.bounded_ring(this.polar(c), polar_min.r + 15, polar_max.r - 15);
         d.y = this.cartesian(p).y; // adjust data too!
         return d.y;
       },
@@ -226,39 +197,29 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     const newDy = legend_offset[quadrant].runningHeight + 21;
 
     if (newDy > legend_offset[quadrant].availableHeight) {
-      legend_offset[quadrant].currentColumn =
-        legend_offset[quadrant].currentColumn + 1;
+      legend_offset[quadrant].currentColumn = legend_offset[quadrant].currentColumn + 1;
       legend_offset[quadrant].runningHeight = 0;
     } else {
       legend_offset[quadrant].runningHeight = newDy;
     }
 
-    return this.translate(
-      legend_offset[quadrant].x + dx,
-      legend_offset[quadrant].y + dy,
-    );
+    return this.translate(legend_offset[quadrant].x + dx, legend_offset[quadrant].y + dy);
   };
 
   legend_transform_item = (legend_offset: any, item: any, index = null) => {
-    const dy =
-      legend_offset[item.quadrant].runningHeight + (index == null ? 5 : 0);
+    const dy = legend_offset[item.quadrant].runningHeight + (index == null ? 5 : 0);
     const dx = legend_offset[item.quadrant].currentColumn * 140;
 
-    const newDy =
-      legend_offset[item.quadrant].runningHeight + (index == null ? 21 : 12);
+    const newDy = legend_offset[item.quadrant].runningHeight + (index == null ? 21 : 12);
 
     if (newDy > legend_offset[item.quadrant].availableHeight) {
-      legend_offset[item.quadrant].currentColumn =
-        legend_offset[item.quadrant].currentColumn + 1;
+      legend_offset[item.quadrant].currentColumn = legend_offset[item.quadrant].currentColumn + 1;
       legend_offset[item.quadrant].runningHeight = 0;
     } else {
       legend_offset[item.quadrant].runningHeight = newDy;
     }
 
-    return this.translate(
-      legend_offset[item.quadrant].x + dx,
-      legend_offset[item.quadrant].y + dy,
-    );
+    return this.translate(legend_offset[item.quadrant].x + dx, legend_offset[item.quadrant].y + dy);
   };
 
   showBubble = (d: any): any => {
@@ -275,32 +236,17 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
           .attr("y", -bbox.height)
           .attr("width", bbox.width + 10)
           .attr("height", bbox.height + 4);
-        d3.select("#bubble path").attr(
-          "transform",
-          this.translate(bbox.width / 2 - 5, 3),
-        );
+        d3.select("#bubble path").attr("transform", this.translate(bbox.width / 2 - 5, 3));
       }
     }
   };
 
-  svgNode = (): d3.Selection<
-    SVGSVGElement,
-    unknown,
-    HTMLElement,
-    undefined
-  > => {
-    return d3.select("#svg") as d3.Selection<
-      SVGSVGElement,
-      unknown,
-      HTMLElement,
-      undefined
-    >;
+  svgNode = (): d3.Selection<SVGSVGElement, unknown, HTMLElement, undefined> => {
+    return d3.select("#svg") as d3.Selection<SVGSVGElement, unknown, HTMLElement, undefined>;
   };
 
   hideBubble = (): void => {
-    d3.select("#bubble")
-      .attr("transform", this.translate(0, 0))
-      .style("opacity", 0);
+    d3.select("#bubble").attr("transform", this.translate(0, 0)).style("opacity", 0);
   };
 
   handleLegendClick = (d: any): void => {
@@ -342,11 +288,7 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
 
     this.svgNode().attr("width", width).attr("height", height);
 
-    if (
-      !this.props.data.rings ||
-      !this.props.data.entries ||
-      !this.props.data.quadrants
-    ) {
+    if (!this.props.data.rings || !this.props.data.entries || !this.props.data.quadrants) {
       return;
     }
 
@@ -361,17 +303,14 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     let runningRadius = 0;
 
     for (const ring of this.props.data.rings) {
-      runningRadius =
-        runningRadius + radiusWidth * ((ring.radius ?? 10) / 100.0);
+      runningRadius = runningRadius + radiusWidth * ((ring.radius ?? 10) / 100.0);
       actualRingRadius.push(runningRadius);
     }
 
     const footer_offset = { x: (width / 2) * -1 + 200, y: height / 2 };
 
     // Calculate offset values for legends
-    const polarWidth =
-      (actualRingRadius[this.props.data.rings.length - 1] ??
-        this.defaultRadius) * 2;
+    const polarWidth = (actualRingRadius[this.props.data.rings.length - 1] ?? this.defaultRadius) * 2;
     const polarOffset = polarWidth / 2;
     const legendWidth = (width - polarWidth) / 2;
 
@@ -418,49 +357,32 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
         color: "",
         id: "",
       };
-      entry.segment = this.segment(
-        actualRingRadius,
-        this.quadrants,
-        entry.quadrant ?? 0,
-        entry.ring ?? 0,
-      );
+      entry.segment = this.segment(actualRingRadius, this.quadrants, entry.quadrant ?? 0, entry.ring ?? 0);
       const point = entry.segment.random();
       entry.x = point.x;
       entry.y = point.y;
       entry.color =
-        (entry.active
-          ? this.props.data.rings[entry.ring ?? 0].color
-          : this.props.data.colors?.inactive) ?? "#cccccc";
+        (entry.active ? this.props.data.rings[entry.ring ?? 0].color : this.props.data.colors?.inactive) ?? "#cccccc";
       drawableEntries.push(entry);
     }
 
     // partition entries according to segments
-    const segmentedEntries: DrawableEntry[][][] = new Array<DrawableEntry[][]>(
-      4,
-    );
+    const segmentedEntries: DrawableEntry[][][] = new Array<DrawableEntry[][]>(4);
     for (let quadrant = 0; quadrant < 4; quadrant++) {
-      segmentedEntries[quadrant] = new Array<DrawableEntry[]>(
-        this.props.data.rings.length,
-      );
+      segmentedEntries[quadrant] = new Array<DrawableEntry[]>(this.props.data.rings.length);
       for (let ring = 0; ring < this.props.data.rings.length; ring++) {
         segmentedEntries[quadrant][ring] = new Array<DrawableEntry>();
       }
     }
 
     for (const drawableEntry of drawableEntries) {
-      segmentedEntries[drawableEntry.quadrant ?? 0][
-        drawableEntry.ring ?? 0
-      ].push(drawableEntry);
+      segmentedEntries[drawableEntry.quadrant ?? 0][drawableEntry.ring ?? 0].push(drawableEntry);
     }
 
     // assign unique sequential id to each entry
     let id = 1;
     for (const quadrantIndex of [2, 3, 1, 0]) {
-      for (
-        let ringIndex = 0;
-        ringIndex < this.props.data.rings.length;
-        ringIndex++
-      ) {
+      for (let ringIndex = 0; ringIndex < this.props.data.rings.length; ringIndex++) {
         const entries = segmentedEntries[quadrantIndex][ringIndex];
         entries.sort((a: any, b: any) => {
           return a.label.localeCompare(b.label);
@@ -479,32 +401,16 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     grid
       .append("line")
       .attr("x1", 0)
-      .attr(
-        "y1",
-        (actualRingRadius[this.props.data.rings.length - 1] ??
-          this.defaultRadius) * -1,
-      )
+      .attr("y1", (actualRingRadius[this.props.data.rings.length - 1] ?? this.defaultRadius) * -1)
       .attr("x2", 0)
-      .attr(
-        "y2",
-        actualRingRadius[this.props.data.rings.length - 1] ??
-          this.defaultRadius,
-      )
+      .attr("y2", actualRingRadius[this.props.data.rings.length - 1] ?? this.defaultRadius)
       .style("stroke", this.props.data.colors?.grid ?? "#000000")
       .style("stroke-width", 1);
     grid
       .append("line")
-      .attr(
-        "x1",
-        (actualRingRadius[this.props.data.rings.length - 1] ??
-          this.defaultRadius) * -1,
-      )
+      .attr("x1", (actualRingRadius[this.props.data.rings.length - 1] ?? this.defaultRadius) * -1)
       .attr("y1", 0)
-      .attr(
-        "x2",
-        actualRingRadius[this.props.data.rings.length - 1] ??
-          this.defaultRadius,
-      )
+      .attr("x2", actualRingRadius[this.props.data.rings.length - 1] ?? this.defaultRadius)
       .attr("y2", 0)
       .style("stroke", this.props.data.colors?.grid ?? "#000000")
       .style("stroke-width", 1);
@@ -559,31 +465,16 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
     for (let quadrantIndex = 0; quadrantIndex < 4; quadrantIndex++) {
       legend
         .append("text")
-        .attr(
-          "transform",
-          this.translate(
-            legend_offset[quadrantIndex].x,
-            legend_offset[quadrantIndex].y - 20,
-          ),
-        )
-        .text(
-          this.props.data.quadrants[quadrantIndex].name ?? "unknown quadrant",
-        )
+        .attr("transform", this.translate(legend_offset[quadrantIndex].x, legend_offset[quadrantIndex].y - 20))
+        .text(this.props.data.quadrants[quadrantIndex].name ?? "unknown quadrant")
         .style("font-family", "Arial, Helvetica")
         .style("font-size", "18")
         .style("fill", "blue");
 
-      for (
-        let ringIndex = 0;
-        ringIndex < this.props.data.rings.length;
-        ringIndex++
-      ) {
+      for (let ringIndex = 0; ringIndex < this.props.data.rings.length; ringIndex++) {
         legend
           .append("text")
-          .attr(
-            "transform",
-            this.legend_transform(legend_offset, quadrantIndex),
-          )
+          .attr("transform", this.legend_transform(legend_offset, quadrantIndex))
           .text(this.props.data.rings[ringIndex].name ?? "unknown ring")
           .style("font-family", "Arial, Helvetica")
           .style("font-size", "12")
@@ -633,11 +524,7 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
       .style("pointer-events", "none")
       .style("user-select", "none");
     bubble.append("rect").attr("rx", 4).attr("ry", 4).style("fill", "#333");
-    bubble
-      .append("text")
-      .style("font-family", "sans-serif")
-      .style("font-size", "10px")
-      .style("fill", "#fff");
+    bubble.append("text").style("font-family", "sans-serif").style("font-size", "10px").style("fill", "#fff");
     bubble.append("path").attr("d", "M 0,0 10,0 5,8 z").style("fill", "#333");
 
     // draw blips on radar
@@ -663,10 +550,7 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
 
       // blip link
       if (d.active && d.hasOwnProperty("link")) {
-        blip = blip
-          .append("a")
-          .attr("xlink:href", d.link)
-          .attr("target", "_blank") as any;
+        blip = blip.append("a").attr("xlink:href", d.link).attr("target", "_blank") as any;
       }
 
       // blip shape
@@ -724,16 +608,10 @@ class RadarView extends Component<RadarViewProps, RadarViewState> {
       .force("collision", d3.forceCollide().radius(10).strength(0.35));
 
     this.force.on("tick", (): any => {
-      const blips = this.svgNode()
-        .select("#rink")
-        .selectAll(".blip")
-        .data(drawableEntries);
+      const blips = this.svgNode().select("#rink").selectAll(".blip").data(drawableEntries);
 
       blips.attr("transform", (d: DrawableEntry): any => {
-        const translate = this.translate(
-          d.segment.clipx(d),
-          d.segment.clipy(d),
-        );
+        const translate = this.translate(d.segment.clipx(d), d.segment.clipy(d));
         return translate;
       });
       let tickCount = this.state.tickCount;

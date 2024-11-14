@@ -59,8 +59,7 @@ export const ArcList: React.FunctionComponent = (): JSX.Element => {
   return (
     <Container>
       <h4>
-        <small className="text-muted">{radar?.title ?? "unknown"}</small> -
-        Radar Rings
+        <small className="text-muted">{radar?.title ?? "unknown"}</small> - Radar Rings
       </h4>
       <Table striped>
         <thead>

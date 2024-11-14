@@ -21,9 +21,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getUser = async () => {
-    const response = await callBff((baseUrl) =>
-      bff.AuthApiFactory(undefined, baseUrl).authGetUserGet(),
-    );
+    const response = await callBff((baseUrl) => bff.AuthApiFactory(undefined, baseUrl).authGetUserGet());
     const data = response.data;
 
     setIsAuthenticated(data.isAuthenticated ?? false);

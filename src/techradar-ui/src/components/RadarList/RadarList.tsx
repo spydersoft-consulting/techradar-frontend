@@ -9,14 +9,7 @@ import { RootState } from "../../store/store";
 import { Container, Table } from "react-bootstrap";
 import { useAuth } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faEdit,
-  faWifi,
-  faList,
-  faEye,
-  faChartPie,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit, faWifi, faList, faEye, faChartPie } from "@fortawesome/free-solid-svg-icons";
 
 export const RadarRow = (radar: api.Radar) => {
   const { isAuthenticated } = useAuth();
@@ -28,32 +21,16 @@ export const RadarRow = (radar: api.Radar) => {
         {/* <ReactTooltip id="toolTip" /> */}
         {isAuthenticated && (
           <>
-            <Link
-              to={`/radar/${radar.id}/`}
-              data-tip="Edit Radar"
-              data-for="toolTip"
-            >
+            <Link to={`/radar/${radar.id}/`} data-tip="Edit Radar" data-for="toolTip">
               <FontAwesomeIcon icon={faEdit} className="m-1" />
             </Link>
-            <Link
-              to={`/radar/${radar.id}/arcs`}
-              data-tip="Edit Radar Rings"
-              data-for="toolTip"
-            >
+            <Link to={`/radar/${radar.id}/arcs`} data-tip="Edit Radar Rings" data-for="toolTip">
               <FontAwesomeIcon icon={faWifi} className="m-1" />
             </Link>
-            <Link
-              to={`/radar/${radar.id}/quadrants`}
-              data-tip="Edit Radar Quadrants"
-              data-for="toolTip"
-            >
+            <Link to={`/radar/${radar.id}/quadrants`} data-tip="Edit Radar Quadrants" data-for="toolTip">
               <FontAwesomeIcon icon={faChartPie} className="m-1" />
             </Link>
-            <Link
-              to={`/radar/${radar.id}/items`}
-              data-tip="Edit Radar Items"
-              data-for="toolTip"
-            >
+            <Link to={`/radar/${radar.id}/items`} data-tip="Edit Radar Items" data-for="toolTip">
               <FontAwesomeIcon icon={faList} className="m-1" />
             </Link>
           </>

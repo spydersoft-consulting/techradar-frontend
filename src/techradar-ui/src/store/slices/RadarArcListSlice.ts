@@ -34,10 +34,7 @@ const radarArcListSlice = createSlice({
   reducers: {
     getRadarArcsStart: startLoading,
     getRadarArcsCompleted: stopLoading,
-    getRadarArcsList: (
-      state,
-      action: PayloadAction<FetchRadarArcListResult>,
-    ): void => {
+    getRadarArcsList: (state, action: PayloadAction<FetchRadarArcListResult>): void => {
       state.arcs = action.payload.data;
       state.radarId = action.payload.radarId;
       state.isLoading = false;
@@ -45,17 +42,14 @@ const radarArcListSlice = createSlice({
   },
 });
 
-export const { getRadarArcsStart, getRadarArcsCompleted, getRadarArcsList } =
-  radarArcListSlice.actions;
+export const { getRadarArcsStart, getRadarArcsCompleted, getRadarArcsList } = radarArcListSlice.actions;
 
 export const fetchRadarArcList =
   (radarId: number): AppThunk =>
   async (dispatch): Promise<void> => {
     dispatch(getRadarArcsStart());
 
-    const result = await callDataApi((baseUrl) =>
-      api.RadarApiFactory(undefined, baseUrl).radarIdArcsGet(radarId),
-    );
+    const result = await callDataApi((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdArcsGet(radarId));
 
     // TODO: error check
 

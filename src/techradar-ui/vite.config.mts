@@ -105,7 +105,18 @@ export default defineConfig({
       provider: "v8",
       reporter: ["html", "cobertura", "lcov", "text"],
       reportsDirectory: "./output/coverage",
-      exclude: ["**/node_modules/**", "**/tests/**"]
+      exclude: [
+        "**/node_modules/**", 
+        "**/tests/**", 
+        "**/dist/**", 
+        "**/output/**",
+        "**/vite.config.mts",
+        "**/eslint.config.js",
+        "**/coverage/**",
+        "**/.yarn/**",
+        "**/src/api/**",
+        "**/*.d.ts",
+      ],
     },
   }
 });

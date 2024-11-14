@@ -34,10 +34,7 @@ const radarQuadrantListSlice = createSlice({
   reducers: {
     getRadarQuadrantsStart: startLoading,
     getRadarQuadrantsCompleted: stopLoading,
-    getRadarQuadrantsList: (
-      state,
-      action: PayloadAction<FetchRadarQuadrantListResult>,
-    ): void => {
+    getRadarQuadrantsList: (state, action: PayloadAction<FetchRadarQuadrantListResult>): void => {
       state.quadrants = action.payload.data;
       state.radarId = action.payload.radarId;
       state.isLoading = false;
@@ -45,20 +42,15 @@ const radarQuadrantListSlice = createSlice({
   },
 });
 
-export const {
-  getRadarQuadrantsStart,
-  getRadarQuadrantsCompleted,
-  getRadarQuadrantsList,
-} = radarQuadrantListSlice.actions;
+export const { getRadarQuadrantsStart, getRadarQuadrantsCompleted, getRadarQuadrantsList } =
+  radarQuadrantListSlice.actions;
 
 export const fetchRadarQuadrantList =
   (radarId: number): AppThunk =>
   async (dispatch): Promise<void> => {
     dispatch(getRadarQuadrantsStart());
 
-    const result = await callDataApi((baseUrl) =>
-      api.RadarApiFactory(undefined, baseUrl).radarIdQuadrantsGet(radarId),
-    );
+    const result = await callDataApi((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdQuadrantsGet(radarId));
 
     // TODO: error check
 

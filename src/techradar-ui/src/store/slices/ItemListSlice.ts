@@ -58,8 +58,7 @@ const itemListSlice = createSlice({
   },
 });
 
-export const { getItemsStart, getItemsCompleted, getItemsList, updateFilter } =
-  itemListSlice.actions;
+export const { getItemsStart, getItemsCompleted, getItemsList, updateFilter } = itemListSlice.actions;
 
 export const fetchItemList =
   (radarId: number, arcId: number, quadrantId: number): AppThunk =>
@@ -68,9 +67,7 @@ export const fetchItemList =
 
     const result = await callDataApi((baseUrl) =>
       // todo: implement paging here
-      api
-        .RadarApiFactory(undefined, baseUrl)
-        .radarIdItemsGet(radarId, arcId, quadrantId, undefined),
+      api.RadarApiFactory(undefined, baseUrl).radarIdItemsGet(radarId, arcId, quadrantId, undefined),
     );
 
     // TODO: error check
