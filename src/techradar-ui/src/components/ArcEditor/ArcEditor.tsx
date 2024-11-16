@@ -14,9 +14,7 @@ export const ArcEditor: React.FunctionComponent = () => {
 
   const dispatch = useAppDispatch();
 
-  const [radarId, setRadarId] = useState<number>(
-    parseInt(routeParams.radarId ?? "0"),
-  );
+  const [radarId, setRadarId] = useState<number>(parseInt(routeParams.radarId ?? "0"));
   const routeArcId: number = parseInt(routeParams.id ?? "0");
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
@@ -53,17 +51,11 @@ export const ArcEditor: React.FunctionComponent = () => {
   const handleSubmitEditForm = (e: MouseEvent<HTMLButtonElement>) => {
     let promise: AxiosPromise<void>;
     if (!routeArcId) {
-      promise = callDataApi<void>((baseUrl) =>
-        api.ArcApiFactory(undefined, baseUrl).arcPost(arc),
-      );
+      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcPost(arc));
     } else {
-      promise = callDataApi<void>((baseUrl) =>
-        api.ArcApiFactory(undefined, baseUrl).arcIdPut(routeArcId, arc),
-      );
+      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcIdPut(routeArcId, arc));
     }
-    promise
-      .then(() => navigate(`/radar/${arc.radarId}/arcs/`))
-      .catch((e) => handleApiError(e, setErrors));
+    promise.then(() => navigate(`/radar/${arc.radarId}/arcs/`)).catch((e) => handleApiError(e, setErrors));
 
     e.preventDefault();
   };
@@ -71,8 +63,7 @@ export const ArcEditor: React.FunctionComponent = () => {
   return (
     <form className="needs-validation" noValidate>
       <h4>
-        <small className="text-muted">{radar?.title ?? "unknown"}</small> -
-        Radar Ring
+        <small className="text-muted">{radar?.title ?? "unknown"}</small> - Radar Ring
       </h4>
       <div className="form-group">
         <label htmlFor="txtName">Name</label>
@@ -92,9 +83,7 @@ export const ArcEditor: React.FunctionComponent = () => {
           className={`form-control ${errors["Radius"] == null ? "" : "is-invalid"}`}
           id="txtRadius"
           value={arc.radius}
-          onChange={(e) =>
-            setLocalArc({ ...arc, radius: parseInt(e.target.value) })
-          }
+          onChange={(e) => setLocalArc({ ...arc, radius: parseInt(e.target.value) })}
         />
         <div className="invalid-feedback">{errors["Radius"]}</div>
       </div>
@@ -105,9 +94,7 @@ export const ArcEditor: React.FunctionComponent = () => {
           className={`form-control ${errors["Position"] == null ? "" : "is-invalid"}`}
           id="txtPosition"
           value={arc.position}
-          onChange={(e) =>
-            setLocalArc({ ...arc, position: parseInt(e.target.value) })
-          }
+          onChange={(e) => setLocalArc({ ...arc, position: parseInt(e.target.value) })}
         />
         <div className="invalid-feedback">{errors["Position"]}</div>
       </div>
@@ -125,10 +112,7 @@ export const ArcEditor: React.FunctionComponent = () => {
         <button className="btn btn-primary m-1" onClick={handleSubmitEditForm}>
           Save
         </button>
-        <button
-          className="btn btn-secondary m-1"
-          onClick={handleCancelButtonClick}
-        >
+        <button className="btn btn-secondary m-1" onClick={handleCancelButtonClick}>
           Cancel
         </button>
       </div>

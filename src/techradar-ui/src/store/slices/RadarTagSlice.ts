@@ -35,9 +35,7 @@ export const { getRadarTags } = radarTagSlice.actions;
 export const fetchRadarTags =
   (radarId: number): AppThunk =>
   async (dispatch): Promise<void> => {
-    const result = await callDataApi((baseUrl) =>
-      api.RadarApiFactory(undefined, baseUrl).radarIdTagsGet(radarId),
-    );
+    const result = await callDataApi((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdTagsGet(radarId));
 
     // TODO: error check
     const suggs: UiTag[] = [];
@@ -47,6 +45,7 @@ export const fetchRadarTags =
           id: `${sugg.tagId}`,
           text: sugg.name ?? "N/A",
           tagId: sugg.tagId ?? 0,
+          className: "",
         });
       }
     });

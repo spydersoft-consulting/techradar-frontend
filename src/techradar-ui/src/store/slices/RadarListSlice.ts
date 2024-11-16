@@ -28,18 +28,14 @@ const radarListSlice = createSlice({
   reducers: {
     getRadarsStart: startLoading,
     getRadarsCompleted: stopLoading,
-    getRadarList: (
-      state,
-      action: PayloadAction<FetchRadarListResult>,
-    ): void => {
+    getRadarList: (state, action: PayloadAction<FetchRadarListResult>): void => {
       state.radars = action.payload.data;
       state.isLoading = false;
     },
   },
 });
 
-export const { getRadarsStart, getRadarsCompleted, getRadarList } =
-  radarListSlice.actions;
+export const { getRadarsStart, getRadarsCompleted, getRadarList } = radarListSlice.actions;
 
 export const fetchRadarList =
   (): AppThunk =>

@@ -77,7 +77,11 @@ export default defineConfig({
         target: "https://localhost:7197/",
         secure: false,
        },
-       "^/healthz": {
+       "^/livez": {
+        target: "https://localhost:7197/",
+        secure: false,
+       },
+       "^/readyz": {
         target: "https://localhost:7197/",
         secure: false,
        }
@@ -101,7 +105,18 @@ export default defineConfig({
       provider: "v8",
       reporter: ["html", "cobertura", "lcov", "text"],
       reportsDirectory: "./output/coverage",
-      exclude: ["**/node_modules/**", "**/tests/**"]
+      exclude: [
+        "**/node_modules/**", 
+        "**/tests/**", 
+        "**/dist/**", 
+        "**/output/**",
+        "**/vite.config.mts",
+        "**/eslint.config.js",
+        "**/coverage/**",
+        "**/.yarn/**",
+        "**/src/api/**",
+        "**/*.d.ts",
+      ],
     },
   }
 });

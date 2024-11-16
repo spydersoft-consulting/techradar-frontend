@@ -22,6 +22,14 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
+// interface Tag {
+//   id: string;
+//   name: string;
+//   text: string;
+//   className: string;
+//   [key: string]: string;
+// }
+
 export const ItemEditor: React.FunctionComponent = () => {
   // Constants
   const navigate = useNavigate();
@@ -32,9 +40,7 @@ export const ItemEditor: React.FunctionComponent = () => {
   // Route extraction
   const routeItemId: number = parseInt(routeParams.id ?? "0");
 
-  const [radarId, setRadarId] = useState<number>(
-    parseInt(routeParams.radarId ?? "0"),
-  );
+  const [radarId, setRadarId] = useState<number>(parseInt(routeParams.radarId ?? "0"));
 
   // Local State
   const [errors, setErrors] = useState<Record<string, string[]>>({});
@@ -54,9 +60,7 @@ export const ItemEditor: React.FunctionComponent = () => {
   const { radarTags } = useSelector((state: RootState) => state.radartags);
 
   const LoadItemTags = useCallback(() => {
-    callDataApi((baseUrl) =>
-      api.ItemApiFactory(undefined, baseUrl).itemIdTagGet(routeItemId),
-    ).then((result) => {
+    callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdTagGet(routeItemId)).then((result) => {
       const itemTags: Tag[] = [];
 
       result.data.forEach((itemTag: api.RadarItemTag) => {
@@ -85,9 +89,7 @@ export const ItemEditor: React.FunctionComponent = () => {
   // UseEffect calls
   useEffect(() => {
     if (routeItemId > 0) {
-      callDataApi((baseUrl) =>
-        api.ItemApiFactory(undefined, baseUrl).itemIdGet(routeItemId),
-      ).then((result) => {
+      callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdGet(routeItemId)).then((result) => {
         setLocalItem(result.data);
         setRadarId(result.data.radarId ?? 0);
       });
@@ -117,13 +119,9 @@ export const ItemEditor: React.FunctionComponent = () => {
   const handleSubmitEditForm = (e: MouseEvent<HTMLButtonElement>): void => {
     let promise: AxiosPromise<void>;
     if (routeItemId === 0) {
-      promise = callDataApi<void>((baseUrl) =>
-        api.ItemApiFactory(undefined, baseUrl).itemPost(item),
-      );
+      promise = callDataApi<void>((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemPost(item));
     } else {
-      promise = callDataApi<void>((baseUrl) =>
-        api.ItemApiFactory(undefined, baseUrl).itemIdPut(routeItemId, item),
-      );
+      promise = callDataApi<void>((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdPut(routeItemId, item));
     }
 
     promise
@@ -142,11 +140,9 @@ export const ItemEditor: React.FunctionComponent = () => {
     const deletedItem = itemTags[i];
     const itemId = parseInt(deletedItem.id);
     if (itemId > 0) {
-      callDataApi((baseUrl) =>
-        api
-          .ItemApiFactory(undefined, baseUrl)
-          .itemIdTagTagIdDelete(item.id ?? 0, itemId),
-      ).then(() => LoadItemTags());
+      callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdTagTagIdDelete(item.id ?? 0, itemId)).then(
+        () => LoadItemTags(),
+      );
     }
   };
 
@@ -160,20 +156,16 @@ export const ItemEditor: React.FunctionComponent = () => {
         tagId: suggestion.tagId,
       };
 
-      callDataApi((baseUrl) =>
-        api
-          .ItemApiFactory(undefined, baseUrl)
-          .itemIdTagPut(item.id ?? 0, tagData),
-      ).then(() => LoadItemTags());
+      callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdTagPut(item.id ?? 0, tagData)).then(() =>
+        LoadItemTags(),
+      );
     } else {
       const tagData: api.ItemTag = {
         name: tag.text,
       };
-      callDataApi((baseUrl) =>
-        api
-          .ItemApiFactory(undefined, baseUrl)
-          .itemIdTagPost(item.id ?? 0, tagData),
-      ).then(() => dispatch(fetchRadarTags(item.radarId ?? 0)));
+      callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdTagPost(item.id ?? 0, tagData)).then(() =>
+        dispatch(fetchRadarTags(item.radarId ?? 0)),
+      );
     }
   };
 
@@ -181,8 +173,7 @@ export const ItemEditor: React.FunctionComponent = () => {
     <Container>
       <Form className="needs-validation" noValidate>
         <h4>
-          Radar Item -{" "}
-          <small className="text-muted">{radar?.title ?? "unknown"}</small>
+          Radar Item - <small className="text-muted">{radar?.title ?? "unknown"}</small>
         </h4>
         <Form.Group>
           <Form.Label>Name</Form.Label>
@@ -202,9 +193,7 @@ export const ItemEditor: React.FunctionComponent = () => {
             className={`form-control ${errors["LegendKey"] == null ? "" : "is-invalid"}`}
             id="txtKey"
             value={item.legendKey ?? undefined}
-            onChange={(e) =>
-              setLocalItem({ ...item, legendKey: e.target.value })
-            }
+            onChange={(e) => setLocalItem({ ...item, legendKey: e.target.value })}
           />
           <div className="invalid-feedback">{errors["LegendKey"]}</div>
         </Form.Group>
@@ -225,9 +214,7 @@ export const ItemEditor: React.FunctionComponent = () => {
             className="form-control"
             id="cmbQuadrant"
             value={item.quadrantId}
-            onChange={(e) =>
-              setLocalItem({ ...item, quadrantId: parseInt(e.target.value) })
-            }
+            onChange={(e) => setLocalItem({ ...item, quadrantId: parseInt(e.target.value) })}
           >
             <option defaultValue="" key="quad_0" value="0"></option>
             {quadrants.map((x) => (
@@ -243,9 +230,7 @@ export const ItemEditor: React.FunctionComponent = () => {
             className="form-control"
             id="cmbArc"
             value={item.arcId}
-            onChange={(e) =>
-              setLocalItem({ ...item, arcId: parseInt(e.target.value) })
-            }
+            onChange={(e) => setLocalItem({ ...item, arcId: parseInt(e.target.value) })}
           >
             <option defaultValue="" key="arc_0" value="0"></option>
             {arcs.map((x) => (
@@ -260,8 +245,12 @@ export const ItemEditor: React.FunctionComponent = () => {
 
           <ReactTags
             id="tagControl"
-            tags={itemTags}
-            suggestions={radarTags}
+            tags={itemTags?.map((tag) => {
+              return { id: tag.id, text: tag.text, className: "" };
+            })}
+            suggestions={radarTags.map((tag) => {
+              return { id: tag.id, text: tag.text, className: "" };
+            })}
             handleDelete={handleDeleteItemTag}
             handleAddition={handleAddItemTag}
             delimiters={delimiters}
@@ -280,16 +269,10 @@ export const ItemEditor: React.FunctionComponent = () => {
           <div className="invalid-feedback">{errors["Note"]}</div>
         </Form.Group>
         <div className="row justify-content-center">
-          <button
-            className="btn btn-primary m-1"
-            onClick={handleSubmitEditForm}
-          >
+          <button className="btn btn-primary m-1" onClick={handleSubmitEditForm}>
             Save
           </button>
-          <button
-            className="btn btn-secondary m-1"
-            onClick={handleCancelButtonClick}
-          >
+          <button className="btn btn-secondary m-1" onClick={handleCancelButtonClick}>
             Cancel
           </button>
         </div>

@@ -3,12 +3,12 @@ import React from "react";
 import reactCSS from "reactcss";
 import { ChromePicker, ColorResult } from "react-color";
 
-type ColorProps = {
+interface ColorProps {
   id: string;
   color: string | null | undefined;
   className?: string;
   onColorChange: (color: string) => void;
-};
+}
 
 export const ColorPicker: React.FunctionComponent<ColorProps> = ({
   id,
@@ -16,11 +16,8 @@ export const ColorPicker: React.FunctionComponent<ColorProps> = ({
   onColorChange,
   className,
 }: ColorProps) => {
-  const [displayColorPicker, setDisplayColorPicker] =
-    React.useState<boolean>(false);
-  const [colorState, setColorState] = React.useState<string | null | undefined>(
-    color,
-  );
+  const [displayColorPicker, setDisplayColorPicker] = React.useState<boolean>(false);
+  const [colorState, setColorState] = React.useState<string | null | undefined>(color);
 
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker);

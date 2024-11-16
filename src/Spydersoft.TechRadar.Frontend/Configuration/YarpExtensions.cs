@@ -6,7 +6,7 @@ namespace Spydersoft.TechRadar.Frontend.Configuration
 {
     public static class YarpExtensions
     {
-        private static string ConfigurationSectionName = "YarpSettings";
+        private const string ConfigurationSectionName = "YarpSettings";
 
         public static void AddProxy(this IServiceCollection services, ConfigurationManager configuration)
         {

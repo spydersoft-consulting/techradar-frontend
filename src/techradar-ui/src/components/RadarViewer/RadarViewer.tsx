@@ -37,9 +37,7 @@ export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
     setWidth(window.innerWidth);
   };
 
-  const { radarData, daysOld, selectedTagIds } = useSelector(
-    (state: RootState) => state.radarview,
-  );
+  const { radarData, daysOld, selectedTagIds } = useSelector((state: RootState) => state.radarview);
 
   const radar = radars.find((r: api.Radar) => r.id === radarId);
 
@@ -51,9 +49,7 @@ export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     if (radarId > 0) {
-      callDataApi((baseUrl) =>
-        api.RadarDataApiFactory(undefined, baseUrl).radarDataIdTagsGet(radarId),
-      )
+      callDataApi((baseUrl) => api.RadarDataApiFactory(undefined, baseUrl).radarDataIdTagsGet(radarId))
         .then((result) => {
           setTags(result.data);
         })
@@ -65,9 +61,7 @@ export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
 
   useEvent("resize", updateDimensions);
 
-  const _handleQuadrantChanged = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ): void => {
+  const _handleQuadrantChanged = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     console.log("Quadrant Zoom");
     console.log(e);
     setZoomedQuadrant(parseInt(e.target.value));
@@ -155,12 +149,7 @@ export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
         </Nav.Item>
       </NavigationBar>
       <Container fluid className="px-0">
-        <RadarView
-          data={radarData}
-          zoomed_quadrant={zoomedQuadrant}
-          height={height ?? 700}
-          width={width ?? 700}
-        />
+        <RadarView data={radarData} zoomed_quadrant={zoomedQuadrant} height={height ?? 700} width={width ?? 700} />
       </Container>
     </Container>
   );

@@ -2,16 +2,12 @@ import { AxiosError, AxiosPromise } from "axios";
 import { getApiConfig } from "./Config";
 import axios from "axios";
 
-export const callDataApi = <T>(
-  fn: (baseUrl: string) => AxiosPromise<T>,
-): AxiosPromise<T> => {
+export const callDataApi = <T>(fn: (baseUrl: string) => AxiosPromise<T>): AxiosPromise<T> => {
   const baseUrl = `${window.origin}${getApiConfig("data")}`;
   return fn(baseUrl);
 };
 
-export const callBff = <T>(
-  fn: (baseUrl: string) => AxiosPromise<T>,
-): AxiosPromise<T> => {
+export const callBff = <T>(fn: (baseUrl: string) => AxiosPromise<T>): AxiosPromise<T> => {
   const baseUrl = `${window.origin}${getApiConfig("bff")}`;
   return fn(baseUrl);
 };
@@ -20,9 +16,7 @@ export interface IValidationErrorResult {
   errors: Record<string, string[]>;
 }
 
-export const getErrorMessages = (
-  e: Error | AxiosError<IValidationErrorResult>,
-): Record<string, string[]> => {
+export const getErrorMessages = (e: Error | AxiosError<IValidationErrorResult>): Record<string, string[]> => {
   if (axios.isAxiosError(e)) {
     const aError = e as AxiosError<IValidationErrorResult>;
     if (aError.response?.status === 400) {

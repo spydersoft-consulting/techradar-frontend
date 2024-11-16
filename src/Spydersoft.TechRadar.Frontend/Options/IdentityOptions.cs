@@ -8,7 +8,7 @@
         /// <summary>
         /// The section name
         /// </summary>
-        public static string SectionName = "Identity";
+        public const string SectionName = "Identity";
 
         public string Scheme { get; set; } = "Duende";
 
@@ -24,7 +24,7 @@
         /// <value>The name of the application.</value>
         public string? ClientId { get; set; } = null;
 
-        public string? ClientSecret { get; set; } = null;  
+        public string? ClientSecret { get; set; } = null;
 
         public string? Audience { get; set; } = null;
     }

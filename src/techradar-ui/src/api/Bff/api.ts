@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 /**
  * Spydersoft.TechRadar.Frontend
@@ -17,19 +16,10 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
 import globalAxios from "axios";
 // Some imports not used depending on template conditions
 // @ts-ignore
-import {
-  DUMMY_BASE_URL,
-  setSearchParams,
-  toPathString,
-  createRequestFunction,
-} from "./common";
+import { DUMMY_BASE_URL, setSearchParams, toPathString, createRequestFunction } from "./common";
 import type { RequestArgs } from "./base";
 // @ts-ignore
-import {
-  BASE_PATH,
-  BaseAPI,
-  operationServerMap,
-} from "./base";
+import { BASE_PATH, BaseAPI, operationServerMap } from "./base";
 
 /**
  *
@@ -86,18 +76,14 @@ export interface WeatherForecast {
  * AuthApi - axios parameter creator
  * @export
  */
-export const AuthApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    authGetUserGet: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    authGetUserGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Auth/GetUser`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -115,8 +101,7 @@ export const AuthApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -134,10 +119,7 @@ export const AuthApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    authLoginGet: async (
-      returnUrl?: string,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    authLoginGet: async (returnUrl?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Auth/Login`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -159,8 +141,7 @@ export const AuthApiAxiosParamCreator = function (
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -177,9 +158,7 @@ export const AuthApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    authLogoutGet: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    authLogoutGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/Auth/Logout`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -197,8 +176,7 @@ export const AuthApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -227,14 +205,10 @@ export const AuthApiFp = function (configuration?: Configuration) {
      */
     async authGetUserGet(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authGetUserGet(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.authGetUserGet(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["AuthApi.authGetUserGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["AuthApi.authGetUserGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -252,16 +226,10 @@ export const AuthApiFp = function (configuration?: Configuration) {
     async authLoginGet(
       returnUrl?: string,
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.authLoginGet(
-        returnUrl,
-        options,
-      );
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.authLoginGet(returnUrl, options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["AuthApi.authLoginGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["AuthApi.authLoginGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -277,14 +245,10 @@ export const AuthApiFp = function (configuration?: Configuration) {
      */
     async authLogoutGet(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authLogoutGet(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.authLogoutGet(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["AuthApi.authLogoutGet"]?.[index]?.url;
+      const operationBasePath = operationServerMap["AuthApi.authLogoutGet"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -300,11 +264,7 @@ export const AuthApiFp = function (configuration?: Configuration) {
  * AuthApi - factory interface
  * @export
  */
-export const AuthApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
+export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
   const localVarFp = AuthApiFp(configuration);
   return {
     /**
@@ -313,9 +273,7 @@ export const AuthApiFactory = function (
      * @throws {RequiredError}
      */
     authGetUserGet(options?: any): AxiosPromise<UserInfo> {
-      return localVarFp
-        .authGetUserGet(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.authGetUserGet(options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -324,9 +282,7 @@ export const AuthApiFactory = function (
      * @throws {RequiredError}
      */
     authLoginGet(returnUrl?: string, options?: any): AxiosPromise<void> {
-      return localVarFp
-        .authLoginGet(returnUrl, options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.authLoginGet(returnUrl, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -334,9 +290,7 @@ export const AuthApiFactory = function (
      * @throws {RequiredError}
      */
     authLogoutGet(options?: any): AxiosPromise<void> {
-      return localVarFp
-        .authLogoutGet(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.authLogoutGet(options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -390,18 +344,14 @@ export class AuthApi extends BaseAPI {
  * WeatherForecastApi - axios parameter creator
  * @export
  */
-export const WeatherForecastApiAxiosParamCreator = function (
-  configuration?: Configuration,
-) {
+export const WeatherForecastApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getWeatherForecast: async (
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    getWeatherForecast: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/fe/WeatherForecast`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -419,8 +369,7 @@ export const WeatherForecastApiAxiosParamCreator = function (
       const localVarQueryParameter = {} as any;
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
@@ -440,8 +389,7 @@ export const WeatherForecastApiAxiosParamCreator = function (
  * @export
  */
 export const WeatherForecastApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator =
-    WeatherForecastApiAxiosParamCreator(configuration);
+  const localVarAxiosParamCreator = WeatherForecastApiAxiosParamCreator(configuration);
   return {
     /**
      *
@@ -450,18 +398,10 @@ export const WeatherForecastApiFp = function (configuration?: Configuration) {
      */
     async getWeatherForecast(
       options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<Array<WeatherForecast>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.getWeatherForecast(options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<WeatherForecast>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getWeatherForecast(options);
       const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["WeatherForecastApi.getWeatherForecast"]?.[index]
-          ?.url;
+      const operationBasePath = operationServerMap["WeatherForecastApi.getWeatherForecast"]?.[index]?.url;
       return (axios, basePath) =>
         createRequestFunction(
           localVarAxiosArgs,
@@ -490,9 +430,7 @@ export const WeatherForecastApiFactory = function (
      * @throws {RequiredError}
      */
     getWeatherForecast(options?: any): AxiosPromise<Array<WeatherForecast>> {
-      return localVarFp
-        .getWeatherForecast(options)
-        .then((request) => request(axios, basePath));
+      return localVarFp.getWeatherForecast(options).then((request) => request(axios, basePath));
     },
   };
 };

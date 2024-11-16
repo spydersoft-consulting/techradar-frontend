@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import * as api from "../../api/Data";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store/store";
@@ -59,8 +58,7 @@ export const ArcList: React.FunctionComponent = (): JSX.Element => {
   return (
     <Container>
       <h4>
-        <small className="text-muted">{radar?.title ?? "unknown"}</small> -
-        Radar Rings
+        <small className="text-muted">{radar?.title ?? "unknown"}</small> - Radar Rings
       </h4>
       <Table striped>
         <thead>

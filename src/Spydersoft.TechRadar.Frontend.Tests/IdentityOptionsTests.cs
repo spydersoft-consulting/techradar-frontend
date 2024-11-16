@@ -4,10 +4,6 @@ namespace Spydersoft.TechRadar.Frontend.Tests
 {
     public class OptionsTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
 
         [Test]
         public void IdentityOptionsDefaults()

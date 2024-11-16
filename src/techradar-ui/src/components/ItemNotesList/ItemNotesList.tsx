@@ -14,9 +14,9 @@ export const NoteRow = (note: api.RadarItemNote) => (
   </div>
 );
 
-type ItemNotesProperties = {
+interface ItemNotesProperties {
   radarItemId: number;
-};
+}
 
 export const ItemNotesList: React.FunctionComponent<ItemNotesProperties> = (
   props: ItemNotesProperties,
@@ -24,19 +24,15 @@ export const ItemNotesList: React.FunctionComponent<ItemNotesProperties> = (
   const [notes, setNotes] = useState<api.RadarItemNote[]>();
 
   useEffect(() => {
-    callDataApi((baseUrl) =>
-      api
-        .ItemApiFactory(undefined, baseUrl)
-        .itemIdNoteGet(props.radarItemId, 1, 10),
-    ).then((notesResult) => setNotes(notesResult.data));
+    callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdNoteGet(props.radarItemId, 1, 10)).then(
+      (notesResult) => setNotes(notesResult.data),
+    );
   }, [props.radarItemId]);
 
   return (
     <div>
       <h3>Notes</h3>
-      <div className="container-fluid legend">
-        {notes?.map((x) => <NoteRow key={x.id} {...x} />)}
-      </div>
+      <div className="container-fluid legend">{notes?.map((x) => <NoteRow key={x.id} {...x} />)}</div>
     </div>
   );
 };

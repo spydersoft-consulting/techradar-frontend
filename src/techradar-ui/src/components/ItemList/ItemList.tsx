@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  IValidationErrorResult,
-  callDataApi,
-  getErrorMessages,
-} from "../../utils/ApiFunctions";
+import { IValidationErrorResult, callDataApi, getErrorMessages } from "../../utils/ApiFunctions";
 import { RootState } from "../../store/store";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
@@ -17,23 +13,20 @@ import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
 import { updateFilter, fetchItemList } from "../../store/slices/ItemListSlice";
 import { confirmAlert } from "react-confirm-alert";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
-import { IdParams } from "../../types/routeparameters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
 
 export const ItemList: React.FunctionComponent = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const routeParams = useParams<IdParams>();
-  const radarId = parseInt(routeParams.id ?? "0");
+  const { id } = useParams();
+  const radarId = parseInt(id ?? "0");
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
   const { arclist, quadlist } = useSelector((state: RootState) => state);
 
-  const { selectedArcId, selectedQuadrantId, items } = useSelector(
-    (state: RootState) => state.itemlist,
-  );
+  const { selectedArcId, selectedQuadrantId, items } = useSelector((state: RootState) => state.itemlist);
 
   const radar = radars.find((r: api.Radar) => r.id === radarId);
 
@@ -50,41 +43,22 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
   }, [dispatch, arclist.radarId, quadlist.radarId, radarId]);
 
   useEffect(() => {
-    if (
-      !arclist.arcs ||
-      arclist.arcs.length === 0 ||
-      arclist.radarId !== radarId
-    ) {
+    if (!arclist.arcs || arclist.arcs.length === 0 || arclist.radarId !== radarId) {
       dispatch(fetchRadarArcList(radarId));
     }
 
-    if (
-      !quadlist.quadrants ||
-      quadlist.quadrants.length === 0 ||
-      quadlist.quadrants[0].radarId !== radarId
-    ) {
+    if (!quadlist.quadrants || quadlist.quadrants.length === 0 || quadlist.quadrants[0].radarId !== radarId) {
       dispatch(fetchRadarQuadrantList(radarId));
     }
-  }, [
-    dispatch,
-    arclist.arcs,
-    arclist.radarId,
-    quadlist.quadrants,
-    quadlist.radarId,
-    radarId,
-  ]);
+  }, [dispatch, arclist.arcs, arclist.radarId, quadlist.quadrants, quadlist.radarId, radarId]);
 
   useEffect(() => {
     dispatch(fetchItemList(radarId, selectedArcId, selectedQuadrantId));
   }, [dispatch, radarId, selectedArcId, selectedQuadrantId]);
 
   const performDelete = (id: number): void => {
-    callDataApi((baseUrl) =>
-      api.ItemApiFactory(undefined, baseUrl).itemIdDelete(id),
-    )
-      .then(() =>
-        dispatch(fetchItemList(radarId, selectedArcId, selectedQuadrantId)),
-      )
+    callDataApi((baseUrl) => api.ItemApiFactory(undefined, baseUrl).itemIdDelete(id))
+      .then(() => dispatch(fetchItemList(radarId, selectedArcId, selectedQuadrantId)))
       .catch((e) => handleError("Error deleting item", e));
   };
 
@@ -105,16 +79,15 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
         },
         {
           label: "No",
-          onClick: () => {},
+          onClick: () => {
+            console.log("No action");
+          },
         },
       ],
     });
   };
 
-  const handleError = (
-    titleMessage: string,
-    e: Error | AxiosError<IValidationErrorResult>,
-  ): void => {
+  const handleError = (titleMessage: string, e: Error | AxiosError<IValidationErrorResult>): void => {
     const errors = getErrorMessages(e);
     confirmAlert({
       title: titleMessage,
@@ -122,22 +95,17 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
       buttons: [
         {
           label: "Ok",
-          onClick: () => {},
         },
       ],
     });
   };
 
-  const handleQuadrantChange = (
-    event: ChangeEvent<HTMLSelectElement>,
-  ): void => {
+  const handleQuadrantChange = (event: ChangeEvent<HTMLSelectElement>): void => {
     const newQuadrant = parseInt(event.target.value);
     dispatch(updateFilter({ arc: selectedArcId, quadrant: newQuadrant }));
   };
 
-  const handleArcChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ): void => {
+  const handleArcChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const newArc = parseInt(event.target.value);
     dispatch(updateFilter({ arc: newArc, quadrant: selectedQuadrantId }));
   };
@@ -145,8 +113,7 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
   return (
     <Container>
       <h4>
-        Radar Items -{" "}
-        <small className="text-muted">{radar?.title ?? "unknown"}</small>
+        Radar Items - <small className="text-muted">{radar?.title ?? "unknown"}</small>
       </h4>
       <div>
         <Form>
@@ -169,11 +136,7 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
             </Form.Group>
             <Form.Group as={Col} controlId="filter_arc">
               <Form.Label>Arc</Form.Label>
-              <Form.Control
-                as="select"
-                value={selectedArcId}
-                onChange={handleArcChange}
-              >
+              <Form.Control as="select" value={selectedArcId} onChange={handleArcChange}>
                 <option key="arc_0" defaultValue="" value="0"></option>
                 {arclist.arcs.map((x) => (
                   <option key={`arc_${x.id}`} value={x.id}>
@@ -212,10 +175,7 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
                   <Link to={`/item/${radaritem.id}/`}>
                     <FontAwesomeIcon icon={faEdit} className="m-1" />
                   </Link>
-                  <button
-                    className="btn btn-link"
-                    onClick={() => handleDeleteItem(radaritem.id ?? 0)}
-                  >
+                  <button className="btn btn-link" onClick={() => handleDeleteItem(radaritem.id ?? 0)}>
                     <FontAwesomeIcon icon={faTrashAlt} className="m-1" />
                   </button>
                 </td>

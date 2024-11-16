@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  MouseEventHandler,
-  MouseEvent,
-} from "react";
+import React, { useEffect, useState, MouseEventHandler, MouseEvent } from "react";
 import * as api from "../../api/Data";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
 import { useParams, useNavigate } from "react-router-dom";
@@ -40,22 +35,14 @@ export const RadarEditor: React.FunctionComponent = (): JSX.Element => {
     navigate("/");
   };
 
-  const handleSubmitEditForm: MouseEventHandler<HTMLButtonElement> = (
-    e: MouseEvent<HTMLButtonElement>,
-  ) => {
+  const handleSubmitEditForm: MouseEventHandler<HTMLButtonElement> = (e: MouseEvent<HTMLButtonElement>) => {
     let promise: AxiosPromise<void>;
     if (itemId === 0) {
-      promise = callDataApi<void>((baseUrl) =>
-        api.RadarApiFactory(undefined, baseUrl).radarPost(radar),
-      );
+      promise = callDataApi<void>((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarPost(radar));
     } else {
-      promise = callDataApi<void>((baseUrl) =>
-        api.RadarApiFactory(undefined, baseUrl).radarIdPut(itemId, radar),
-      );
+      promise = callDataApi<void>((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdPut(itemId, radar));
     }
-    promise
-      .then(() => navigate("/"))
-      .catch((e) => handleApiError(e, setErrors));
+    promise.then(() => navigate("/")).catch((e) => handleApiError(e, setErrors));
     e.preventDefault();
   };
 
@@ -82,9 +69,7 @@ export const RadarEditor: React.FunctionComponent = (): JSX.Element => {
             className="form-control"
             id="txtDescription"
             value={radar.description ?? undefined}
-            onChange={(e) =>
-              setLocalRadar({ ...radar, description: e.target.value })
-            }
+            onChange={(e) => setLocalRadar({ ...radar, description: e.target.value })}
           />
         </div>
         <div className="form-group">
@@ -92,38 +77,26 @@ export const RadarEditor: React.FunctionComponent = (): JSX.Element => {
           <ColorPicker
             id="pickerBackground"
             color={radar.backgroundColor}
-            onColorChange={(e: string) =>
-              setLocalRadar({ ...radar, backgroundColor: e })
-            }
+            onColorChange={(e: string) => setLocalRadar({ ...radar, backgroundColor: e })}
           />
           <label htmlFor="pickerGrid">Grid Line Color</label>
           <ColorPicker
             id="pickerGrid"
             color={radar.gridlineColor}
-            onColorChange={(e: string) =>
-              setLocalRadar({ ...radar, gridlineColor: e })
-            }
+            onColorChange={(e: string) => setLocalRadar({ ...radar, gridlineColor: e })}
           />
           <label htmlFor="pickerGrid">Inactive Color</label>
           <ColorPicker
             id="pickerGrid"
             color={radar.inactiveColor}
-            onColorChange={(e: string) =>
-              setLocalRadar({ ...radar, inactiveColor: e })
-            }
+            onColorChange={(e: string) => setLocalRadar({ ...radar, inactiveColor: e })}
           />
         </div>
         <div className="row justify-content-center">
-          <button
-            className="btn btn-primary m-1"
-            onClick={handleSubmitEditForm}
-          >
+          <button className="btn btn-primary m-1" onClick={handleSubmitEditForm}>
             Save
           </button>
-          <button
-            className="btn btn-secondary m-1"
-            onClick={handleCancelButtonClick}
-          >
+          <button className="btn btn-secondary m-1" onClick={handleCancelButtonClick}>
             Cancel
           </button>
         </div>
