@@ -72,6 +72,7 @@ export const ItemEditor: React.FunctionComponent = () => {
           itemTags.push({
             id: tag.id,
             text: tag.text,
+            className: "",
           });
         }
       });
