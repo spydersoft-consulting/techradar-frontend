@@ -22,14 +22,6 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-// interface Tag {
-//   id: string;
-//   name: string;
-//   text: string;
-//   className: string;
-//   [key: string]: string;
-// }
-
 export const ItemEditor: React.FunctionComponent = () => {
   // Constants
   const navigate = useNavigate();
