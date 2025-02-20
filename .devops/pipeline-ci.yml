@@ -30,7 +30,7 @@ pr:
 extends:
   template: pipelines/build-bff/v1.yml@templates
   parameters:
-    gitVersionSpec: '6.x'
+    gitVersionSpec: '6.0.x'
     buildProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     publishProject: src/Spydersoft.TechRadar.Frontend/Spydersoft.TechRadar.Frontend.csproj
     uiSourceDirectory: src/techradar-ui
@@ -47,10 +47,14 @@ extends:
     ${{ if or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranchName'], 'main')) }}:
       updateHelmConfig: false
       buildAndPublishDockerImage: false
+      bffExecuteSonar: true
+      uiExecuteSonar: true
     ${{ else }}:
       updateHelmConfig: true
       buildAndPublishDockerImage: true
-    bffExecuteSonar: true
+      bffExecuteSonar: false
+      uiExecuteSonar: false
+    
     bffExecuteTests: true
     bffTestProjects: "**/*.Tests/*.csproj"
     bffUseSonarCloud: true
@@ -67,7 +71,6 @@ extends:
 
     uiSonarEndpointName: sonarcloud-spydersoft
     uiSonarCloudOrganization: spydersoft-consulting
-    uiExecuteSonar: true
     uiUseSonarCloud: true
     uiSonarConfigFile: react-sonar-project.properties
     uiCodeCoverageFile: src/techradar-ui/output/coverage/cobertura-coverage.xml
