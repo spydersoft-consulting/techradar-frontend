@@ -74,13 +74,22 @@ export const RadarList: React.FunctionComponent = (): React.JSX.Element => {
     <div className="container mx-auto px-4">
       <Card className="shadow-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Technology Radars</h2>
+          <h2 className="text-2xl font-bold">Technology Radars</h2>
           {isAuthenticated && (
             <Button
               icon={<FontAwesomeIcon icon={faPlus} />}
               label="Add Radar"
-              className="p-button-primary"
+              className="p-button-outlined p-button-sm hidden sm:inline-flex"
               onClick={() => navigate("/radar/")}
+            />
+          )}
+          {isAuthenticated && (
+            <Button
+              icon={<FontAwesomeIcon icon={faPlus} />}
+              className="p-button-outlined p-button-sm sm:hidden"
+              onClick={() => navigate("/radar/")}
+              tooltip="Add Radar"
+              tooltipOptions={{ position: "left" }}
             />
           )}
         </div>

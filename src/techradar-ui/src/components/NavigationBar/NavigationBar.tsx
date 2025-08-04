@@ -72,7 +72,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
     }
 
     let label = routeLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
-    
+
     // Special handling for radar IDs - try to get the radar name
     if (index > 0 && pathSegments[index - 1] === "radar" && !isNaN(Number(segment))) {
       const radarId = parseInt(segment);
@@ -97,7 +97,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
     const radarName = getRadarName(radarId);
     const sectionName = segment === "arc" || segment === "newarc" ? "Rings" : "Quadrants";
     const sectionPath = `/radar/${radarId}/${segment === "arc" || segment === "newarc" ? "arcs" : "quadrants"}`;
-    
+
     return [
       {
         label: radarName,
@@ -116,7 +116,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
 
   const breadcrumbItems = useMemo(() => {
     const pathSegments = location.pathname.split("/").filter((segment) => segment !== "");
-    
+
     // Handle special cases for edit and new pages
     // For paths like /arc/123 or /quadrant/456, we need contextual breadcrumbs
     if (pathSegments.length === 2 && (pathSegments[0] === "arc" || pathSegments[0] === "quadrant")) {
@@ -146,7 +146,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
         return [...contextualBreadcrumbs, { label: newLabel }];
       }
     }
-    
+
     // Regular breadcrumb processing for other paths
     const items = pathSegments
       .map((segment, index) => {
@@ -157,12 +157,12 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
 
         const path = "/" + pathSegments.slice(0, index + 1).join("/");
         const label = getSegmentLabel(segment, index, pathSegments);
-        
+
         // Don't make the last item clickable
         if (index === pathSegments.length - 1) {
           return { label };
         }
-        
+
         return {
           label,
           command: () => {
@@ -255,7 +255,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
       <div className="hidden md:block">
         <Menubar model={menuItems} start={brandTemplate} end={endTemplate} />
       </div>
-      
+
       <div className="md:hidden">
         <div className="p-menubar p-component">
           <div className="p-menubar-start">{brandTemplate}</div>
