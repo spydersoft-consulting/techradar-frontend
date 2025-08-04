@@ -1,6 +1,4 @@
-import "bootstrap/scss/bootstrap.scss";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import "./custom.scss";
+import "./styles.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -9,15 +7,18 @@ import { store } from "./store/store";
 
 import { Provider } from "react-redux";
 import { AuthProvider } from "./context/AuthContext";
+import { PrimeReactProvider } from "./context/PrimeReactProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <Provider store={store}>
-        <AppRouter />
-      </Provider>
-    </AuthProvider>
+    <PrimeReactProvider>
+      <AuthProvider>
+        <Provider store={store}>
+          <AppRouter />
+        </Provider>
+      </AuthProvider>
+    </PrimeReactProvider>
   </React.StrictMode>,
 );

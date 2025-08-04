@@ -7,12 +7,15 @@ import { Link, useParams } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { RootState } from "../../store/store";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
-import { Container, Table } from "react-bootstrap";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
-export const QuadrantList: React.FunctionComponent = (): JSX.Element => {
+export const QuadrantList: React.FunctionComponent = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const routeParams = useParams();
   const radarId = parseInt(routeParams.id ?? "0");
@@ -33,33 +36,31 @@ export const QuadrantList: React.FunctionComponent = (): JSX.Element => {
     }
   }, [dispatch, radar]);
 
+  const actionsTemplate = (quadrant: api.Quadrant) => {
+    return (
+      <Link to={`/quadrant/${quadrant.id}/`}>
+        <Button
+          icon={<FontAwesomeIcon icon={faEdit} />}
+          className="p-button-text p-button-sm"
+          tooltip="Edit Quadrant"
+          tooltipOptions={{ position: "top" }}
+        />
+      </Link>
+    );
+  };
+
   return (
-    <Container>
-      <h4>
-        <small className="text-muted">{radar?.title ?? "unknown"}</small> - Radar Quadrants
-      </h4>
-      <Table className="table table-striped thead-dark">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {quadrants.map((radarQuadrant: api.Quadrant) => (
-            <tr key={`radaritem_${radarQuadrant.id}`}>
-              <td>{radarQuadrant.name}</td>
-              <td>{radarQuadrant.position}</td>
-              <td>
-                <Link to={`/quadrant/${radarQuadrant.id}/`}>
-                  <FontAwesomeIcon icon={faEdit} className="m-1" />
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+    <div className="container mx-auto px-4">
+      <Card>
+        <h4 className="text-2xl font-bold mb-6">
+          <small className="text-gray-500">{radar?.title ?? "unknown"}</small> - Radar Quadrants
+        </h4>
+        <DataTable value={quadrants} stripedRows showGridlines scrollable emptyMessage="No quadrants found">
+          <Column field="name" header="Name" sortable />
+          <Column field="position" header="Position" sortable />
+          <Column body={actionsTemplate} header="Actions" style={{ width: "8rem" }} />
+        </DataTable>
+      </Card>
+    </div>
   );
 };

@@ -1,82 +1,95 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as api from "../../api/Data";
 //import ReactTooltip from 'react-tooltip'
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store/store";
-import { Container, Table } from "react-bootstrap";
 import { useAuth } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faWifi, faList, faEye, faChartPie } from "@fortawesome/free-solid-svg-icons";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
-export const RadarRow = (radar: api.Radar) => {
+export const RadarList: React.FunctionComponent = (): React.JSX.Element => {
   const { isAuthenticated } = useAuth();
-  return (
-    <tr>
-      <td>{radar.title}</td>
-      <td>{radar.description}</td>
-      <td>
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { radars, isLoading } = useSelector((state: RootState) => state.radarlist);
+
+  useEffect(() => {
+    // Only fetch if we don't have radars and we're not already loading
+    if (radars.length === 0 && !isLoading) {
+      dispatch(fetchRadarList());
+    }
+  }, [dispatch, radars.length, isLoading]);
+
+  const actionsTemplate = (radar: api.Radar) => {
+    return (
+      <div className="flex gap-2">
         {/* <ReactTooltip id="toolTip" /> */}
         {isAuthenticated && (
           <>
-            <Link to={`/radar/${radar.id}/`} data-tip="Edit Radar" data-for="toolTip">
-              <FontAwesomeIcon icon={faEdit} className="m-1" />
-            </Link>
-            <Link to={`/radar/${radar.id}/arcs`} data-tip="Edit Radar Rings" data-for="toolTip">
-              <FontAwesomeIcon icon={faWifi} className="m-1" />
-            </Link>
-            <Link to={`/radar/${radar.id}/quadrants`} data-tip="Edit Radar Quadrants" data-for="toolTip">
-              <FontAwesomeIcon icon={faChartPie} className="m-1" />
-            </Link>
-            <Link to={`/radar/${radar.id}/items`} data-tip="Edit Radar Items" data-for="toolTip">
-              <FontAwesomeIcon icon={faList} className="m-1" />
-            </Link>
+            <Button
+              icon={<FontAwesomeIcon icon={faEdit} />}
+              className="p-button-sm p-button-text"
+              tooltip="Edit Radar"
+              onClick={() => navigate(`/radar/${radar.id}/`)}
+            />
+            <Button
+              icon={<FontAwesomeIcon icon={faWifi} />}
+              className="p-button-sm p-button-text"
+              tooltip="Edit Radar Rings"
+              onClick={() => navigate(`/radar/${radar.id}/arcs`)}
+            />
+            <Button
+              icon={<FontAwesomeIcon icon={faChartPie} />}
+              className="p-button-sm p-button-text"
+              tooltip="Edit Radar Quadrants"
+              onClick={() => navigate(`/radar/${radar.id}/quadrants`)}
+            />
+            <Button
+              icon={<FontAwesomeIcon icon={faList} />}
+              className="p-button-sm p-button-text"
+              tooltip="Edit Radar Items"
+              onClick={() => navigate(`/radar/${radar.id}/items`)}
+            />
           </>
         )}
-        <Link to={`/view/${radar.id}`} data-tip="View Radar" data-for="toolTip">
-          <FontAwesomeIcon icon={faEye} className="m-1" />
-        </Link>
-      </td>
-    </tr>
-  );
-};
-
-export const RadarList: React.FunctionComponent = (): JSX.Element => {
-  const { isAuthenticated } = useAuth();
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchRadarList());
-  }, [dispatch]);
-
-  const { radars } = useSelector((state: RootState) => state.radarlist);
+        <Button
+          icon={<FontAwesomeIcon icon={faEye} />}
+          className="p-button-sm p-button-text"
+          tooltip="View Radar"
+          onClick={() => navigate(`/view/${radar.id}`)}
+        />
+      </div>
+    );
+  };
 
   return (
-    <Container>
-      <Table striped hover responsive>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {radars.map((x) => (
-            <RadarRow key={x.id} {...x} />
-          ))}
+    <div className="container mx-auto px-4">
+      <Card className="shadow-md">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Technology Radars</h2>
           {isAuthenticated && (
-            <tr>
-              <td colSpan={3} className="text-right">
-                <Link to={`/radar/`}>
-                  <FontAwesomeIcon icon={faPlus} className="m-1" />
-                </Link>
-              </td>
-            </tr>
+            <Button
+              icon={<FontAwesomeIcon icon={faPlus} />}
+              label="Add Radar"
+              className="p-button-primary"
+              onClick={() => navigate("/radar/")}
+            />
           )}
-        </tbody>
-      </Table>
-    </Container>
+        </div>
+        <DataTable value={radars} className="p-datatable-striped" emptyMessage="No radars found">
+          <Column field="title" header="Title" sortable className="font-medium" />
+          <Column field="description" header="Description" sortable />
+          <Column header="Actions" body={actionsTemplate} className="text-center" style={{ width: "200px" }} />
+        </DataTable>
+      </Card>
+    </div>
   );
 };

@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
 import { AxiosPromise } from "axios";
 import { RootState } from "../../store/store";
+import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
 export const QuadrantEditor: React.FunctionComponent = () => {
   const navigate = useNavigate();
@@ -61,55 +65,63 @@ export const QuadrantEditor: React.FunctionComponent = () => {
   };
 
   return (
-    <form className="needs-validation" noValidate>
-      <h4>
-        <small className="text-muted">{radar?.title ?? "unknown"}</small> - Radar Quadrant
-      </h4>
-      <div className="form-group">
-        <label htmlFor="txtName">Name</label>
-        <input
-          type="text"
-          className={`form-control ${errors["Name"] == null ? "" : "is-invalid"}`}
-          id="txtName"
-          value={quadrant.name}
-          onChange={(e) => setLocalQuadrant({ ...quadrant, name: e.target.value })}
-        />
-        <div className="invalid-feedback">{errors["Name"]}</div>
-      </div>
-      <div className="form-group">
-        <label htmlFor="txtPosition">Position</label>
-        <input
-          type="number"
-          className={`form-control ${errors["Position"] == null ? "" : "is-invalid"}`}
-          id="txtPosition"
-          value={quadrant.position}
-          onChange={(e) =>
-            setLocalQuadrant({
-              ...quadrant,
-              position: parseInt(e.target.value),
-            })
-          }
-        />
-        <div className="invalid-feedback">{errors["Position"]}</div>
-      </div>
-      <div className="form-group">
-        <label htmlFor="pickerColor">Color</label>
-        <ColorPicker
-          id="pickerColor"
-          className={`form-control ${errors["Color"] == null ? "" : "is-invalid"}`}
-          color={quadrant.color}
-          onColorChange={(e: string) => setLocalQuadrant({ ...quadrant, color: e })}
-        />
-        <div className="invalid-feedback">{errors["Color"]}</div>
-      </div>
-      <div className="row justify-content-center">
-        <button className="btn btn-primary m-1" onClick={handleSubmitEditForm}>
-          Save
-        </button>
-        <button className="btn btn-secondary m-1" onClick={handleCancelButtonClick}>
-          Cancel
-        </button>
-      </div>
-    </form>
+    <div className="container mx-auto px-4">
+      <Card>
+        <h4 className="text-2xl font-bold mb-6">
+          <small className="text-gray-500">{radar?.title ?? "unknown"}</small> - Radar Quadrant
+        </h4>
+        <form className="space-y-4" noValidate>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="field">
+              <label htmlFor="txtName" className="block text-sm font-medium mb-2">
+                Name
+              </label>
+              <InputText
+                id="txtName"
+                value={quadrant.name}
+                onChange={(e) => setLocalQuadrant({ ...quadrant, name: e.target.value })}
+                className={`w-full ${errors["Name"] != null ? "p-invalid" : ""}`}
+              />
+              {errors["Name"] && <small className="p-error">{errors["Name"]}</small>}
+            </div>
+            <div className="field">
+              <label htmlFor="txtPosition" className="block text-sm font-medium mb-2">
+                Position
+              </label>
+              <InputNumber
+                id="txtPosition"
+                value={quadrant.position}
+                onValueChange={(e) => setLocalQuadrant({ ...quadrant, position: e.value ?? 1 })}
+                className={`w-full ${errors["Position"] != null ? "p-invalid" : ""}`}
+                min={1}
+                max={4}
+              />
+              {errors["Position"] && <small className="p-error">{errors["Position"]}</small>}
+            </div>
+            <div className="field md:col-span-2">
+              <label htmlFor="pickerColor" className="block text-sm font-medium mb-2">
+                Color
+              </label>
+              <ColorPicker
+                id="pickerColor"
+                className={`form-control ${errors["Color"] == null ? "" : "is-invalid"}`}
+                color={quadrant.color}
+                onColorChange={(e: string) => setLocalQuadrant({ ...quadrant, color: e })}
+              />
+              {errors["Color"] && <small className="p-error">{errors["Color"]}</small>}
+            </div>
+          </div>
+          <div className="flex justify-center gap-2 pt-4">
+            <Button label="Save" icon="pi pi-save" onClick={handleSubmitEditForm} />
+            <Button
+              label="Cancel"
+              icon="pi pi-times"
+              severity="secondary"
+              onClick={handleCancelButtonClick}
+            />
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 };

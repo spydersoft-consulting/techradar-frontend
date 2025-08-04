@@ -1,0 +1,1 @@
+export { PrimeReactDemo } from "./PrimeReactDemo";

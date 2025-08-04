@@ -12,8 +12,12 @@ import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
 import { fetchRadarTags } from "../../store/slices/RadarTagSlice";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
-import { Form, Container } from "react-bootstrap";
 import { UiTag } from "../../types/objects";
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
 const KeyCodes = {
   comma: 188,
@@ -163,114 +167,135 @@ export const ItemEditor: React.FunctionComponent = () => {
   };
 
   return (
-    <Container>
-      <Form className="needs-validation" noValidate>
-        <h4>
-          Radar Item - <small className="text-muted">{radar?.title ?? "unknown"}</small>
-        </h4>
-        <Form.Group>
-          <Form.Label>Name</Form.Label>
-          <input
-            type="text"
-            className={`form-control ${errors["Name"] == null ? "" : "is-invalid"}`}
-            id="txtName"
-            value={item.name ?? undefined}
-            onChange={(e) => setLocalItem({ ...item, name: e.target.value })}
-          />
-          <div className="invalid-feedback">{errors["Name"]}</div>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Legend Key</Form.Label>
-          <input
-            type="text"
-            className={`form-control ${errors["LegendKey"] == null ? "" : "is-invalid"}`}
-            id="txtKey"
-            value={item.legendKey ?? undefined}
-            onChange={(e) => setLocalItem({ ...item, legendKey: e.target.value })}
-          />
-          <div className="invalid-feedback">{errors["LegendKey"]}</div>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Url</Form.Label>
-          <input
-            type="text"
-            className={`form-control ${errors["Url"] == null ? "" : "is-invalid"}`}
-            id="txtUrl"
-            value={item.url ?? undefined}
-            onChange={(e) => setLocalItem({ ...item, url: e.target.value })}
-          />
-          <div className="invalid-feedback">{errors["Url"]}</div>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Quadrant</Form.Label>
-          <select
-            className="form-control"
-            id="cmbQuadrant"
-            value={item.quadrantId}
-            onChange={(e) => setLocalItem({ ...item, quadrantId: parseInt(e.target.value) })}
-          >
-            <option defaultValue="" key="quad_0" value="0"></option>
-            {quadrants.map((x) => (
-              <option key={`quad_${x.id}`} value={x.id}>
-                {x.name}
-              </option>
-            ))}
-          </select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Arc</Form.Label>
-          <select
-            className="form-control"
-            id="cmbArc"
-            value={item.arcId}
-            onChange={(e) => setLocalItem({ ...item, arcId: parseInt(e.target.value) })}
-          >
-            <option defaultValue="" key="arc_0" value="0"></option>
-            {arcs.map((x) => (
-              <option key={`arc_${x.id}`} value={x.id}>
-                {x.name}
-              </option>
-            ))}
-          </select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Tags</Form.Label>
-
-          <ReactTags
-            id="tagControl"
-            tags={itemTags?.map((tag) => {
-              return { id: tag.id, text: tag.text, className: "" };
-            })}
-            suggestions={radarTags.map((tag) => {
-              return { id: tag.id, text: tag.text, className: "" };
-            })}
-            handleDelete={handleDeleteItemTag}
-            handleAddition={handleAddItemTag}
-            delimiters={delimiters}
-            allowDragDrop={false}
-            inputFieldPosition="bottom"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Add Note</Form.Label>
-          <textarea
-            className={`form-control ${errors["Note"] == null ? "" : "is-invalid"}`}
-            id="txtNote"
-            value={item.note ?? undefined}
-            onChange={(e) => setLocalItem({ ...item, note: e.target.value })}
-          />
-          <div className="invalid-feedback">{errors["Note"]}</div>
-        </Form.Group>
-        <div className="row justify-content-center">
-          <button className="btn btn-primary m-1" onClick={handleSubmitEditForm}>
-            Save
-          </button>
-          <button className="btn btn-secondary m-1" onClick={handleCancelButtonClick}>
-            Cancel
-          </button>
-        </div>
-        <ItemNotesList radarItemId={item.id ?? 0} />
-      </Form>
-    </Container>
+    <div className="container mx-auto px-4 py-6">
+      <Card className="shadow-md">
+        <form className="space-y-6" noValidate>
+          <h4 className="text-2xl font-bold mb-6">
+            Radar Item - <small className="text-gray-500">{radar?.title ?? "unknown"}</small>
+          </h4>
+          <div className="space-y-2">
+            <label htmlFor="txtName" className="block text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <InputText
+              id="txtName"
+              value={item.name ?? ""}
+              onChange={(e) => setLocalItem({ ...item, name: e.target.value })}
+              className={`w-full ${errors["Name"] ? "p-invalid" : ""}`}
+              placeholder="Enter item name"
+            />
+            {errors["Name"] && <div className="text-red-500 text-sm">{errors["Name"]}</div>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="txtKey" className="block text-sm font-medium text-gray-700">
+              Legend Key
+            </label>
+            <InputText
+              id="txtKey"
+              value={item.legendKey ?? ""}
+              onChange={(e) => setLocalItem({ ...item, legendKey: e.target.value })}
+              className={`w-full ${errors["LegendKey"] ? "p-invalid" : ""}`}
+              placeholder="Enter legend key"
+            />
+            {errors["LegendKey"] && <div className="text-red-500 text-sm">{errors["LegendKey"]}</div>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="txtUrl" className="block text-sm font-medium text-gray-700">
+              Url
+            </label>
+            <InputText
+              id="txtUrl"
+              value={item.url ?? ""}
+              onChange={(e) => setLocalItem({ ...item, url: e.target.value })}
+              className={`w-full ${errors["Url"] ? "p-invalid" : ""}`}
+              placeholder="Enter URL"
+            />
+            {errors["Url"] && <div className="text-red-500 text-sm">{errors["Url"]}</div>}
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="cmbQuadrant" className="block text-sm font-medium text-gray-700">
+              Quadrant
+            </label>
+            <Dropdown
+              id="cmbQuadrant"
+              value={item.quadrantId}
+              onChange={(e) => setLocalItem({ ...item, quadrantId: e.value })}
+              options={[
+                { label: "Select a quadrant", value: 0 },
+                ...quadrants.map((x) => ({ label: x.name, value: x.id })),
+              ]}
+              placeholder="Select a quadrant"
+              className="w-full"
+            />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="cmbArc" className="block text-sm font-medium text-gray-700">
+              Arc
+            </label>
+            <Dropdown
+              id="cmbArc"
+              value={item.arcId}
+              onChange={(e) => setLocalItem({ ...item, arcId: e.value })}
+              options={[
+                { label: "Select an arc", value: 0 },
+                ...arcs.map((x) => ({ label: x.name, value: x.id })),
+              ]}
+              placeholder="Select an arc"
+              className="w-full"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">Tags</label>
+            <div className="border border-gray-300 rounded-md p-2">
+              <ReactTags
+                id="tagControl"
+                tags={itemTags?.map((tag) => {
+                  return { id: tag.id, text: tag.text, className: "" };
+                })}
+                suggestions={radarTags.map((tag) => {
+                  return { id: tag.id, text: tag.text, className: "" };
+                })}
+                handleDelete={handleDeleteItemTag}
+                handleAddition={handleAddItemTag}
+                delimiters={delimiters}
+                allowDragDrop={false}
+                inputFieldPosition="bottom"
+              />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="txtNote" className="block text-sm font-medium text-gray-700">
+              Add Note
+            </label>
+            <InputTextarea
+              id="txtNote"
+              value={item.note ?? ""}
+              onChange={(e) => setLocalItem({ ...item, note: e.target.value })}
+              className={`w-full ${errors["Note"] ? "p-invalid" : ""}`}
+              rows={4}
+              placeholder="Enter note"
+            />
+            {errors["Note"] && <div className="text-red-500 text-sm">{errors["Note"]}</div>}
+          </div>
+          <div className="flex space-x-4">
+            <Button
+              type="button"
+              label="Save"
+              icon="pi pi-check"
+              className="p-button-primary"
+              onClick={handleSubmitEditForm}
+            />
+            <Button
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              className="p-button-secondary"
+              onClick={handleCancelButtonClick}
+            />
+          </div>
+          <ItemNotesList radarItemId={item.id ?? 0} />
+        </form>
+      </Card>
+    </div>
   );
 };

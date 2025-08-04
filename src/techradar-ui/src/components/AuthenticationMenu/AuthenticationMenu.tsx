@@ -2,44 +2,67 @@
 // import { useSelector } from "react-redux";
 // import { useAppDispatch } from "../../store/hooks";
 // import { RootState } from "../../store/store";
-import { Dropdown, Nav } from "react-bootstrap";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrosoft } from "@fortawesome/free-brands-svg-icons/faMicrosoft";
 import { useAuth } from "../../context";
+import { Menu } from "primereact/menu";
+import { Button } from "primereact/button";
 
 // Log In, Log Out button
-export const AuthenticationMenu = (): JSX.Element => {
+export const AuthenticationMenu = (): React.JSX.Element => {
   const { isAuthenticated, user } = useAuth();
+  const menuRef = useRef<Menu>(null);
 
-  const getDropdownContent = (): JSX.Element => {
+  const getMenuItems = () => {
     if (isAuthenticated) {
-      return (
-        <>
-          <Dropdown.Item id="authenticationButton" href="/profile">
-            {user?.name}
-          </Dropdown.Item>
-          <Dropdown.Item id="authenticationButton" href="/auth/logout">
-            Log out
-          </Dropdown.Item>
-        </>
-      );
+      return [
+        {
+          label: user?.name || "User",
+          icon: "pi pi-user",
+          command: () => {
+            window.location.href = "/profile";
+          },
+        },
+        {
+          separator: true,
+        },
+        {
+          label: "Log out",
+          icon: "pi pi-sign-out",
+          command: () => {
+            window.location.href = "/auth/logout";
+          },
+        },
+      ];
     }
 
-    return (
-      <Dropdown.Item id="authenticationButton" href="/auth/login">
-        Login
-      </Dropdown.Item>
-    );
+    return [
+      {
+        label: "Login",
+        icon: "pi pi-sign-in",
+        command: () => {
+          window.location.href = "/auth/login";
+        },
+      },
+    ];
+  };
+
+  const showMenu = (event: React.MouseEvent) => {
+    menuRef.current?.toggle(event);
   };
 
   return (
-    <Nav>
-      <Dropdown id="profileNav" align="end">
-        <Dropdown.Toggle id="profile">
-          <FontAwesomeIcon icon={faMicrosoft}></FontAwesomeIcon>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>{getDropdownContent()}</Dropdown.Menu>
-      </Dropdown>
-    </Nav>
+    <div className="flex items-center">
+      <Button
+        icon={<FontAwesomeIcon icon={faMicrosoft} />}
+        className="p-button-text p-button-plain"
+        onClick={showMenu}
+        aria-label="User menu"
+        tooltip={isAuthenticated ? user?.name || "User" : "Login"}
+        tooltipOptions={{ position: "bottom" }}
+      />
+      <Menu model={getMenuItems()} popup ref={menuRef} className="w-48" />
+    </div>
   );
 };

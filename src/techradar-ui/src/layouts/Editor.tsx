@@ -1,16 +1,15 @@
 import React from "react";
 import { NavigationBar } from "../components/NavigationBar/NavigationBar";
 import { Outlet } from "react-router-dom";
-import { Container } from "react-bootstrap";
 
 const EditorLayout: React.FunctionComponent = () => {
   return (
-    <Container fluid as="main" className="px-0">
+    <main className="min-h-screen bg-gray-50">
       <NavigationBar brand="Tech Radar"></NavigationBar>
-      <Container fluid>
+      <div className="container mx-auto px-4 py-8">
         <Outlet />
-      </Container>
-    </Container>
+      </div>
+    </main>
   );
 };
 export default EditorLayout;
