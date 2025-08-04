@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faBars, faUser, faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faMicrosoft as faMicrosoftBrand } from "@fortawesome/free-brands-svg-icons";
 import { useAuth } from "../../context";
 import { useLocation } from "react-router-dom";
@@ -187,7 +187,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
       return [
         {
           label: user?.name || "User",
-          icon: "pi pi-user",
+          icon: <FontAwesomeIcon icon={faUser} />,
           command: () => {
             window.location.href = "/profile";
           },
@@ -197,7 +197,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
         },
         {
           label: "Log out",
-          icon: "pi pi-sign-out",
+          icon: <FontAwesomeIcon icon={faSignOutAlt} />,
           command: () => {
             window.location.href = "/auth/logout";
           },
@@ -208,7 +208,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
     return [
       {
         label: "Login",
-        icon: "pi pi-sign-in",
+        icon: <FontAwesomeIcon icon={faSignInAlt} />,
         command: () => {
           window.location.href = "/auth/login";
         },
@@ -282,7 +282,8 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
           <h3 className="text-lg font-semibold mb-4">Menu</h3>
           <div className="space-y-2">
             <button
-              className="w-full flex items-center p-3 hover:bg-gray-100 rounded-md transition-colors text-left"
+              type="button"
+              className="w-full flex items-center p-3 hover:bg-gray-100 rounded-md transition-colors text-left bg-transparent border-none cursor-pointer"
               onClick={() => {
                 window.location.href = "/";
                 setIsSidebarVisible(false);
@@ -302,13 +303,14 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
                 return (
                   <button
                     key={item.label}
-                    className="w-full flex items-center p-3 hover:bg-gray-100 rounded-md transition-colors text-left"
+                    type="button"
+                    className="w-full flex items-center p-3 hover:bg-gray-100 rounded-md transition-colors text-left bg-transparent border-none cursor-pointer"
                     onClick={() => {
                       item.command?.();
                       setIsSidebarVisible(false);
                     }}
                   >
-                    <i className={`${item.icon} mr-2`}></i>
+                    <span className="mr-2">{item.icon}</span>
                     {item.label}
                   </button>
                 );

@@ -2,10 +2,9 @@ import React, { useState, useEffect, MouseEvent } from "react";
 import * as api from "../../api/Data";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
 import { AxiosPromise } from "axios";
-import { RootState } from "../../store/store";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
@@ -18,10 +17,6 @@ export const QuadrantEditor: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const [radarId, setRadarId] = useState<number>(parseInt(routeParams.radarId ?? "0"));
   const routeQuadId: number = parseInt(routeParams.id ?? "0");
-
-  const { radars } = useSelector((state: RootState) => state.radarlist);
-
-  const radar = radars.find((r: api.Radar) => r.id === radarId);
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 

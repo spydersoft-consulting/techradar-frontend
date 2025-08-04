@@ -1,8 +1,6 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import * as api from "../../api/Data";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
-import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
@@ -20,10 +18,6 @@ export const RingEditor: React.FunctionComponent = () => {
 
   const [radarId, setRadarId] = useState<number>(parseInt(routeParams.radarId ?? "0"));
   const routeRingId: number = parseInt(routeParams.id ?? "0");
-
-  const { radars } = useSelector((state: RootState) => state.radarlist);
-
-  const radar = radars.find((r: api.Radar) => r.id === radarId);
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
