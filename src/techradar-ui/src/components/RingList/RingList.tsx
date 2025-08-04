@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store/store";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
-import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
+import { fetchRadarRingList } from "../../store/slices/RadarRingListSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -15,18 +15,18 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
-export const ArcList: React.FunctionComponent = (): React.JSX.Element => {
+export const RingList: React.FunctionComponent = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const routeParams = useParams();
   const radarId = parseInt(routeParams.id ?? "0");
 
   useEffect(() => {
-    dispatch(fetchRadarArcList(radarId));
+    dispatch(fetchRadarRingList(radarId));
   }, [dispatch, radarId]);
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
-  const { arcs } = useSelector((state: RootState) => state.arclist);
+  const { rings } = useSelector((state: RootState) => state.ringlist);
 
   const radar = radars.find((r: api.Radar) => r.id === radarId);
 
@@ -36,13 +36,13 @@ export const ArcList: React.FunctionComponent = (): React.JSX.Element => {
     }
   }, [dispatch, radar]);
 
-  const actionsTemplate = (arc: api.RadarArc) => {
+  const actionsTemplate = (ring: api.RadarArc) => {
     return (
-      <Link to={`/arc/${arc.id}/`}>
+      <Link to={`/arc/${ring.id}/`}>
         <Button
           icon={<FontAwesomeIcon icon={faEdit} />}
           className="p-button-text p-button-sm"
-          tooltip="Edit Arc"
+          tooltip="Edit Ring"
           tooltipOptions={{ position: "top" }}
         />
       </Link>
@@ -57,7 +57,7 @@ export const ArcList: React.FunctionComponent = (): React.JSX.Element => {
           <Button
             icon={<FontAwesomeIcon icon={faPlus} />}
             className="p-button-text p-button-sm"
-            tooltip="Add New Arc"
+            tooltip="Add New Ring"
             tooltipOptions={{ position: "top" }}
           />
         </Link>
@@ -68,10 +68,7 @@ export const ArcList: React.FunctionComponent = (): React.JSX.Element => {
   return (
     <div className="container mx-auto px-4">
       <Card>
-        <h4 className="text-2xl font-bold mb-6">
-          <small className="text-gray-500">{radar?.title ?? "unknown"}</small> - Radar Rings
-        </h4>
-        <DataTable value={arcs} stripedRows showGridlines scrollable emptyMessage="No arcs found">
+        <DataTable value={rings} stripedRows showGridlines scrollable emptyMessage="No rings found">
           <Column field="name" header="Name" sortable />
           <Column field="position" header="Position" sortable />
           <Column body={actionsTemplate} header={headerTemplate} style={{ width: "10rem" }} />
@@ -81,4 +78,4 @@ export const ArcList: React.FunctionComponent = (): React.JSX.Element => {
   );
 };
 
-export default ArcList;
+export default RingList;

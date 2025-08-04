@@ -8,7 +8,7 @@ import { AxiosError, AxiosPromise } from "axios";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../store/hooks";
 import { RootState } from "../../store/store";
-import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
+import { fetchRadarRingList } from "../../store/slices/RadarRingListSlice";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
 import { fetchRadarTags } from "../../store/slices/RadarTagSlice";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
@@ -49,7 +49,7 @@ export const ItemEditor: React.FunctionComponent = () => {
   // Redux State Retrieval
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
-  const { arcs } = useSelector((state: RootState) => state.arclist);
+  const { rings } = useSelector((state: RootState) => state.ringlist);
 
   const { quadrants } = useSelector((state: RootState) => state.quadlist);
 
@@ -96,13 +96,13 @@ export const ItemEditor: React.FunctionComponent = () => {
   }, [dispatch, routeItemId, LoadItemTags]);
 
   useEffect(() => {
-    if (!arcs || arcs.length === 0) {
-      dispatch(fetchRadarArcList(radarId));
+    if (!rings || rings.length === 0) {
+      dispatch(fetchRadarRingList(radarId));
     }
     if (!quadrants || quadrants.length === 0) {
       dispatch(fetchRadarQuadrantList(radarId));
     }
-  }, [dispatch, radarId, arcs, quadrants]);
+  }, [dispatch, radarId, rings, quadrants]);
 
   useEffect(() => {
     dispatch(fetchRadarTags(radarId));
@@ -237,8 +237,8 @@ export const ItemEditor: React.FunctionComponent = () => {
               value={item.arcId}
               onChange={(e) => setLocalItem({ ...item, arcId: e.value })}
               options={[
-                { label: "Select an arc", value: 0 },
-                ...arcs.map((x) => ({ label: x.name, value: x.id })),
+                { label: "Select a ring", value: 0 },
+                ...rings.map((x: api.RadarArc) => ({ label: x.name, value: x.id })),
               ]}
               placeholder="Select an arc"
               className="w-full"

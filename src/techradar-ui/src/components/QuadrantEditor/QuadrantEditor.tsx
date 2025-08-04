@@ -43,7 +43,7 @@ export const QuadrantEditor: React.FunctionComponent = () => {
   }, [dispatch, routeQuadId]);
 
   const handleCancelButtonClick = (): void => {
-    navigate(`/radar/${quadrant.radarId}/arcs/`);
+    navigate(`/radar/${quadrant.radarId}/quadrants/`);
   };
 
   const handleSubmitEditForm = (e: MouseEvent<HTMLButtonElement>): void => {
@@ -67,9 +67,6 @@ export const QuadrantEditor: React.FunctionComponent = () => {
   return (
     <div className="container mx-auto px-4">
       <Card>
-        <h4 className="text-2xl font-bold mb-6">
-          <small className="text-gray-500">{radar?.title ?? "unknown"}</small> - Radar Quadrant
-        </h4>
         <form className="space-y-4" noValidate>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="field">

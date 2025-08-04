@@ -12,14 +12,14 @@ import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
-export const ArcEditor: React.FunctionComponent = () => {
+export const RingEditor: React.FunctionComponent = () => {
   const navigate = useNavigate();
   const routeParams = useParams();
 
   const dispatch = useAppDispatch();
 
   const [radarId, setRadarId] = useState<number>(parseInt(routeParams.radarId ?? "0"));
-  const routeArcId: number = parseInt(routeParams.id ?? "0");
+  const routeRingId: number = parseInt(routeParams.id ?? "0");
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
@@ -27,7 +27,7 @@ export const ArcEditor: React.FunctionComponent = () => {
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
-  const [arc, setLocalArc] = useState<api.RadarArc>({
+  const [ring, setLocalRing] = useState<api.RadarArc>({
     id: 0,
     radarId: radarId,
     name: "",
@@ -37,29 +37,29 @@ export const ArcEditor: React.FunctionComponent = () => {
   });
 
   useEffect(() => {
-    if (routeArcId > 0) {
+    if (routeRingId > 0) {
       callDataApi((baseUrl) =>
         // todo: implement paging here
-        api.ArcApiFactory(undefined, baseUrl).arcIdGet(routeArcId),
+        api.ArcApiFactory(undefined, baseUrl).arcIdGet(routeRingId),
       ).then((result) => {
-        setLocalArc(result.data);
+        setLocalRing(result.data);
         setRadarId(result.data.radarId ?? 0);
       });
     }
-  }, [dispatch, routeArcId]);
+  }, [dispatch, routeRingId]);
 
   const handleCancelButtonClick = (): void => {
-    navigate(`/radar/${arc.radarId}/arcs/`);
+    navigate(`/radar/${ring.radarId}/arcs/`);
   };
 
   const handleSubmitEditForm = (e: MouseEvent<HTMLButtonElement>) => {
     let promise: AxiosPromise<void>;
-    if (!routeArcId) {
-      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcPost(arc));
+    if (!routeRingId) {
+      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcPost(ring));
     } else {
-      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcIdPut(routeArcId, arc));
+      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcIdPut(routeRingId, ring));
     }
-    promise.then(() => navigate(`/radar/${arc.radarId}/arcs/`)).catch((e) => handleApiError(e, setErrors));
+    promise.then(() => navigate(`/radar/${ring.radarId}/arcs/`)).catch((e) => handleApiError(e, setErrors));
 
     e.preventDefault();
   };
@@ -67,9 +67,6 @@ export const ArcEditor: React.FunctionComponent = () => {
   return (
     <div className="container mx-auto px-4">
       <Card>
-        <h4 className="text-2xl font-bold mb-6">
-          <small className="text-gray-500">{radar?.title ?? "unknown"}</small> - Radar Ring
-        </h4>
         <form className="space-y-4" noValidate>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="field">
@@ -78,8 +75,8 @@ export const ArcEditor: React.FunctionComponent = () => {
               </label>
               <InputText
                 id="txtName"
-                value={arc.name}
-                onChange={(e) => setLocalArc({ ...arc, name: e.target.value })}
+                value={ring.name}
+                onChange={(e) => setLocalRing({ ...ring, name: e.target.value })}
                 className={`w-full ${errors["Name"] != null ? "p-invalid" : ""}`}
               />
               {errors["Name"] && <small className="p-error">{errors["Name"]}</small>}
@@ -90,8 +87,8 @@ export const ArcEditor: React.FunctionComponent = () => {
               </label>
               <InputNumber
                 id="txtRadius"
-                value={arc.radius}
-                onValueChange={(e) => setLocalArc({ ...arc, radius: e.value ?? 0 })}
+                value={ring.radius}
+                onValueChange={(e) => setLocalRing({ ...ring, radius: e.value ?? 0 })}
                 className={`w-full ${errors["Radius"] != null ? "p-invalid" : ""}`}
                 min={1}
               />
@@ -103,8 +100,8 @@ export const ArcEditor: React.FunctionComponent = () => {
               </label>
               <InputNumber
                 id="txtPosition"
-                value={arc.position}
-                onValueChange={(e) => setLocalArc({ ...arc, position: e.value ?? 0 })}
+                value={ring.position}
+                onValueChange={(e) => setLocalRing({ ...ring, position: e.value ?? 0 })}
                 className={`w-full ${errors["Position"] != null ? "p-invalid" : ""}`}
                 min={0}
               />
@@ -117,8 +114,8 @@ export const ArcEditor: React.FunctionComponent = () => {
               <ColorPicker
                 id="pickerColor"
                 className={`form-control ${errors["Color"] == null ? "" : "is-invalid"}`}
-                color={arc.color}
-                onColorChange={(e: string) => setLocalArc({ ...arc, color: e })}
+                color={ring.color}
+                onColorChange={(e: string) => setLocalRing({ ...ring, color: e })}
               />
               {errors["Color"] && <small className="p-error">{errors["Color"]}</small>}
             </div>

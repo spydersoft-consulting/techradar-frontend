@@ -8,7 +8,7 @@ import { IValidationErrorResult, callDataApi, getErrorMessages } from "../../uti
 import { RootState } from "../../store/store";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
-import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
+import { fetchRadarRingList } from "../../store/slices/RadarRingListSlice";
 import { updateFilter, fetchItemList } from "../../store/slices/ItemListSlice";
 import { confirmAlert } from "react-confirm-alert";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
@@ -28,7 +28,7 @@ export const ItemList: React.FunctionComponent = (): React.JSX.Element => {
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
-  const { arclist, quadlist } = useSelector((state: RootState) => state);
+  const { ringlist, quadlist } = useSelector((state: RootState) => state);
 
   const { selectedArcId, selectedQuadrantId, items } = useSelector((state: RootState) => state.itemlist);
 
@@ -41,20 +41,20 @@ export const ItemList: React.FunctionComponent = (): React.JSX.Element => {
   }, [dispatch, radar]);
 
   useEffect(() => {
-    if (arclist.radarId !== radarId || quadlist.radarId !== radarId) {
+    if (ringlist.radarId !== radarId || quadlist.radarId !== radarId) {
       dispatch(updateFilter({ arc: 0, quadrant: 0 }));
     }
-  }, [dispatch, arclist.radarId, quadlist.radarId, radarId]);
+  }, [dispatch, ringlist.radarId, quadlist.radarId, radarId]);
 
   useEffect(() => {
-    if (!arclist.arcs || arclist.arcs.length === 0 || arclist.radarId !== radarId) {
-      dispatch(fetchRadarArcList(radarId));
+    if (!ringlist.rings || ringlist.rings.length === 0 || ringlist.radarId !== radarId) {
+      dispatch(fetchRadarRingList(radarId));
     }
 
     if (!quadlist.quadrants || quadlist.quadrants.length === 0 || quadlist.quadrants[0].radarId !== radarId) {
       dispatch(fetchRadarQuadrantList(radarId));
     }
-  }, [dispatch, arclist.arcs, arclist.radarId, quadlist.quadrants, quadlist.radarId, radarId]);
+  }, [dispatch, ringlist.rings, ringlist.radarId, quadlist.quadrants, quadlist.radarId, radarId]);
 
   useEffect(() => {
     dispatch(fetchItemList(radarId, selectedArcId, selectedQuadrantId));
@@ -194,9 +194,9 @@ export const ItemList: React.FunctionComponent = (): React.JSX.Element => {
                 onChange={handleArcChange}
                 options={[
                   { label: "", value: 0 },
-                  ...arclist.arcs.map((x) => ({ label: x.name, value: x.id })),
+                  ...ringlist.rings.map((x: api.RadarArc) => ({ label: x.name, value: x.id })),
                 ]}
-                placeholder="Select an Arc"
+                placeholder="Select a Ring"
                 className="w-full"
               />
             </div>

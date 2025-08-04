@@ -3,8 +3,8 @@ import { RadarList } from "./RadarList/RadarList";
 import { RadarEditor } from "./RadarEditor/RadarEditor";
 import { ItemList } from "./ItemList/ItemList";
 import { ItemEditor } from "./ItemEditor/ItemEditor";
-import ArcList from "./ArcList/ArcList";
-import { ArcEditor } from "./ArcEditor/ArcEditor";
+import RingList from "./RingList/RingList";
+import { RingEditor } from "./RingEditor/RingEditor";
 import { QuadrantEditor } from "./QuadrantEditor/QuadrantEditor";
 import { QuadrantList } from "./QuadrantList/QuadrantList";
 import { RadarViewer } from "./RadarViewer/RadarViewer";
@@ -21,9 +21,9 @@ export const AppRouter = () => (
         <Route path={`/radar/:id/items`} element={<ItemList />} />
         <Route path={`/radar/:radarId/newitem`} element={<ItemEditor />} />
         <Route path={`/item/:id`} element={<ItemEditor />} />
-        <Route path={`/radar/:id/arcs`} element={<ArcList />} />
-        <Route path={`/radar/:radarId/newArc`} element={<ArcEditor />} />
-        <Route path={`/arc/:id`} element={<ArcEditor />} />
+        <Route path={`/radar/:id/arcs`} element={<RingList />} />
+        <Route path={`/radar/:radarId/newArc`} element={<RingEditor />} />
+        <Route path={`/arc/:id`} element={<RingEditor />} />
         <Route path={`/radar/:id/quadrants`} element={<QuadrantList />} />
         <Route path={`/quadrant/:id`} element={<QuadrantEditor />} />
       </Route>

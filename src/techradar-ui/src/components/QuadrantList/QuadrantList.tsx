@@ -52,9 +52,6 @@ export const QuadrantList: React.FunctionComponent = (): React.JSX.Element => {
   return (
     <div className="container mx-auto px-4">
       <Card>
-        <h4 className="text-2xl font-bold mb-6">
-          <small className="text-gray-500">{radar?.title ?? "unknown"}</small> - Radar Quadrants
-        </h4>
         <DataTable value={quadrants} stripedRows showGridlines scrollable emptyMessage="No quadrants found">
           <Column field="name" header="Name" sortable />
           <Column field="position" header="Position" sortable />

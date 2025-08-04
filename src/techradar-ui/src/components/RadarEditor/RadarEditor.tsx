@@ -28,11 +28,13 @@ export const RadarEditor: React.FunctionComponent = (): React.JSX.Element => {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
-    callDataApi((baseUrl) =>
-      // todo: implement paging here
-      api.RadarApiFactory(undefined, baseUrl).radarIdGet(itemId),
-    ).then((result) => setLocalRadar(result.data));
-  }, [dispatch, itemId]);
+    // Only load radar data if we have a valid ID (not creating a new radar)
+    if (itemId > 0) {
+      callDataApi((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdGet(itemId)).then((result) =>
+        setLocalRadar(result.data),
+      );
+    }
+  }, [itemId]);
 
   const handleCancelButtonClick = () => {
     navigate("/");
@@ -59,7 +61,7 @@ export const RadarEditor: React.FunctionComponent = (): React.JSX.Element => {
       <Card className="shadow-md">
         <form className="space-y-6" noValidate>
           <h4 className="text-2xl font-bold mb-6">{radar.id === 0 ? "New" : "Edit"} Radar</h4>
-          
+
           <div className="space-y-2">
             <label htmlFor="txtTitle" className="block text-sm font-medium text-gray-700">
               Title
