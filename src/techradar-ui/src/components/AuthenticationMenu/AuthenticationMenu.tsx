@@ -1,7 +1,3 @@
-//import AzureAuthenticationContext from "../../utils/authProvider";
-// import { useSelector } from "react-redux";
-// import { useAppDispatch } from "../../store/hooks";
-// import { RootState } from "../../store/store";
 import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrosoft } from "@fortawesome/free-brands-svg-icons/faMicrosoft";

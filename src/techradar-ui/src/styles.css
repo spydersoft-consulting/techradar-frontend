@@ -7,6 +7,9 @@
 /* PrimeIcons */
 @import 'primeicons/primeicons.css';
 
+/* Font overrides - must come after PrimeIcons import */
+@import './font-overrides.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

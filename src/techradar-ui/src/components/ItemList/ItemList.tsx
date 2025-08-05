@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import * as api from "../../api/Data";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IValidationErrorResult, callDataApi, getErrorMessages } from "../../utils/ApiFunctions";
 import { RootState } from "../../store/store";
@@ -176,10 +175,7 @@ export const ItemList: React.FunctionComponent = (): React.JSX.Element => {
                 id="cmbQuadrant"
                 value={selectedQuadrantId}
                 onChange={handleQuadrantChange}
-                options={[
-                  { label: "", value: 0 },
-                  ...quadlist.quadrants.map((x) => ({ label: x.name, value: x.id })),
-                ]}
+                options={[{ label: "", value: 0 }, ...quadlist.quadrants.map((x) => ({ label: x.name, value: x.id }))]}
                 placeholder="Select a Quadrant"
                 className="w-full"
               />

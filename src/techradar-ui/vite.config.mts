@@ -70,6 +70,11 @@ export default defineConfig({
       "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
     },
   },
+  build: {
+    // Increase chunk size warning limit to reduce bundle size warnings
+    chunkSizeWarningLimit: 1200,
+  },
+  assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.eot', '**/*.ttf', '**/*.otf'],
   server: {
     proxy: {
       "^/api": {
