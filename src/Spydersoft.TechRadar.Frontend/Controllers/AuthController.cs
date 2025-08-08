@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Spydersoft.TechRadar.Frontend.Models;
-using System.Security.Claims;
 
 namespace Spydersoft.TechRadar.Frontend.Controllers
 {
