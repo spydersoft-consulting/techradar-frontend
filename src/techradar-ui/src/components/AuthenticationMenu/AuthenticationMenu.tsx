@@ -38,7 +38,7 @@ export const AuthenticationMenu = (): React.JSX.Element => {
         label: "Login",
         icon: "pi pi-sign-in",
         command: () => {
-          window.location.href = "/auth/login";
+          window.location.href = "/.auth/login";
         },
       },
     ];

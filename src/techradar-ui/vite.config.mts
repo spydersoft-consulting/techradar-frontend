@@ -89,7 +89,7 @@ export default defineConfig({
         target: "https://localhost:7197/",
         secure: false,
       },
-      "^/auth": {
+      "^/.auth": {
         target: "https://localhost:7197/",
         secure: false,
       },

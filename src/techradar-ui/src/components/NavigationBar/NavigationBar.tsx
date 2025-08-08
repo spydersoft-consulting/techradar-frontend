@@ -210,7 +210,7 @@ export const NavigationBar: React.FunctionComponent<NavigationBarProperties> = (
         label: "Login",
         icon: <FontAwesomeIcon icon={faSignInAlt} />,
         command: () => {
-          window.location.href = "/auth/login";
+          window.location.href = "/.auth/login";
         },
       },
     ];

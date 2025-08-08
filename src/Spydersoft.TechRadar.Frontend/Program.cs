@@ -1,4 +1,6 @@
 using Microsoft.IdentityModel.Logging;
+using OidcProxy.Net.ModuleInitializers;
+using OidcProxy.Net.OpenIdConnect;
 using Spydersoft.Platform.Hosting.Options;
 using Spydersoft.Platform.Hosting.StartupExtensions;
 using Spydersoft.TechRadar.Frontend.Configuration;
@@ -10,9 +12,12 @@ builder.AddSpydersoftTelemetry(typeof(Program).Assembly);
 builder.AddSpydersoftSerilog(true);
 AppHealthCheckOptions healthCheckOptions = builder.AddSpydersoftHealthChecks();
 
-builder.Services.AddProxy(builder.Configuration);
-builder.Services.AddHealthChecks();
-builder.Services.AddAuthentication(builder.Configuration);
+var config = builder.Configuration
+    .GetSection("OidcProxySettings")
+    .Get<OidcProxyConfig>();
+
+builder.Services.AddOidcProxy(config);
+
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("RequireAuthenticatedUserPolicy", policy =>
     {
@@ -30,33 +35,39 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Add NSwag services
+builder.Services.AddOpenApiDocument(configure =>
+{
+    configure.Title = "Tech Radar Frontend API";
+    configure.Version = "v1";
+    configure.Description = "API for Tech Radar Frontend";
+});
 
 var app = builder.Build();
+
+app.UseRouting();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.UseSwagger();
+// Use NSwag middleware
+app.UseOpenApi();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwaggerUI();
+    app.UseSwaggerUi();
     IdentityModelEventSource.ShowPII = true;
     IdentityModelEventSource.LogCompleteSecurityArtifact = true;
 }
 
+app.MapControllers();
 app.UseCustomForwardedHeaders();
 app.UseSpydersoftHealthChecks(healthCheckOptions)
-    .UseAuthentication()
-    .UseAuthorization()
     .UseCors(MyAllowSpecificOrigins);
 
-
-app.MapControllers();
-app.MapReverseProxy();
 app.MapFallbackToFile("/index.html");
+
+app.UseOidcProxy();
 
 await app.RunAsync();
