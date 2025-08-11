@@ -1,30 +1,33 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { useEffect } from "react";
 import * as api from "../../api/Data";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IValidationErrorResult, callDataApi, getErrorMessages } from "../../utils/ApiFunctions";
 import { RootState } from "../../store/store";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
-import { Container, Form, Table, Col, Row } from "react-bootstrap";
-import { fetchRadarArcList } from "../../store/slices/RadarArcListSlice";
+import { fetchRadarRingList } from "../../store/slices/RadarRingListSlice";
 import { updateFilter, fetchItemList } from "../../store/slices/ItemListSlice";
 import { confirmAlert } from "react-confirm-alert";
 import { fetchRadarQuadrantList } from "../../store/slices/RadarQuadrantListSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Dropdown } from "primereact/dropdown";
 
-export const ItemList: React.FunctionComponent = (): JSX.Element => {
+export const ItemList: React.FunctionComponent = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const radarId = parseInt(id ?? "0");
 
   const { radars } = useSelector((state: RootState) => state.radarlist);
 
-  const { arclist, quadlist } = useSelector((state: RootState) => state);
+  const { ringlist, quadlist } = useSelector((state: RootState) => state);
 
   const { selectedArcId, selectedQuadrantId, items } = useSelector((state: RootState) => state.itemlist);
 
@@ -37,20 +40,20 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
   }, [dispatch, radar]);
 
   useEffect(() => {
-    if (arclist.radarId !== radarId || quadlist.radarId !== radarId) {
+    if (ringlist.radarId !== radarId || quadlist.radarId !== radarId) {
       dispatch(updateFilter({ arc: 0, quadrant: 0 }));
     }
-  }, [dispatch, arclist.radarId, quadlist.radarId, radarId]);
+  }, [dispatch, ringlist.radarId, quadlist.radarId, radarId]);
 
   useEffect(() => {
-    if (!arclist.arcs || arclist.arcs.length === 0 || arclist.radarId !== radarId) {
-      dispatch(fetchRadarArcList(radarId));
+    if (!ringlist.rings || ringlist.rings.length === 0 || ringlist.radarId !== radarId) {
+      dispatch(fetchRadarRingList(radarId));
     }
 
     if (!quadlist.quadrants || quadlist.quadrants.length === 0 || quadlist.quadrants[0].radarId !== radarId) {
       dispatch(fetchRadarQuadrantList(radarId));
     }
-  }, [dispatch, arclist.arcs, arclist.radarId, quadlist.quadrants, quadlist.radarId, radarId]);
+  }, [dispatch, ringlist.rings, ringlist.radarId, quadlist.quadrants, quadlist.radarId, radarId]);
 
   useEffect(() => {
     dispatch(fetchItemList(radarId, selectedArcId, selectedQuadrantId));
@@ -100,90 +103,107 @@ export const ItemList: React.FunctionComponent = (): JSX.Element => {
     });
   };
 
-  const handleQuadrantChange = (event: ChangeEvent<HTMLSelectElement>): void => {
-    const newQuadrant = parseInt(event.target.value);
+  const handleQuadrantChange = (e: { value: number }): void => {
+    const newQuadrant = e.value;
     dispatch(updateFilter({ arc: selectedArcId, quadrant: newQuadrant }));
   };
 
-  const handleArcChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const newArc = parseInt(event.target.value);
+  const handleArcChange = (e: { value: number }): void => {
+    const newArc = e.value;
     dispatch(updateFilter({ arc: newArc, quadrant: selectedQuadrantId }));
   };
 
+  const keyTemplate = (rowData: api.RadarItem) => {
+    if (rowData.legendKey) {
+      return <span>{rowData.legendKey}</span>;
+    }
+    return <i className="text-gray-500">No Key Defined</i>;
+  };
+
+  const actionsTemplate = (rowData: api.RadarItem) => {
+    return (
+      <div className="flex gap-2">
+        <Link to={`/item/${rowData.id}/`}>
+          <Button
+            icon={<FontAwesomeIcon icon={faEdit} />}
+            className="p-button-text p-button-sm"
+            tooltip="Edit Item"
+            tooltipOptions={{ position: "top" }}
+          />
+        </Link>
+        <Button
+          icon={<FontAwesomeIcon icon={faTrashAlt} />}
+          className="p-button-text p-button-sm"
+          severity="danger"
+          onClick={() => handleDeleteItem(rowData.id ?? 0)}
+          tooltip="Delete Item"
+          tooltipOptions={{ position: "top" }}
+        />
+      </div>
+    );
+  };
+
+  const headerTemplate = () => {
+    return (
+      <div className="flex justify-between items-center">
+        <span>Actions</span>
+        <Link to={`/radar/${radarId}/newitem`}>
+          <Button
+            icon={<FontAwesomeIcon icon={faPlus} />}
+            className="p-button-text p-button-sm"
+            tooltip="Add New Item"
+            tooltipOptions={{ position: "top" }}
+          />
+        </Link>
+      </div>
+    );
+  };
+
   return (
-    <Container>
-      <h4>
-        Radar Items - <small className="text-muted">{radar?.title ?? "unknown"}</small>
-      </h4>
-      <div>
-        <Form>
-          <Row>
-            <Form.Group as={Col} controlId="filter_quadrant">
-              <Form.Label>Quadrant</Form.Label>
-              <select
-                className="form-control"
+    <div className="container mx-auto px-4">
+      <Card>
+        <h4 className="text-2xl font-bold mb-6">
+          Radar Items - <small className="text-gray-500">{radar?.title ?? "unknown"}</small>
+        </h4>
+        <div className="mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="field">
+              <label htmlFor="cmbQuadrant" className="block text-sm font-medium mb-2">
+                Quadrant
+              </label>
+              <Dropdown
                 id="cmbQuadrant"
                 value={selectedQuadrantId}
                 onChange={handleQuadrantChange}
-              >
-                <option key="quad_0" defaultValue="" value="0"></option>
-                {quadlist.quadrants.map((x) => (
-                  <option key={`quad_${x.id}`} value={x.id}>
-                    {x.name}
-                  </option>
-                ))}
-              </select>
-            </Form.Group>
-            <Form.Group as={Col} controlId="filter_arc">
-              <Form.Label>Arc</Form.Label>
-              <Form.Control as="select" value={selectedArcId} onChange={handleArcChange}>
-                <option key="arc_0" defaultValue="" value="0"></option>
-                {arclist.arcs.map((x) => (
-                  <option key={`arc_${x.id}`} value={x.id}>
-                    {x.name}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Row>
-        </Form>
-      </div>
-      <Table striped responsive hover>
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Name</th>
-            <th>
-              <Link to={`/radar/${radarId}/newitem`}>
-                <FontAwesomeIcon icon={faPlus} className="m-1" />
-              </Link>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((radaritem: api.RadarItem): JSX.Element => {
-            let key: JSX.Element = <i>No Key Defined</i>;
-            if (radaritem.legendKey) {
-              key = <span>{radaritem.legendKey}</span>;
-            }
-
-            return (
-              <tr key={`radaritem_${radaritem.id}`}>
-                <td>{key}</td>
-                <td>{radaritem.name}</td>
-                <td>
-                  <Link to={`/item/${radaritem.id}/`}>
-                    <FontAwesomeIcon icon={faEdit} className="m-1" />
-                  </Link>
-                  <button className="btn btn-link" onClick={() => handleDeleteItem(radaritem.id ?? 0)}>
-                    <FontAwesomeIcon icon={faTrashAlt} className="m-1" />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </Container>
+                options={[{ label: "", value: 0 }, ...quadlist.quadrants.map((x) => ({ label: x.name, value: x.id }))]}
+                placeholder="Select a Quadrant"
+                className="w-full"
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="cmbArc" className="block text-sm font-medium mb-2">
+                Arc
+              </label>
+              <Dropdown
+                id="cmbArc"
+                value={selectedArcId}
+                onChange={handleArcChange}
+                options={[
+                  { label: "", value: 0 },
+                  ...ringlist.rings.map((x: api.RadarArc) => ({ label: x.name, value: x.id })),
+                ]}
+                placeholder="Select a Ring"
+                className="w-full"
+              />
+            </div>
+          </div>
+        </div>
+        <DataTable value={items} stripedRows showGridlines scrollable emptyMessage="No items found">
+          <Column field="legendKey" header="Key" body={keyTemplate} sortable />
+          <Column field="name" header="Name" sortable />
+          <Column body={actionsTemplate} header={headerTemplate} style={{ width: "10rem" }} />
+        </DataTable>
+      </Card>
+    </div>
   );
 };

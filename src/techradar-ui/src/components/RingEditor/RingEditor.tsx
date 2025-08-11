@@ -1,8 +1,8 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import * as api from "../../api/Data";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
+import { useAppDispatch } from "../../store/hooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
 import { AxiosPromise } from "axios";
 import { InputText } from "primereact/inputtext";
@@ -10,52 +10,51 @@ import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
-export const QuadrantEditor: React.FunctionComponent = () => {
+export const RingEditor: React.FunctionComponent = () => {
   const navigate = useNavigate();
   const routeParams = useParams();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const [radarId, setRadarId] = useState<number>(parseInt(routeParams.radarId ?? "0"));
-  const routeQuadId: number = parseInt(routeParams.id ?? "0");
+  const routeRingId: number = parseInt(routeParams.id ?? "0");
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
-  const [quadrant, setLocalQuadrant] = useState<api.Quadrant>({
+  const [ring, setLocalRing] = useState<api.RadarArc>({
     id: 0,
-    name: "",
-    position: 1,
-    color: "#000000",
     radarId: radarId,
+    name: "",
+    radius: 10,
+    color: "#000000",
+    position: 0,
   });
 
   useEffect(() => {
-    if (routeQuadId > 0) {
-      callDataApi((baseUrl) => api.QuadrantApiFactory(undefined, baseUrl).quadrantIdGet(routeQuadId)).then((result) => {
-        setLocalQuadrant(result.data);
+    if (routeRingId > 0) {
+      callDataApi((baseUrl) =>
+        // todo: implement paging here
+        api.ArcApiFactory(undefined, baseUrl).arcIdGet(routeRingId),
+      ).then((result) => {
+        setLocalRing(result.data);
         setRadarId(result.data.radarId ?? 0);
       });
     }
-  }, [dispatch, routeQuadId]);
+  }, [dispatch, routeRingId]);
 
   const handleCancelButtonClick = (): void => {
-    navigate(`/radar/${quadrant.radarId}/quadrants/`);
+    navigate(`/radar/${ring.radarId}/arcs/`);
   };
 
-  const handleSubmitEditForm = (e: MouseEvent<HTMLButtonElement>): void => {
+  const handleSubmitEditForm = (e: MouseEvent<HTMLButtonElement>) => {
     let promise: AxiosPromise<void>;
-
-    if (routeQuadId) {
-      promise = callDataApi((baseUrl) =>
-        api.QuadrantApiFactory(undefined, baseUrl).quadrantIdPut(routeQuadId, quadrant),
-      );
+    if (!routeRingId) {
+      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcPost(ring));
     } else {
-      promise = callDataApi((baseUrl) => api.QuadrantApiFactory(undefined, baseUrl).quadrantPost(quadrant));
+      promise = callDataApi<void>((baseUrl) => api.ArcApiFactory(undefined, baseUrl).arcIdPut(routeRingId, ring));
     }
-    promise
-      .then(() => {
-        navigate(`/radar/${quadrant.radarId}/quadrants/`);
-      })
-      .catch((e) => handleApiError(e, setErrors));
+    promise.then(() => navigate(`/radar/${ring.radarId}/arcs/`)).catch((e) => handleApiError(e, setErrors));
+
     e.preventDefault();
   };
 
@@ -70,11 +69,24 @@ export const QuadrantEditor: React.FunctionComponent = () => {
               </label>
               <InputText
                 id="txtName"
-                value={quadrant.name}
-                onChange={(e) => setLocalQuadrant({ ...quadrant, name: e.target.value })}
+                value={ring.name}
+                onChange={(e) => setLocalRing({ ...ring, name: e.target.value })}
                 className={`w-full ${errors["Name"] != null ? "p-invalid" : ""}`}
               />
               {errors["Name"] && <small className="p-error">{errors["Name"]}</small>}
+            </div>
+            <div className="field">
+              <label htmlFor="txtRadius" className="block text-sm font-medium mb-2">
+                Radius
+              </label>
+              <InputNumber
+                id="txtRadius"
+                value={ring.radius}
+                onValueChange={(e) => setLocalRing({ ...ring, radius: e.value ?? 0 })}
+                className={`w-full ${errors["Radius"] != null ? "p-invalid" : ""}`}
+                min={1}
+              />
+              {errors["Radius"] && <small className="p-error">{errors["Radius"]}</small>}
             </div>
             <div className="field">
               <label htmlFor="txtPosition" className="block text-sm font-medium mb-2">
@@ -82,23 +94,22 @@ export const QuadrantEditor: React.FunctionComponent = () => {
               </label>
               <InputNumber
                 id="txtPosition"
-                value={quadrant.position}
-                onValueChange={(e) => setLocalQuadrant({ ...quadrant, position: e.value ?? 1 })}
+                value={ring.position}
+                onValueChange={(e) => setLocalRing({ ...ring, position: e.value ?? 0 })}
                 className={`w-full ${errors["Position"] != null ? "p-invalid" : ""}`}
-                min={1}
-                max={4}
+                min={0}
               />
               {errors["Position"] && <small className="p-error">{errors["Position"]}</small>}
             </div>
-            <div className="field md:col-span-2">
+            <div className="field">
               <label htmlFor="pickerColor" className="block text-sm font-medium mb-2">
                 Color
               </label>
               <ColorPicker
                 id="pickerColor"
                 className={`form-control ${errors["Color"] == null ? "" : "is-invalid"}`}
-                color={quadrant.color}
-                onColorChange={(e: string) => setLocalQuadrant({ ...quadrant, color: e })}
+                color={ring.color}
+                onColorChange={(e: string) => setLocalRing({ ...ring, color: e })}
               />
               {errors["Color"] && <small className="p-error">{errors["Color"]}</small>}
             </div>

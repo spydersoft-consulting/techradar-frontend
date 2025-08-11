@@ -3,7 +3,6 @@ import * as api from "../../api/Data";
 import { useParams } from "react-router-dom";
 import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
-import { InputGroup, Form, Container, Nav, Button } from "react-bootstrap";
 import { Multiselect } from "multiselect-react-dropdown";
 import RadarView from "../RadarView/RadarView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +15,7 @@ import { fetchRadarView } from "../../store/slices/RadarViewSlice";
 import { fetchRadarList } from "../../store/slices/RadarListSlice";
 import { logInfo } from "../../logging";
 
-export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
+export const RadarViewer: React.FunctionComponent = (): React.JSX.Element => {
   const routeParams = useParams();
 
   const dispatch = useAppDispatch();
@@ -61,7 +60,7 @@ export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
 
   useEvent("resize", updateDimensions);
 
-  const _handleQuadrantChanged = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const _handleQuadrantChanged = (e: ChangeEvent<HTMLSelectElement>): void => {
     console.log("Quadrant Zoom");
     console.log(e);
     setZoomedQuadrant(parseInt(e.target.value));
@@ -110,47 +109,52 @@ export const RadarViewer: React.FunctionComponent = (): JSX.Element => {
   }
 
   return (
-    <Container fluid as="main" className="px-0">
+    <main className="w-full px-0">
       <NavigationBar brand={radar?.title ?? "Radar"}>
-        <Form className="d-flex">
-          <InputGroup size="sm">
-            <Form.Control as="select" onChange={_handleQuadrantChanged}>
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center">
+            <select
+              className="form-select text-sm px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={_handleQuadrantChanged}
+            >
               <option key="zoom_all" value="-1">
                 All
               </option>
               {zoomOptions}
-            </Form.Control>
-          </InputGroup>
-        </Form>
-        <Form className="d-flex">
-          <InputGroup size="sm">
-            <InputGroup.Text>Last</InputGroup.Text>
-            <Form.Control
+            </select>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-600">Last</span>
+            <input
               type="number"
               id="txtDays"
               value={localDays}
-              onChange={(e) => _handleDaysChanged(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => _handleDaysChanged(e.target.value)}
+              className="form-input text-sm px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-20"
             />
-            <InputGroup.Text>days</InputGroup.Text>
-            <Button onClick={_handleFilterClick}>
+            <span className="text-sm text-gray-600">days</span>
+            <button
+              onClick={_handleFilterClick}
+              className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
               <FontAwesomeIcon icon={faFilter} />
-            </Button>
-          </InputGroup>
-        </Form>
-        <Nav.Item className="mx-1">
-          <Multiselect
-            placeholder="Select Tags"
-            onSelect={_handleTagFilterChanged}
-            onRemove={_handleTagFilterChanged}
-            options={tags}
-            displayValue="name"
-            closeOnSelect={false}
-          />
-        </Nav.Item>
+            </button>
+          </div>
+          <div className="mx-1">
+            <Multiselect
+              placeholder="Select Tags"
+              onSelect={_handleTagFilterChanged}
+              onRemove={_handleTagFilterChanged}
+              options={tags}
+              displayValue="name"
+              closeOnSelect={false}
+            />
+          </div>
+        </div>
       </NavigationBar>
-      <Container fluid className="px-0">
+      <div className="w-full px-0">
         <RadarView data={radarData} zoomed_quadrant={zoomedQuadrant} height={height ?? 700} width={width ?? 700} />
-      </Container>
-    </Container>
+      </div>
+    </main>
   );
 };

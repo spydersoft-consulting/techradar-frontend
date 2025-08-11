@@ -20,7 +20,7 @@ interface ItemNotesProperties {
 
 export const ItemNotesList: React.FunctionComponent<ItemNotesProperties> = (
   props: ItemNotesProperties,
-): JSX.Element => {
+): React.JSX.Element => {
   const [notes, setNotes] = useState<api.RadarItemNote[]>();
 
   useEffect(() => {

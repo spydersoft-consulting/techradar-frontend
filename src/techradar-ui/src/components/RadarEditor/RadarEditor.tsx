@@ -5,9 +5,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { callDataApi, handleApiError } from "../../utils/ApiFunctions";
 import { AxiosPromise } from "axios";
-import { Container } from "react-bootstrap";
+import { fetchRadarList } from "../../store/slices/RadarListSlice";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
-export const RadarEditor: React.FunctionComponent = (): JSX.Element => {
+export const RadarEditor: React.FunctionComponent = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const routeParams = useParams();
@@ -25,11 +28,13 @@ export const RadarEditor: React.FunctionComponent = (): JSX.Element => {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
-    callDataApi((baseUrl) =>
-      // todo: implement paging here
-      api.RadarApiFactory(undefined, baseUrl).radarIdGet(itemId),
-    ).then((result) => setLocalRadar(result.data));
-  }, [dispatch, itemId]);
+    // Only load radar data if we have a valid ID (not creating a new radar)
+    if (itemId > 0) {
+      callDataApi((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdGet(itemId)).then((result) =>
+        setLocalRadar(result.data),
+      );
+    }
+  }, [itemId]);
 
   const handleCancelButtonClick = () => {
     navigate("/");
@@ -42,65 +47,102 @@ export const RadarEditor: React.FunctionComponent = (): JSX.Element => {
     } else {
       promise = callDataApi<void>((baseUrl) => api.RadarApiFactory(undefined, baseUrl).radarIdPut(itemId, radar));
     }
-    promise.then(() => navigate("/")).catch((e) => handleApiError(e, setErrors));
+    promise
+      .then(() => {
+        dispatch(fetchRadarList(true));
+        navigate("/");
+      })
+      .catch((e) => handleApiError(e, setErrors));
     e.preventDefault();
   };
 
   return (
-    <Container>
-      <form className="needs-validation" noValidate>
-        <h4>{radar.id === 0 ? "New" : "Edit"} Radar</h4>
-        <div className="form-group">
-          <label htmlFor="txtTitle">Title</label>
-          <input
-            type="text"
-            className={`form-control ${errors["Title"] == null ? "" : "is-invalid"}`}
-            id="txtTitle"
-            name="title"
-            value={radar.title ?? undefined}
-            onChange={(e) => setLocalRadar({ ...radar, title: e.target.value })}
-          />
-          <div className="invalid-feedback">{errors["Title"]}</div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="txtDescription">Description</label>
-          <input
-            type="text"
-            className="form-control"
-            id="txtDescription"
-            value={radar.description ?? undefined}
-            onChange={(e) => setLocalRadar({ ...radar, description: e.target.value })}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="pickerBackground">Background Color</label>
-          <ColorPicker
-            id="pickerBackground"
-            color={radar.backgroundColor}
-            onColorChange={(e: string) => setLocalRadar({ ...radar, backgroundColor: e })}
-          />
-          <label htmlFor="pickerGrid">Grid Line Color</label>
-          <ColorPicker
-            id="pickerGrid"
-            color={radar.gridlineColor}
-            onColorChange={(e: string) => setLocalRadar({ ...radar, gridlineColor: e })}
-          />
-          <label htmlFor="pickerGrid">Inactive Color</label>
-          <ColorPicker
-            id="pickerGrid"
-            color={radar.inactiveColor}
-            onColorChange={(e: string) => setLocalRadar({ ...radar, inactiveColor: e })}
-          />
-        </div>
-        <div className="row justify-content-center">
-          <button className="btn btn-primary m-1" onClick={handleSubmitEditForm}>
-            Save
-          </button>
-          <button className="btn btn-secondary m-1" onClick={handleCancelButtonClick}>
-            Cancel
-          </button>
-        </div>
-      </form>
-    </Container>
+    <div className="container mx-auto px-4 py-8">
+      <Card className="shadow-md">
+        <form className="space-y-6" noValidate>
+          <h4 className="text-2xl font-bold mb-6">{radar.id === 0 ? "New" : "Edit"} Radar</h4>
+
+          <div className="space-y-2">
+            <label htmlFor="txtTitle" className="block text-sm font-medium text-gray-700">
+              Title
+            </label>
+            <InputText
+              id="txtTitle"
+              name="title"
+              value={radar.title ?? ""}
+              onChange={(e) => setLocalRadar({ ...radar, title: e.target.value })}
+              className={`w-full ${errors["Title"] ? "p-invalid" : ""}`}
+              placeholder="Enter radar title"
+            />
+            {errors["Title"] && <div className="text-red-500 text-sm">{errors["Title"]}</div>}
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="txtDescription" className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <InputText
+              id="txtDescription"
+              value={radar.description ?? ""}
+              onChange={(e) => setLocalRadar({ ...radar, description: e.target.value })}
+              className="w-full"
+              placeholder="Enter radar description"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <label htmlFor="pickerBackground" className="block text-sm font-medium text-gray-700">
+                Background Color
+              </label>
+              <ColorPicker
+                id="pickerBackground"
+                color={radar.backgroundColor}
+                onColorChange={(e: string) => setLocalRadar({ ...radar, backgroundColor: e })}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="pickerGrid" className="block text-sm font-medium text-gray-700">
+                Grid Line Color
+              </label>
+              <ColorPicker
+                id="pickerGrid"
+                color={radar.gridlineColor}
+                onColorChange={(e: string) => setLocalRadar({ ...radar, gridlineColor: e })}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="pickerInactive" className="block text-sm font-medium text-gray-700">
+                Inactive Color
+              </label>
+              <ColorPicker
+                id="pickerInactive"
+                color={radar.inactiveColor}
+                onColorChange={(e: string) => setLocalRadar({ ...radar, inactiveColor: e })}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-center space-x-4 pt-6">
+            <Button
+              type="button"
+              label="Save"
+              icon="pi pi-check"
+              className="p-button-primary"
+              onClick={handleSubmitEditForm}
+            />
+            <Button
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              className="p-button-secondary"
+              onClick={handleCancelButtonClick}
+            />
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 };
