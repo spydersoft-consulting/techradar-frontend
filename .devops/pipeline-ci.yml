@@ -68,6 +68,7 @@ extends:
       sonar.tests=**/src/Spydersoft.TechRadar.Frontend.Tests/
       sonar.exclusions=**/src/techradar-ui/**/*
       sonar.scanner.scanAll=false
+      sonar.coverage.exclusions=**/*Program.cs,**/*Controller.cs         
 
     uiSonarEndpointName: sonarcloud-spydersoft
     uiSonarCloudOrganization: spydersoft-consulting

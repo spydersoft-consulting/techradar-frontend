@@ -16,7 +16,14 @@ var config = builder.Configuration
     .GetSection("OidcProxySettings")
     .Get<OidcProxyConfig>();
 
-builder.Services.AddOidcProxy(config);
+if (config != null)
+{
+    builder.Services.AddOidcProxy(config);
+}
+else
+{
+    throw new InvalidOperationException("OidcProxySettings configuration section is missing or invalid.");
+}
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("RequireAuthenticatedUserPolicy", policy =>
